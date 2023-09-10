@@ -51,6 +51,31 @@ class UsuarioController {
             return httpHelper.internalError(error);
         }
     }
+
+    async update(request,response){
+        const httpHelper = new HttpHelper(response);
+        try {
+            const { id } = request.params;
+            const {
+                nome,
+                email,
+                senha
+            } = request.body;
+            if( !id ) return httpHelper.badRequest('Parâmetros inválidos!');
+            await UsuarioModel.update({
+                nome,
+                email,
+                senha
+            }, {
+                where: { id }
+            });
+            return httpHelper.ok({
+                message: 'Usuário atualizado com sucesso!'
+            });
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+    }
 }
 
 module.exports = { UsuarioController };
