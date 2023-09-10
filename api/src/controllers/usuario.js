@@ -1,27 +1,28 @@
 const { HttpHelper } = require("../utils/http-helper");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { UserModel } = require('../models/user-model');
+const { UsuarioModel } = require('../models/usuario-model');
 
-class UserController {
-    async register(request, response) {
+class UsuarioController {
+    async registrar(request, response) {
         const httpHelper = new HttpHelper(response);
         try {
-            const { email, password } = request.body;
-            if (!email || !password) return httpHelper.badRequest('E-mail e senha são obrigatórios!');
-            const userAlreadyExists = await UserModel.findOne({ where: { email } });
+            const { nome, email, senha } = request.body;
+            if (!nome || !email || !senha) return httpHelper.badRequest('Nome, e-mail e senha são obrigatórios!');
+            const userAlreadyExists = await UsuarioModel.findOne({ where: { email } });
             if (userAlreadyExists) return httpHelper.badRequest('E-mail de usuário já cadastrado!');
             const passwordHashed = await bcrypt.hash(
-                password,
+                senha,
                 Number(process.env.SALT)
             );
-            const user = await UserModel.create({
+            const usuario = await UsuarioModel.create({
+                nome,
                 email,
-                password: passwordHashed,
+                senha: passwordHashed,
             });
-            if (!user) return httpHelper.badRequest('Houve um erro ao criar usuário');
+            if (!usuario) return httpHelper.badRequest('Houve um erro ao criar usuário');
             const accessToken = jwt.sign(
-                { id: user.id },
+                { id: usuario.id },
                 process.env.TOKEN_SECRET,
                 { expiresIn: process.env.TOKEN_EXPIRES_IN }
             );
@@ -34,11 +35,11 @@ class UserController {
     async login(request, response) {
         const httpHelper = new HttpHelper(response);
         try {
-            const { email, password } = request.body;
-            if (!email || !password) return httpHelper.badRequest('E-mail e senha são obrigatórios!');
-            const userExists = await UserModel.findOne({ where: { email } });
+            const { email, senha } = request.body;
+            if (!email || !senha) return httpHelper.badRequest('E-mail e senha são obrigatórios!');
+            const userExists = await UsuarioModel.findOne({ where: { email } });
             if (!userExists) return httpHelper.notFound('Usuário não encontrado!');
-            const isPasswordValid = await bcrypt.compare(password, userExists.password);
+            const isPasswordValid = await bcrypt.compare(senha, userExists.senha);
             if (!isPasswordValid) return httpHelper.badRequest('Senha incorreta!');
             const accessToken = jwt.sign(
                 { id: userExists.id },
@@ -52,4 +53,4 @@ class UserController {
     }
 }
 
-module.exports = { UserController };
+module.exports = { UsuarioController };

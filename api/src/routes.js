@@ -1,20 +1,21 @@
 const { Router, request } = require('express');
 
-const { FoodController } = require('./controllers/food');
-const { UserController } = require('./controllers/user');
+const { OperacoesController } = require('./controllers/operacoes');
+const { UsuarioController } = require('./controllers/usuario');
 const { authMiddleware } = require('./middleware/auth-middleware');
 
 const routes = Router();
 
-const foodController = new FoodController();
-const userController = new UserController();
+const operacoesController = new OperacoesController();
+const usuarioController = new UsuarioController();
 
-routes.post('/food', authMiddleware, foodController.create);
-routes.get('/foods', authMiddleware, foodController.getAll);
-routes.delete('/food/:id', authMiddleware, foodController.delete);
-routes.put('/food/:id', authMiddleware, foodController.update);
+routes.post('/operacao', authMiddleware, operacoesController.create);
+routes.get('/operacoes', authMiddleware, operacoesController.getAll);
+routes.get('/operacoes/:id', authMiddleware, operacoesController.getOne);
+routes.delete('/operacao/:id', authMiddleware, operacoesController.delete);
+routes.put('/operacao/:id', authMiddleware, operacoesController.update);
 
-routes.post('/register', userController.register);
-routes.post('/login', userController.login);
+routes.post('/registrar', usuarioController.registrar);
+routes.post('/login', usuarioController.login);
 
 module.exports = { routes };
