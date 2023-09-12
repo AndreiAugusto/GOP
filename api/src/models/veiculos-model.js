@@ -4,7 +4,8 @@ class VeiculoModel extends Model {
     static init(database) {
         super.init({
             tipo: DataTypes.TEXT,
-            quantidade: DataTypes.INTEGER
+            quantidade: DataTypes.INTEGER,
+            operacaoId: DataTypes.INTEGER
         }, {
             tableName: 'veiculos',
             modelName: 'VeiculoModel',
@@ -13,7 +14,7 @@ class VeiculoModel extends Model {
         });
     }
     static associate(models){
-        this.belongsToMany(models.usuario, { foreignKey: 'id' });
+        this.belongsTo(models.OperacoesModel, { foreignKey: 'id' });
     }
 }
 

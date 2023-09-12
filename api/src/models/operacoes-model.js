@@ -18,6 +18,9 @@ class OperacoesModel extends Model {
             sequelize: database
         });
     }
+    static associate(models){
+        this.hasMany(models.VeiculoModel, { foreignKey: "id"});
+    }
 }
 
 module.exports = { OperacoesModel };

@@ -21,6 +21,10 @@ routes.post('/registrar', usuarioController.registrar);
 routes.post('/login', usuarioController.login);
 routes.put('/editarUsuario/:id', authMiddleware, usuarioController.update);
 
-routes.post('/operacao/veiculos', authMiddleware, veiculosController.create);
+routes.post('/operacao/veiculo', authMiddleware, veiculosController.create);
+routes.get('/operacao/veiculos', authMiddleware, veiculosController.getAll);
+routes.get('/operacao/veiculo/:id', authMiddleware, veiculosController.getOne);
+routes.delete('/operacao/veiculo/:id', authMiddleware, veiculosController.delete);
+routes.put('/operacao/veiculo/:id', authMiddleware, veiculosController.update);
 
 module.exports = { routes };
