@@ -19,6 +19,7 @@ routes.put('/operacao/:id', authMiddleware, operacoesController.update);
 
 routes.post('/registrar', usuarioController.registrar);
 routes.post('/login', usuarioController.login);
+routes.get('/usuarios', authMiddleware, usuarioController.getAll);
 routes.put('/editarUsuario/:id', authMiddleware, usuarioController.update);
 
 routes.post('/operacao/veiculo', authMiddleware, veiculosController.create);

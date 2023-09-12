@@ -76,6 +76,16 @@ class UsuarioController {
             return httpHelper.internalError(error);
         }
     }
+
+    async getAll(request, response) {
+        const httpHelper = new HttpHelper(response);
+        try {
+            const usuario = await UsuarioModel.findAll();
+            return httpHelper.ok(usuario);
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+    }
 }
 
 module.exports = { UsuarioController };
