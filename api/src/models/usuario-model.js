@@ -13,6 +13,9 @@ class UsuarioModel extends Model {
             sequelize: database
         });
     }
+    static associate(models){
+        this.hasMany(models.veiculos, { foreignKey: "id"});
+    }
 }
 
 module.exports = { UsuarioModel };
