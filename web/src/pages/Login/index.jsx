@@ -26,9 +26,9 @@ export function Login () {
                     <h1 className={styles.h1Login}>Faça seu login</h1>
                     <form noValidate onSubmit={handleSubmit(login)}>
                         <Input
-                            label='E-mail'
+                            label='Usuário'
                             type='email'
-                            placeholder='E-mail'
+                            placeholder='Usuário'
                             name='email'
                             error={errors.email}
                             validations={register('email', {
@@ -43,7 +43,7 @@ export function Login () {
                             })}
                         />
                             <Input
-                                label='Password'
+                                label='Senha'
                                 type='password'
                                 placeholder='Digite sua senha'
                                 name='password'
