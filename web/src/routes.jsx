@@ -1,33 +1,36 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import { AuthContextProvider } from "./contexts/AuthContext";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Foods } from "./pages/Foods";
 
-import { isAuthenticated } from './utils/is-authenticated';
+export const isAuthenticated = () => {
+    const token = sessionStorage.getItem('token');
+    return token !== null;
+};
 
 export function PrivateRoute({ children }) {
-    if (!isAuthenticated()) {
-        return <Navigate to="/" replace />
+    if(!isAuthenticated()){
+        return <Navigate to='/' replace />
     }
     return children;
-}
+};
 
 export function Navigations() {
     return (
         <BrowserRouter>
-            <Routes>
-                <Route index path="/" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route
-                    path="/foods"
-                    element={(
+            <AuthContextProvider>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/foods" element={
                         <PrivateRoute>
-                            <Foods />
+                                <Foods />
                         </PrivateRoute>
-                    )}
-                />
-            </Routes>
+                    } />
+                </Routes>
+            </AuthContextProvider>
         </BrowserRouter>
     )
-}
+};

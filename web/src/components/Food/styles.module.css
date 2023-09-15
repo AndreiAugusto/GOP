@@ -1,0 +1,68 @@
+.list{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #5a5071;
+    border-radius: 15px 5px;
+    box-shadow: 0px 10px 40px -12px #00000052;
+}
+.infos> p{
+    margin: 0;
+    color: #f0ffffde;
+}
+.botoes{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.btnEditar{
+    width: 100%;
+    padding: 3px 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 15px 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color:#77ffc0;
+    background: #0066CC;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff0052;
+    transition-duration: 0.2s;
+}.btnEditar:hover{
+    background: #90c4f9;
+    color: #2b134b;
+}
+
+.btnDeletar{
+    width: 100%;
+    padding: 3px 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 15px 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color:#77ffc0;
+    background: #cc0000;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff0052;
+    transition-duration: 0.2s;
+}.btnDeletar:hover{
+    background: #ec5454;
+    color: #2b134b;
+}
+
+.form{
+    margin-left: 50px;
+}
+
+
+@media(max-width: 600px){
+    .list{
+        flex-direction: column;
+    }
+    .form{
+        margin: 0;
+    }
+}

@@ -1,0 +1,30 @@
+
+.main{
+    height: 100%;
+    display: flex;
+    background: #201b2c;
+}
+
+.form{
+    width: 80%;
+}
+
+.card{
+    margin-top: 40px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    background-color: #2f2841;
+    border-radius: 20px 5px;
+    box-shadow: 0px 10px 40px #f0f0f056;
+    padding: 20px;
+}
+.card > h1{
+    color: #00ff88;
+    font-weight: bold;
+    margin: 10px 0 30px 0;
+    text-transform: uppercase;
+}

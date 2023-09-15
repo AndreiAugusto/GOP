@@ -1,0 +1,127 @@
+.main{
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #201b2c;
+    box-sizing: border-box;
+}
+
+.left{
+    width: 50vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}.left > h1{
+    color: #77ffc0;
+    margin: 5px 0px;
+    font-size: 4vw;
+    font-weight: bold;
+}
+
+.leftImg{
+    width: 70%;
+}
+.rightImg{
+    width: 25%;
+}
+
+p{
+    color: #77ffc0;
+}
+
+
+.right{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 0 20px 20px 0;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    background-color: white;
+    border-radius: 20px 5px;
+    box-shadow: 0px 10px 40px #f0f0f056;
+    padding: 20px;
+}
+ .h1Logo{
+    color:black;
+    font-weight: bold;
+    margin: 0;
+    font-size: 19pt;
+    padding-left: 5px;
+    text-align: left;
+}
+
+.textfield {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 10px 0;
+}
+form {
+    width: 80%;
+}
+.criarConta{
+    margin-top: 10px;
+}.criarConta > a{
+    color: #b6f6f6de;
+    text-decoration: none;
+}.criarConta > a:hover{
+    color: #9ab2b2de;
+}
+
+label{
+    color: #f0ffffde;
+}
+
+.btnLogin{
+    width: 100%;
+    padding: 16px 0;
+    margin: 10px 0;
+    border: none;
+    border-radius: 15px 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff0052;
+    transition-duration: 0.2s;
+}.btnLogin:hover{
+    background: #5bfdb2;
+}
+
+.lembrar{
+    color: #f0ffff94;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.asdasd{
+    display: flex;
+    align-items: center;
+}
+
+@media(max-width: 620px){
+    .left{
+        display: none;
+    }
+    .right{
+        width: 100vw;
+    }
+}
