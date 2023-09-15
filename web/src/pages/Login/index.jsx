@@ -3,6 +3,8 @@ import { AuthContext } from '../../contexts/AuthContext';
 import styles from './styles.module.css'
 import imagem from '../../img/Application.png';
 import logoMt from '../../img/Frame 1mt.png';
+import operacaoImg from '../../img/operacaoImg.png';
+import govMT from '../../img/govMT.png';
 
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -21,6 +23,7 @@ export function Login () {
                         <img src={logoMt} className={styles.rightImg}/>
                         <h1 className={styles.h1Logo}>Sistema de Gestão de Operações Policiais</h1>
                     </div>
+                    <h1 className={styles.h1Login}>Faça seu login</h1>
                     <form noValidate onSubmit={handleSubmit(login)}>
                         <Input
                             label='E-mail'
@@ -58,9 +61,10 @@ export function Login () {
                             />
                             <div className={styles.criarConta}>
                                 <Link to='/register'>Criar conta</Link>
+                                <Link>Esqueceu a senha</Link>
                             </div>
                         <button className={styles.btnLogin} type="submit">
-                            Logar
+                            Entrar
                         </button>
                         {loading && <p>Carregando...</p>}
                     </form>
@@ -68,11 +72,13 @@ export function Login () {
             </div>
             
             <div className={styles.left}>
-                <h1>Faça o login</h1>
-                <h1>E participe conosco</h1>
+                <img 
+                    src={govMT} 
+                    className={styles.govMt}
+                    alt="" />
                 <img
-                    src={imagem}
-                    alt="Imagem  legal"
+                    src={operacaoImg}
+                    alt="Imagem operação"
                     className={styles.leftImg}
                 />
             </div>
