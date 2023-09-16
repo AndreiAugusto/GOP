@@ -2,7 +2,6 @@
     width: 100vw;
     height: 100%;
     display: flex;
-    align-items: center;
     background: #28166F;
     box-sizing: border-box;
 }
@@ -13,6 +12,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin: auto;
 }
 .leftImg{
     width: 70%;
@@ -116,10 +116,11 @@ label{
 
 .asdasd{
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-@media(max-width: 620px){
+@media(max-width: 800px){
     .left{
         display: none;
     }
@@ -127,3 +128,29 @@ label{
         width: 100vw;
     }
 }
+@media(max-width: 1301px){
+    .h1Logo{
+        font-size: 18pt;
+    }
+}
+@media(max-width: 1000px){
+    .h1Logo{
+        font-size: 15pt;
+    }
+}
+@media(max-width: 800px){
+    .h1Logo{
+        font-size: 25pt;
+    }
+}
+
+@media(max-width: 602px){
+    .h1Logo{
+        font-size: 20pt;
+    }
+}@media(max-width: 280px){
+    .h1Logo{
+        display: none;
+    }
+}
+
