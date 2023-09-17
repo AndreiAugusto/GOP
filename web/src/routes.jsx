@@ -19,6 +19,7 @@ export function PrivateRoute({ children }) {
 };
 
 export function Navigations() {
+
     return (
         <BrowserRouter>
             <AuthContextProvider>
