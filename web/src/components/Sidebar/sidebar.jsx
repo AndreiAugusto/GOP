@@ -7,6 +7,7 @@ import
   BsListCheck, BsFillGearFill} from 'react-icons/bs';
 import {BiLogOut} from 'react-icons/bi';
 import {GiPoliceBadge} from 'react-icons/gi';
+import {MdAccountCircle} from 'react-icons/md'
 
 
 export function Sidebar({openSidebarToggle, OpenSidebar}) {
@@ -28,12 +29,12 @@ export function Sidebar({openSidebarToggle, OpenSidebar}) {
                     <BsGrid1X2Fill className='icon'/> Dashboard
                 </a>
             </li>
-            {/* <li className='sidebar-list-item'>
+            <li className='sidebar-list-item'>
                 <a href="">
-                    <BsFillArchiveFill className='icon'/> Products
+                    <MdAccountCircle className='icon'/> Perfil
                 </a>
             </li>
-            <li className='sidebar-list-item'>
+            {/* <li className='sidebar-list-item'>
                 <a href="">
                     <BsPeopleFill className='icon'/> Customers
                 </a>

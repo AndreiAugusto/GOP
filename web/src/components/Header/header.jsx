@@ -1,24 +1,19 @@
 import React from 'react'
+import logo from '../../img/layout_set_logo.png'
 import 
  {BsFillBellFill, BsFillEnvelopeFill, BsPersonCircle, BsSearch, BsJustify}
  from 'react-icons/bs'
 
-function Header({OpenSidebar}) {
+export function Header({OpenSidebar}) {
   return (
     <header className='header'>
         <div className='menu-icon'>
-            <BsJustify className='icon' onClick={OpenSidebar}/>
         </div>
         <div className='header-left'>
-            <BsSearch  className='icon'/>
         </div>
         <div className='header-right'>
-            <BsFillBellFill className='icon'/>
-            <BsFillEnvelopeFill className='icon'/>
-            <BsPersonCircle className='icon'/>
+            <img className='menu-icon' src={logo} alt="" />
         </div>
     </header>
   )
 }
-
-export default Header
