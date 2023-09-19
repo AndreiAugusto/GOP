@@ -46,9 +46,9 @@ export function Login () {
                                 label='Senha'
                                 type='password'
                                 placeholder='Digite sua senha'
-                                name='password'
-                                error={errors.password}
-                                validations={register('password', {
+                                name='senha'
+                                error={errors.senha}
+                                validations={register('senha', {
                                     required:{
                                         value:true,
                                         message:'Senha obrigatória!'
@@ -70,10 +70,10 @@ export function Login () {
                     </form>
                 </div>
             </div>
-            
+
             <div className={styles.left}>
-                <img 
-                    src={govMT} 
+                <img
+                    src={govMT}
                     className={styles.govMt}
                     alt="" />
                 <img

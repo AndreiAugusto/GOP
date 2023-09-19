@@ -1,15 +1,23 @@
-import React from 'react'
-import 
-{BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, 
-  BsListCheck, BsMenuButtonWideFill, BsFillGearFill}
- from 'react-icons/bs'
+import React from 'react';
+import '../../app.css'
+import { AuthContext } from '../../contexts/AuthContext';
+import { useContext } from 'react';
+import
+{BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill,
+  BsListCheck, BsFillGearFill} from 'react-icons/bs';
+import {BiLogOut} from 'react-icons/bi';
+import {GiPoliceBadge} from 'react-icons/gi';
+
 
 export function Sidebar({openSidebarToggle, OpenSidebar}) {
+
+    const { logout } = useContext(AuthContext);
+
   return (
-    <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
+    <aside  id="sidebar" className={openSidebarToggle ? "sidebar-responsive": " color1" }>
         <div className='sidebar-title'>
             <div className='sidebar-brand'>
-                <BsCart3  className='icon_header'/> GOP
+                <GiPoliceBadge  className='icon_header'/> GOP
             </div>
             <span className='icon close_icon' onClick={OpenSidebar}>X</span>
         </div>
@@ -20,14 +28,9 @@ export function Sidebar({openSidebarToggle, OpenSidebar}) {
                     <BsGrid1X2Fill className='icon'/> Dashboard
                 </a>
             </li>
-            <li className='sidebar-list-item'>
+            {/* <li className='sidebar-list-item'>
                 <a href="">
                     <BsFillArchiveFill className='icon'/> Products
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsFillGrid3X3GapFill className='icon'/> Categories
                 </a>
             </li>
             <li className='sidebar-list-item'>
@@ -42,14 +45,14 @@ export function Sidebar({openSidebarToggle, OpenSidebar}) {
             </li>
             <li className='sidebar-list-item'>
                 <a href="">
-                    <BsMenuButtonWideFill className='icon'/> Reports
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
                     <BsFillGearFill className='icon'/> Setting
                 </a>
-            </li>
+            </li> */}
+            <a onClick={logout}>
+                <li className='sidebar-list-item'>
+                    <BiLogOut className='icon'/> Sair
+                </li>
+            </a>
         </ul>
     </aside>
   )

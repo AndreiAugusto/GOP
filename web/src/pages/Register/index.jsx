@@ -15,10 +15,22 @@ export function Register () {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const { loading, createUser } = useContext(AuthContext);
 
+    const onSubmit = async (data) => {
+        try {
+            console.log(data);
+            if(data.senha !== data.confirmaSenha){
+                alert('As senhas não coincidem!');
+            }else{
+                createUser(data);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div className={styles.main}>
-            
+
             <div className={styles.right}>
                 <div className={styles.card}>
                     <div className={styles.asdasd}>
@@ -27,7 +39,7 @@ export function Register () {
                     </div>
                     <h1 className={styles.h1Login}>Registre-se</h1>
 
-                    <form className={stylesRegister.form} noValidate onSubmit={handleSubmit(createUser)}>
+                    <form className={stylesRegister.form} noValidate onSubmit={handleSubmit(onSubmit)}>
                         <Input
                             label='Nome completo'
                             type='nome'
@@ -61,7 +73,7 @@ export function Register () {
                         <Input
                             className={stylesRegister.form}
                             label='Senha'
-                            type='senha'
+                            type='password'
                             placeholder='Digite sua senha'
                             name='senha'
                             error={errors.senha}
@@ -79,11 +91,11 @@ export function Register () {
                         <Input
                             className={stylesRegister.form}
                             label='Confirmar senha'
-                            type='senha'
+                            type='password'
                             placeholder='Digite sua senha'
-                            name='senha'
+                            name='confirmaSenha'
                             error={errors.senha}
-                            validations={register('senha', {
+                            validations={register('confirmaSenha', {
                                 required:{
                                     value:true,
                                     message:'Senha obrigatória!'
@@ -108,10 +120,10 @@ export function Register () {
                 </div>
 
             </div>
-            
+
             <div className={styles.left}>
-                <img 
-                    src={govMT} 
+                <img
+                    src={govMT}
                     className={styles.govMt}
                     alt="" />
                 <img

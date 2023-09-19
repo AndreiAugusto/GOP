@@ -26,10 +26,9 @@ export function Navigations() {
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/foods" element={
+                    <Route path="/dashboard" element={
                         <PrivateRoute>
-                                <Foods />
+                            <Dashboard />
                         </PrivateRoute>
                     } />
                 </Routes>

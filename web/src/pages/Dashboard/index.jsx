@@ -1,11 +1,11 @@
 import React from 'react';
 import { Sidebar } from '../../components/Sidebar/sidebar';
 import { useState } from 'react';
-import 
+import
 { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
  from 'react-icons/bs'
- import 
- { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
+ import
+ { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line }
  from 'recharts';
 
 export function Dashboard() {
@@ -54,7 +54,7 @@ export function Dashboard() {
           amt: 2100,
         },
       ];
-     
+
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
     const OpenSidebar = () => {
@@ -63,7 +63,7 @@ export function Dashboard() {
 
   return (
     <main className='main-container d-flex'>
-        <div className=''>
+        <div>
           <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
         </div>
         <div className='p-5 w-75'>
@@ -150,7 +150,7 @@ export function Dashboard() {
           </div>
 
         </div>
-        
+
     </main>
   )
 }
