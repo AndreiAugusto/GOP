@@ -15,7 +15,7 @@ export function Sidebar({openSidebarToggle, OpenSidebar}) {
     const { logout } = useContext(AuthContext);
 
   return (
-    <aside  id="sidebar" className={openSidebarToggle ? "sidebar-responsive": " color1" }>
+    <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": "color1"}>
         <div className='sidebar-title'>
             <div className='sidebar-brand'>
                 <GiPoliceBadge  className='icon_header'/> GOP

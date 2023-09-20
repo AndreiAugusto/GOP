@@ -9,7 +9,12 @@ body {
   .color1{
     background-color: #28166f !important;
   }
-
+  .icon-hamburger{
+    font-size: 40px;
+  }
+  .icon-profile{
+    font-size: 80px;
+  }
   .icon {
     vertical-align: middle;
     line-height: 1px;
@@ -43,14 +48,12 @@ body {
 
   /* Header  */
   .header {
-    grid-area: header;
     height: 100px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 30px 0 30px;
     box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
-    background: #28166F;
+    background:#D9D9D9;
   }
 
   .menu-icon {
@@ -58,6 +61,10 @@ body {
   }
 
   .header-right{
+    border-radius: 30px 0 0 30px;
+    height: 100%;
+  }
+  .header-left{
     height: 80%;
   }
   /* End Header  */
@@ -111,7 +118,7 @@ body {
   }
 
   .sidebar-responsive {
-    display: inline !important;
+    display: none !important;
     position: absolute;
     /*
       we want the z-index of the sidebar higher so that
