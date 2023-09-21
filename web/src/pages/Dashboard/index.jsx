@@ -70,7 +70,7 @@ export function Dashboard() {
           <div>
             <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
           </div>
-          <div className='p-5 w-75'>
+          <div className='p-3 w-75'>
             <div className='main-title'>
               <h3>DASHBOARD</h3>
             </div>
@@ -79,28 +79,28 @@ export function Dashboard() {
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>PRODUCTS</h3>
-                        <BsFillArchiveFill className='card_icon'/>
+                        {/* <BsFillArchiveFill className='card_icon'/> */}
                     </div>
                     <h1>300</h1>
                 </div>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>CATEGORIES</h3>
-                        <BsFillGrid3X3GapFill className='card_icon'/>
+                        {/* <BsFillGrid3X3GapFill className='card_icon'/> */}
                     </div>
                     <h1>12</h1>
                 </div>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>CUSTOMERS</h3>
-                        <BsPeopleFill className='card_icon'/>
+                        {/* <BsPeopleFill className='card_icon'/> */}
                     </div>
                     <h1>33</h1>
                 </div>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>ALERTS</h3>
-                        <BsFillBellFill className='card_icon'/>
+                        {/* <BsFillBellFill className='card_icon'/> */}
                     </div>
                     <h1>42</h1>
                 </div>

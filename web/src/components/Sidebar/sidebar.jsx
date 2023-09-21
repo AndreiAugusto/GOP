@@ -2,12 +2,11 @@ import React from 'react';
 import '../../app.css'
 import { AuthContext } from '../../contexts/AuthContext';
 import { useContext } from 'react';
-import
-{BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill,
-  BsListCheck, BsFillGearFill} from 'react-icons/bs';
+import {BsGrid1X2Fill} from 'react-icons/bs';
 import {BiLogOut} from 'react-icons/bi';
 import {GiPoliceBadge} from 'react-icons/gi';
 import {MdAccountCircle} from 'react-icons/md'
+import {RiPoliceCarFill} from 'react-icons/ri'
 
 
 export function Sidebar({openSidebarToggle, OpenSidebar}) {
@@ -24,31 +23,21 @@ export function Sidebar({openSidebarToggle, OpenSidebar}) {
         </div>
 
         <ul className='sidebar-list'>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsGrid1X2Fill className='icon'/> Dashboard
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <MdAccountCircle className='icon'/> Perfil
-                </a>
-            </li>
-            {/* <li className='sidebar-list-item'>
-                <a href="">
-                    <BsPeopleFill className='icon'/> Customers
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsListCheck className='icon'/> Inventory
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsFillGearFill className='icon'/> Setting
-                </a>
-            </li> */}
+            <a href="/dashboard">
+                <li className='sidebar-list-item'>
+                        <BsGrid1X2Fill className='icon'/> Dashboard
+                </li>
+            </a>
+            <a href="/operacoes">
+                <li className='sidebar-list-item'>
+                        <RiPoliceCarFill className='icon'/> Operações
+                </li>
+            </a>
+            <a href="/perfil">
+                <li className='sidebar-list-item'>
+                        <MdAccountCircle className='icon'/> Perfil
+                </li>
+            </a>
             <a onClick={logout}>
                 <li className='sidebar-list-item'>
                     <BiLogOut className='icon'/> Sair

@@ -6,6 +6,10 @@ body {
     font-family: 'Montserrat', sans-serif;
   }
 
+  a{
+    text-decoration: none;
+    color: white;
+  }
   .color1{
     background-color: #28166f !important;
   }
@@ -158,22 +162,23 @@ body {
     justify-content: space-around;
     padding: 8px 15px;
     border-radius: 5px;
+    border: none;
   }
 
   .card:first-child {
-    background-color: #2962ff;
+    background-color: #E3F5FF;
   }
 
   .card:nth-child(2) {
-    background-color: #ff6d00;
+    background-color: #E5ECF6;
   }
 
   .card:nth-child(3) {
-    background-color: #2e7d32;
+    background-color: #E3F5FF;
   }
 
   .card:nth-child(4) {
-    background-color: #d50000;
+    background-color: #E5ECF6;
   }
 
   .card-inner {

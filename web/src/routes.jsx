@@ -5,6 +5,8 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Foods } from "./pages/Foods";
 import { Dashboard } from "./pages/Dashboard";
+import { Perfil } from "./pages/Perfil";
+import { Operacoes } from "./pages/Operacoes";
 
 export const isAuthenticated = () => {
     const token = sessionStorage.getItem('token');
@@ -26,10 +28,13 @@ export function Navigations() {
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/perfil" element={<Perfil />} />
+                    <Route path="/operacoes" element={<Operacoes />} />
                     <Route path="/dashboard" element={
-                        <PrivateRoute>
-                            <Dashboard />
-                        </PrivateRoute>
+                        
+                        <Dashboard />
+                        // <PrivateRoute>
+                        // </PrivateRoute>
                     } />
                 </Routes>
             </AuthContextProvider>
