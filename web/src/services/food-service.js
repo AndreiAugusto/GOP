@@ -2,7 +2,7 @@ import { api } from './api';
 
 export async function getFoods() {
     const accessToken = sessionStorage.getItem('token');
-    const result = await api.get('/foods', {
+    const result = await api.get('/operacoes', {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`
         }
@@ -12,7 +12,7 @@ export async function getFoods() {
 
 export async function deleteFood(id) {
     const accessToken = sessionStorage.getItem('token');
-    const result = await api.delete(`/food/${id}`, {
+    const result = await api.delete(`/operacao/${id}`, {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`
         }

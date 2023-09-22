@@ -32,9 +32,9 @@ export function Navigations() {
                     <Route path="/operacoes" element={<Operacoes />} />
                     <Route path="/dashboard" element={
                         
-                        <Dashboard />
-                        // <PrivateRoute>
-                        // </PrivateRoute>
+                        <PrivateRoute>
+                            <Dashboard />
+                        </PrivateRoute>
                     } />
                 </Routes>
             </AuthContextProvider>
