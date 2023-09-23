@@ -20,6 +20,7 @@ body {
   }
 
   a{
+    cursor: pointer;
     text-decoration: none;
     color: white;
   }
@@ -92,7 +93,7 @@ body {
   #sidebar {
     grid-area: sidebar;
     height: 100%;
-    background-color: #263043;
+    background-color: #28166f;
     overflow-y: auto;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
@@ -228,16 +229,14 @@ body {
         'main';
     }
 
-    #sidebar {
-      display: none;
-    }
-
-    .menu-icon {
-      display: inline;
-    }
-
     .sidebar-title > span {
       display: inline;
+    }
+  }
+  /* small 870px */
+  @media screen and (max-width: 870px) {
+    .header-right{
+        display: none;
     }
   }
   /* Small <= 768px */
@@ -255,10 +254,11 @@ body {
     }
   }
 
-  /* Extra Small <= 576px */
-
   @media screen and (max-width: 576px) {
     .hedaer-left {
       display: none;
+    }
+    .menu-icon{
+        height: 80%;
     }
   }

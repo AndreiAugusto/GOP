@@ -102,10 +102,10 @@ export function Operacoes() {
                                 Criar nova operação
                             </button>
                             <div className="d-flex justify-content-between fw-bold fs-5 ps-4 pe-4">
-                                <p>#</p>
-                                <p>Operação</p>
-                                <p>Custo</p>
-                                <p>Local</p>
+                                <p className={style.pResponsive}>#</p>
+                                <p className={style.pResponsive}>Operação</p>
+                                <p className={style.pResponsive}>Custo</p>
+                                <p className={style.pResponsive}>Local</p>
                                 <p className="text-light">asdssasdasd</p>
 
                             </div>

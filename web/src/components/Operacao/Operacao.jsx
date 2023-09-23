@@ -16,7 +16,7 @@ export function Operacao(props) {
     return (
 
         <div key={props.operacao.id} className={style.list}>
-            <div className='d-flex justify-content-between ps-3 pe-3'>
+            <div className={style.infos}>
                     <p className='m-0 d-flex align-self-center'>
                         {props.operacao.id}
                     </p>

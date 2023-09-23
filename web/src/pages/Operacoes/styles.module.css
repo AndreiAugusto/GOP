@@ -14,7 +14,6 @@ body{
     display: flex;
     flex-direction: column;
     width: 100%;
-    /* background-color: black; */
     border-radius: 10px;
 }
 
@@ -31,4 +30,13 @@ body{
     transition-duration: 0.2s;
 }.btnCriar:hover{
     background: #28166f;
+}
+
+.pResponsive{
+    margin: 0 10px;
+}
+@media(max-width: 600px){
+    .pResponsive{
+        display: none;
+    }
 }

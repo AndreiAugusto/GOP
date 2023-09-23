@@ -10,7 +10,9 @@ export function Header({OpenSidebar}) {
       <div className='header-left w-100'>
 
         <div className='menu-icon'>
-          <GiHamburgerMenu color='black' className='icon-hamburger m-3' onClick={OpenSidebar}/>
+            <a className='curs' onClick={OpenSidebar}>
+                <GiHamburgerMenu color='black' className='icon-hamburger m-3'/>
+            </a>
           <img src={img} className='menu-icon' alt="" />
         </div>
 

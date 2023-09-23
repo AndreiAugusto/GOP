@@ -4,10 +4,9 @@
     padding: 10px 20px;
 }
 .infos{
-    margin: 0;
-    color: black;
     display: flex;
-    align-self: center;
+    justify-content: space-between;
+    padding: 0 5px;
 }
 .botoes{
     display: flex;
@@ -54,7 +53,7 @@
 
 
 @media(max-width: 600px){
-    .list{
+    .infos{
         flex-direction: column;
     }
     .form{
