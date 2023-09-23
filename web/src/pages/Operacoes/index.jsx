@@ -1,25 +1,23 @@
-import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
-import { useContext, useEffect, useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
+import {  useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import style from "./styles.module.css";
 
-import { AuthContext } from "../../contexts/AuthContext";
 import {
-    getFoods,
-    deleteFood,
-    createFood,
-    updateFood,
-} from "../../services/food-service";
-import { Food } from "../../components/Food/Food";
-import { Input } from "../../components/Input/Input";
+    getOperacoes,
+    deleteOperacao,
+    createOperacao,
+    updateOperacao
+} from "../../services/operacao-service";
+
+import { Operacao } from "../../components/Operacao/Operacao";
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
 
 export function Operacoes() {
-    const { logout } = useContext(AuthContext);
-    const [foods, setFoods] = useState([]);
+    const [operacoes, setOperacoes] = useState([]);
     const [isCreated, setIsCreated] = useState(false);
     const {
         register,
@@ -29,46 +27,46 @@ export function Operacoes() {
     } = useForm();
 
     useEffect(() => {
-        findFoods();
+        findOperacoes();
     }, []);
 
-    async function findFoods() {
+    async function findOperacoes() {
         try {
-            const result = await getFoods();
-            setFoods(result.data);
+            const result = await getOperacoes();
+            setOperacoes(result.data);
         } catch (error) {
             console.error(error);
             Navigate("/");
         }
     }
 
-    async function removeFood(id) {
+    async function removeOperacao(id) {
         try {
-            await deleteFood(id);
-            await findFoods();
+            await deleteOperacao(id);
+            await findOperacoes();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async function addFood(data) {
+    async function addOperacao(data) {
         try {
-            await createFood(data);
+            await createOperacao(data);
             setIsCreated(false);
-            await findFoods();
+            await findOperacoes();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async function editFood(data) {
+    async function editOperacao(data) {
         try {
-            await updateFood({
+            await updateOperacao({
                 id: data.id,
-                nameFood: data.nameFood,
-                unity: data.unity,
+                nomeOperacao: data.nomeOperacao,
+                cidade: data.cidade,
             });
-            await findFoods();
+            await findOperacoes();
         } catch (error) {
             console.error(data);
         }
@@ -77,7 +75,7 @@ export function Operacoes() {
     function alerta(message) {
         return alert(message);
     }
-    
+
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
     const OpenSidebar = () => {
@@ -94,30 +92,37 @@ export function Operacoes() {
                         OpenSidebar={OpenSidebar}
                     />
                 </div>
-                <div className="p-3 w-75">
-                    <h1 className="text-dark">ESTE É O OPERAÇOES</h1>
+                <div className="p-3 w-100">
                     <div className={style.main}>
-                        <h1>Foods</h1>
                         <div className={style.card}>
                             <button
                                 className={style.btnCriar}
                                 onClick={() => setIsCreated(true)}
                             >
-                                Criar alimento
+                                Criar nova operação
                             </button>
-                            {foods && foods.length > 0 ? (
-                                foods.map((food) => (
-                                    <Food
-                                        food={food}
-                                        removeFood={async () => {
-                                            await removeFood(food.id);
-                                            alerta(`${food.nome} deletado!`);
+                            <div className="d-flex justify-content-between fw-bold fs-5 ps-4 pe-4">
+                                <p>#</p>
+                                <p>Operação</p>
+                                <p>Custo</p>
+                                <p>Local</p>
+                                <p className="text-light">asdssasdasd</p>
+
+                            </div>
+                            <hr />
+                            {operacoes && operacoes.length > 0 ? (
+                                operacoes.map((operacao) => (
+                                    <Operacao
+                                        operacao={operacao}
+                                        removeOperacao={async () => {
+                                            await removeOperacao(operacao.id);
+                                            alerta(`${operacao.nome} deletado!`);
                                         }}
-                                        editFood={editFood}
+                                        editOperacao={editOperacao}
                                     />
                                 ))
                             ) : (
-                                <h1>Não há alimentos</h1>
+                                <h1>Não há Operações!</h1>
                             )}
                             <Modal
                                 show={isCreated}
@@ -125,24 +130,24 @@ export function Operacoes() {
                             >
                                 <Modal.Header className="justify-content-center">
                                     <Modal.Title>
-                                        Cadastrar novo alimento
+                                        Cadastrar nova Operação
                                     </Modal.Title>
                                 </Modal.Header>
                                 <Form
                                     className="ms-5"
                                     noValidate
-                                    onSubmit={handleSubmit(addFood)}
+                                    onSubmit={handleSubmit(addOperacao)}
                                 >
                                     <Modal.Body>
                                         <Form.Group>
                                             <Form.Label className="text-primary">
-                                                Nome do alimento
+                                                Nome da Operação
                                             </Form.Label>
                                             <Form.Control
                                                 type="text"
-                                                placeholder="Alimento"
-                                                name="nameFood"
-                                                {...register("nameFood", {
+                                                placeholder="Nome da Operação"
+                                                name="nomeOperacao"
+                                                {...register("nomeOperacao", {
                                                     required: {
                                                         value: true,
                                                         message:
@@ -150,18 +155,18 @@ export function Operacoes() {
                                                     },
                                                 })}
                                             />
-                                            {errors.nameFood && (
+                                            {errors.nomeOperacao && (
                                                 <span className="position-absolute text-danger">
-                                                    {errors.nameFood.message}
+                                                    {errors.nomeOperacao.message}
                                                 </span>
                                             )}
                                         </Form.Group>
                                         <Form.Group className="mt-4">
                                             <Form.Label className="text-primary">
-                                                Selecione a unidade de medida
+                                                Selecione a cidade
                                             </Form.Label>
                                             <Form.Select
-                                                {...register("unity", {
+                                                {...register("cidade", {
                                                     required:
                                                         "Escolha necessária",
                                                 })}
@@ -169,10 +174,10 @@ export function Operacoes() {
                                                 <option disabled>
                                                     Clique para selecionar
                                                 </option>
-                                                <option>Kilograma</option>
-                                                <option>Grama</option>
-                                                <option>Mililitro</option>
-                                                <option>Litro</option>
+                                                <option>Cuiabá</option>
+                                                <option>VG</option>
+                                                <option>Sorriso</option>
+                                                <option>Rondonópolis</option>
                                             </Form.Select>
                                         </Form.Group>
                                     </Modal.Body>
@@ -189,10 +194,6 @@ export function Operacoes() {
                                     </Modal.Footer>
                                 </Form>
                             </Modal>
-
-                            <button className={style.btnSair} onClick={logout}>
-                                Sair
-                            </button>
                         </div>
                     </div>
                 </div>

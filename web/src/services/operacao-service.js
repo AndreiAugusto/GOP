@@ -1,6 +1,6 @@
 import { api } from './api';
 
-export async function getFoods() {
+export async function getOperacoes() {
     const accessToken = sessionStorage.getItem('token');
     const result = await api.get('/operacoes', {
         headers: {
@@ -10,7 +10,7 @@ export async function getFoods() {
     return result;
 };
 
-export async function deleteFood(id) {
+export async function deleteOperacao(id) {
     const accessToken = sessionStorage.getItem('token');
     const result = await api.delete(`/operacao/${id}`, {
         headers: {
@@ -20,11 +20,11 @@ export async function deleteFood(id) {
     return result;
 };
 
-export async function createFood(data) {
+export async function createOperacao(data) {
     const accessToken = sessionStorage.getItem('token');
-    const result = await api.post('/food', {
-        nome: data.nameFood,
-        unidadeMedida: data.unity
+    const result = await api.post('/operacao', {
+        nome: data.nomeOperacao,
+        unidadeMedida: data.cidade
     }, {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`
@@ -32,11 +32,11 @@ export async function createFood(data) {
     });
 };
 
-export async function updateFood(data){
+export async function updateOperacao(data){
     const accessToken = sessionStorage.getItem('token');
-    const result = await api.put(`/food/${data.id}`, {
-        nome: data.nameFood,
-        undadeMedida: data.unity
+    const result = await api.put(`/operacao/${data.id}`, {
+        nome: data.nomeOperacao,
+        undadeMedida: data.cidade
     }, {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`

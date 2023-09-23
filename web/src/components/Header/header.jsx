@@ -18,7 +18,9 @@ export function Header({OpenSidebar}) {
 
       <div className='header-right w-100 color1'>
           <img className='menu-icon' src={logo} alt="" />
-          <CgProfile className='icon-profile m-2'/>
+          <a href="/perfil">
+            <CgProfile className='icon-profile m-2'/>
+          </a>
       </div>
     </header>
   )
