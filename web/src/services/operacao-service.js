@@ -10,6 +10,16 @@ export async function getOperacoes() {
     return result;
 };
 
+export async function getOperacao(id) {
+    const accessToken = sessionStorage.getItem('token');
+    const result = await api.get(`/operacoes/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(accessToken)}`
+        }
+    });
+    return result;
+};
+
 export async function deleteOperacao(id) {
     const accessToken = sessionStorage.getItem('token');
     const result = await api.delete(`/operacao/${id}`, {
