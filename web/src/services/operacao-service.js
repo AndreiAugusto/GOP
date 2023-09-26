@@ -24,7 +24,13 @@ export async function createOperacao(data) {
     const accessToken = sessionStorage.getItem('token');
     const result = await api.post('/operacao', {
         nome: data.nomeOperacao,
-        unidadeMedida: data.cidade
+        custo: data.custo,
+        nAgentes: data.nAgentes,
+        qtdVeiculos: data.qtdVeiculos,
+        cidade: data.cidade,
+        data: data.data,
+        duracao: data.duracao,
+        comandante: data.comandante
     }, {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`

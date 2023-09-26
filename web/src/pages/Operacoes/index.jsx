@@ -139,7 +139,7 @@ export function Operacoes() {
                                     onSubmit={handleSubmit(addOperacao)}
                                 >
                                     <Modal.Body>
-                                        <Form.Group>
+                                        <Form.Group className="mb-4">
                                             <Form.Label className="text-primary">
                                                 Nome da Operação
                                             </Form.Label>
@@ -161,7 +161,73 @@ export function Operacoes() {
                                                 </span>
                                             )}
                                         </Form.Group>
-                                        <Form.Group className="mt-4">
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="text-primary">
+                                                Custo
+                                            </Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Custo da Operação"
+                                                name="custo"
+                                                {...register("custo", {
+                                                    required: {
+                                                        value: true,
+                                                        message:
+                                                            "Custo é necessário",
+                                                    },
+                                                })}
+                                            />
+                                            {errors.custo && (
+                                                <span className="position-absolute text-danger">
+                                                    {errors.custo.message}
+                                                </span>
+                                            )}
+                                        </Form.Group>
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="text-primary">
+                                                N° de Agentes
+                                            </Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Número de agentes"
+                                                name="nAgentes"
+                                                {...register("nAgentes", {
+                                                    required: {
+                                                        value: true,
+                                                        message:
+                                                            "Número de agentes é necessário",
+                                                    },
+                                                })}
+                                            />
+                                            {errors.nAgentes && (
+                                                <span className="position-absolute text-danger">
+                                                    {errors.nAgentes.message}
+                                                </span>
+                                            )}
+                                        </Form.Group>
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="text-primary">
+                                                Quantidade de veículos
+                                            </Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Número de veículos"
+                                                name="qtdVeiculos"
+                                                {...register("qtdVeiculos", {
+                                                    required: {
+                                                        value: true,
+                                                        message:
+                                                            "Obrigatório",
+                                                    },
+                                                })}
+                                            />
+                                            {errors.qtdVeiculos && (
+                                                <span className="position-absolute text-danger">
+                                                    {errors.qtdVeiculos.message}
+                                                </span>
+                                            )}
+                                        </Form.Group>
+                                        <Form.Group className="mb-4">
                                             <Form.Label className="text-primary">
                                                 Selecione a cidade
                                             </Form.Label>
@@ -179,6 +245,71 @@ export function Operacoes() {
                                                 <option>Sorriso</option>
                                                 <option>Rondonópolis</option>
                                             </Form.Select>
+                                        </Form.Group>
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="text-primary">
+                                                Data
+                                            </Form.Label>
+                                            <Form.Control
+                                                type="date"
+                                                name="data"
+                                                {...register("data", {
+                                                    required: {
+                                                        value: true,
+                                                        message:
+                                                            "Data é obrigatorio",
+                                                    },
+                                                })}
+                                            />
+                                            {errors.data && (
+                                                <span className="position-absolute text-danger">
+                                                    {errors.data.message}
+                                                </span>
+                                            )}
+                                        </Form.Group>
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="text-primary">
+                                                Duração da operação
+                                            </Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Duração em dias"
+                                                name="duracao"
+                                                {...register("duracao", {
+                                                    required: {
+                                                        value: true,
+                                                        message:
+                                                            "Duração é obrigatório",
+                                                    },
+                                                })}
+                                            />
+                                            {errors.duracao && (
+                                                <span className="position-absolute text-danger">
+                                                    {errors.duracao.message}
+                                                </span>
+                                            )}
+                                        </Form.Group>
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="text-primary">
+                                                Comandante
+                                            </Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Comandante da operação"
+                                                name="comandante"
+                                                {...register("comandante", {
+                                                    required: {
+                                                        value: true,
+                                                        message:
+                                                            "Comandante é obrigatório",
+                                                    },
+                                                })}
+                                            />
+                                            {errors.comandante && (
+                                                <span className="position-absolute text-danger">
+                                                    {errors.comandante.message}
+                                                </span>
+                                            )}
                                         </Form.Group>
                                     </Modal.Body>
                                     <Modal.Footer>
