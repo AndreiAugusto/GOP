@@ -1,5 +1,5 @@
 import {  useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import style from "../Operacoes/styles.module.css";
@@ -14,6 +14,7 @@ import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
 
 export function PageOperacao() {
+    const navigate = useNavigate();
     const [operacoes, setOperacoes] = useState([]);
     const {
         register,
@@ -23,7 +24,6 @@ export function PageOperacao() {
     } = useForm();
 
     const {id} = useParams();
-
     useEffect(() => {
         findOperacoes();
     }, []);
@@ -34,7 +34,7 @@ export function PageOperacao() {
             setOperacoes(result.data);
         } catch (error) {
             console.error(error);
-            Navigate("/");
+            navigate("/");
         }
     }
 
@@ -83,12 +83,11 @@ export function PageOperacao() {
                 </div>
                 <div className="p-3 w-100">
                     <div className={style.main}>
-                    {operacoes && operacoes.length > 0 ? (
-                        operacoes.map((operacao) => (
-                            <p>{operacao.nome}</p>
-                        ))
-                        ) : (<h1>Não há Operações!{console.log('isso é operacoes',operacoes)}</h1> )
-                    }
+                        <p>{operacoes.nome}</p>
+                        <p>{operacoes.custo}</p>
+                        <p>{operacoes.qtdVeiculo}</p>
+                        <p>{operacoes.nAgente}</p>
+                        <p>{operacoes.comandante}</p>
                     </div>
                 </div>
             </div>

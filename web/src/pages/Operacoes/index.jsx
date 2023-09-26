@@ -1,6 +1,6 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import {  useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import style from "./styles.module.css";
@@ -26,6 +26,7 @@ export function Operacoes() {
         formState: { errors },
     } = useForm();
 
+    const navigate = useNavigate()
     useEffect(() => {
         findOperacoes();
     }, []);
@@ -36,14 +37,12 @@ export function Operacoes() {
             setOperacoes(result.data);
         } catch (error) {
             console.error(error);
-            Navigate("/");
         }
     }
 
     async function removeOperacao(id) {
         try {
-            await deleteOperacao(id);
-            await findOperacoes();
+            navigate(`/operacao/${id}`);
         } catch (error) {
             console.error(error);
         }
@@ -116,7 +115,6 @@ export function Operacoes() {
                                         operacao={operacao}
                                         removeOperacao={async () => {
                                             await removeOperacao(operacao.id);
-                                            alerta(`${operacao.nome} deletado!`);
                                         }}
                                         editOperacao={editOperacao}
                                     />

@@ -31,10 +31,6 @@ export function Operacao(props) {
                     </p>
 
                 <div className={style.botoes}>
-                    {/* <button
-                        className={style.btnEditar}
-                        onClick={()=>setIsUpdated(true)}
-                    >Editar</button> */}
                     <button
                         className={style.btnDeletar}
                         onClick={props.removeOperacao}
