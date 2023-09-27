@@ -32,6 +32,29 @@ class UsuarioController {
         }
     }
 
+    async autenticaToken(request, response){
+        const httpHelper = new HttpHelper(response);
+        try {
+            const authorizationHeader = request.headers.authorization;
+
+            const token = authorizationHeader.replace('Bearer ', ''); // Remove "Bearer " do cabeçalho
+
+            const jwt = require('jsonwebtoken');
+
+            jwt.verify(token, process.env.TOKEN_SECRET, (err, decodedToken) => {
+            if (err) {
+                return httpHelper.badRequest('Token não autenticado');
+            } else {
+                console.log('Token decodificado:', decodedToken);
+                return httpHelper.ok(decodedToken.id);
+            }
+            });
+
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+    }
+
     async login(request, response) {
         const httpHelper = new HttpHelper(response);
         try {
@@ -90,10 +113,10 @@ class UsuarioController {
     async getOne(request, response){
         const httpHelper = new HttpHelper(response);
         try {
-            const { email } = request.body;
-            if (!email) return httpHelper.badRequest('Parâmetros inválidos!');
+            const { id } = request.params;
+            if (!id) return httpHelper.badRequest('Parâmetros inválidos!');
             const usuario = await UsuarioModel.findOne(
-                { where:{ email } }
+                { where:{ id } }
             );
             if(!usuario) return httpHelper.notFound('Usuário não encontrado!');
             return httpHelper.ok(usuario.toJSON())

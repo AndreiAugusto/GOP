@@ -7,6 +7,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { Perfil } from "./pages/Perfil";
 import { Operacoes } from "./pages/Operacoes";
 import { PageOperacao } from "./pages/Operacao";
+import { EditOperacao } from "./pages/EditOperacao";
 
 export const isAuthenticated = () => {
     const token = sessionStorage.getItem('token');
@@ -36,9 +37,10 @@ export function Navigations() {
                     <Route path="/operacoes" element={
                         <PrivateRoute>
                             <Operacoes />
-                        </PrivateRoute>} 
+                        </PrivateRoute>}
                     />
                     <Route path="/operacao/:id" element={<PageOperacao />} />
+                    <Route path="/editOperacao/:id" element={<EditOperacao />} />
                     <Route path="/dashboard" element={
                         <PrivateRoute>
                             <Dashboard />

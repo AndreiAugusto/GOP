@@ -42,9 +42,11 @@ export function PageOperacao() {
 
     const handleExcluir = () => {
         setModalIsOpen(true);
-        console.log(modalIsOpen)
       };
 
+    const handleEditar = () =>{
+        navigate(`/editOperacao/${id}`)
+    }
 
     async function removeOperacao() {
         try {
@@ -136,17 +138,17 @@ export function PageOperacao() {
                             <p>{operacoes.comandante}</p>
                         </div>
                         <hr className="mb-5" />
-                        <div className="d-flex w-100">
-                            <div className="d-flex w-100 justify-content-start">
+                        <div className="d-flex w-100 btnResponsivo">
+                            <div className="d-flex w-100 justify-content-start btnResponsivo">
                                 <button className={style.btnEditar} onClick={voltar}>
                                     Voltar
                                 </button>
                             </div>
-                            <div className="w-100 d-flex justify-content-end">
+                            <div className="w-100 d-flex justify-content-end btnResponsivo">
                                 <button className={style.btnExcluir} onClick={handleExcluir}>
                                     Excluir
                                 </button>
-                                <button className={style.btnEditar}>
+                                <button className={style.btnEditar} onClick={handleEditar}>
                                     Editar
                                 </button>
                             </div>

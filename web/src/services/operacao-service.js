@@ -48,11 +48,17 @@ export async function createOperacao(data) {
     });
 };
 
-export async function updateOperacao(data){
+export async function updateOperacao(id, data){
     const accessToken = sessionStorage.getItem('token');
-    const result = await api.put(`/operacao/${data.id}`, {
-        nome: data.nomeOperacao,
-        undadeMedida: data.cidade
+    const result = await api.put(`/operacao/${id}`, {
+        nome: data.nome,
+        custo: data.custo,
+        nAgentes: data.nAgentes,
+        qtdVeiculos: data.qtdVeiculos,
+        cidade: data.cidade,
+        data: data.data,
+        duracao: data.duracao,
+        comandante: data.comandante
     }, {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`

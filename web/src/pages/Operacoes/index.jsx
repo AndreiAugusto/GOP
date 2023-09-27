@@ -84,7 +84,7 @@ export function Operacoes() {
     return (
         <main className="main-container">
             <Header OpenSidebar={OpenSidebar} />
-            <div className="d-flex w-100 vh-100">
+            <div className="d-flex w-100">
                 <div>
                     <Sidebar
                         openSidebarToggle={openSidebarToggle}
@@ -100,21 +100,21 @@ export function Operacoes() {
                             >
                                 Criar nova operação
                             </button>
-                            <div class="container">
-                                <div class="row mb-3 fw-bold text-dark responsivo-sumiu">
-                                    <div class="col">
+                            <div className="container">
+                                <div className="row mb-3 fw-bold text-dark responsivo-sumiu">
+                                    <div className="col">
                                     #
                                     </div>
-                                    <div class="col">
+                                    <div className="col">
                                     Operação
                                     </div>
-                                    <div class="col">
+                                    <div className="col">
                                     Custo
                                     </div>
-                                    <div class="col">
+                                    <div className="col">
                                     Local
                                     </div>
-                                    <div class="col">
+                                    <div className="col">
                                     </div>
                                 </div>
                             </div>

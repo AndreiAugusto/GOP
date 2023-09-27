@@ -50,3 +50,17 @@ hr{
 }.btnEditar:hover{
     background: #28166f;
 }
+
+@media(max-width: 700px){
+    .btnEditar{
+        margin: 5px;
+        width: 100%;
+    }
+    .btnExcluir{
+        width: 100%;
+    }
+    .mainCard{
+        padding-bottom: 0;
+    }
+
+}

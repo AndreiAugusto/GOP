@@ -1,11 +1,10 @@
 import {  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import {CgProfile} from 'react-icons/cg'
 import style from "../Operacao/styles.module.css";
 
-import {
-    updateOperacao
-} from "../../services/operacao-service";
+import { getUsuario, autenticaOToken } from "../../services/usuario-service";
 
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
@@ -22,43 +21,32 @@ export function Perfil() {
 
 
     useEffect(() => {
-        // setEmail();
-        // console.log(emailUsu);
-        // findOperacao();
+        findUsuario();
     }, []);
 
-    async function findOperacao() {
+    async function findUsuario() {
         try {
-            // const result = await getOperacao(id);
-            // setOperacoes(result.data);
+            const idUsuario = await autenticaOToken();
+            const result = await getUsuario(idUsuario.data);
+            setUsuario(result.data);
         } catch (error) {
             console.error(error);
             navigate("/");
         }
     }
 
-
-
-    async function editOperacao(data) {
-        try {
-            await updateOperacao({
-                id: data.id,
-                nomeOperacao: data.nomeOperacao,
-                cidade: data.cidade,
-            });
-            await findOperacao();
-        } catch (error) {
-            console.error(data);
-        }
-    }
-
-    function alerta(message) {
-        return alert(message);
-    }
-
-    function voltar(){
-        navigate('/operacoes');
-    }
+    // async function editOperacao(data) {
+    //     try {
+    //         await updateOperacao({
+    //             id: data.id,
+    //             nomeOperacao: data.nomeOperacao,
+    //             cidade: data.cidade,
+    //         });
+    //         await findOperacao();
+    //     } catch (error) {
+    //         console.error(data);
+    //     }
+    // }
 
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
@@ -78,36 +66,27 @@ export function Perfil() {
                 </div>
                 <div className="p-3 w-100">
                     <div className={style.mainCard}>
-                        <h1 className="text-dark mb-5">Visualizar Operação</h1>
+                        <h1 className="text-dark mb-3">Perfil</h1>
+                        <CgProfile className='icon-profile-large m-2 text-dark'/>
                         <div className={style.item}>
-                            <p className="fw-bold">Nome da Operação</p>
+                            <p className="fw-bold">Nome</p>
                             <p>{usuario.nome}</p>
                         </div>
                         <hr />
                         <div className={style.item}>
-                            <p className="fw-bold">Custo</p>
-                            {/* <p>{usuario.email}</p> */}
+                            <p className="fw-bold">Email</p>
+                            <p>{usuario.email}</p>
                         </div>
                         <hr />
                         <div className={style.item}>
-                            <p className="fw-bold">Número de Agentes</p>
-                            <p>********</p>
+                            <p className="fw-bold">Senha</p>
+                            <p>************</p>
                         </div>
                         <hr className="mb-5" />
-                        <div className="d-flex w-100">
-                            <div className="d-flex w-100 justify-content-start">
-                                <button className={style.btnEditar} onClick={voltar}>
-                                    Voltar
-                                </button>
-                            </div>
-                            <div className="w-100 d-flex justify-content-end">
-                                <button className={style.btnExcluir}>
-                                    Excluir
-                                </button>
-                                <button className={style.btnEditar}>
-                                    Editar
-                                </button>
-                            </div>
+                        <div className="w-100 d-flex justify-content-end">
+                            <button className={style.btnEditar}>
+                                Editar
+                            </button>
                         </div>
                     </div>
                 </div>

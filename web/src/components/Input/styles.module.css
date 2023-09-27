@@ -13,3 +13,17 @@
     outline-color: #00ff886f;
     box-sizing: border-box;
 }
+
+.inputEditar{
+    width: 100%;
+    border-style: solid;
+    border-color: #B1B1B1;
+    border-radius: 10px;
+    padding: 7px;
+    color: black;
+    font-size: 12pt;
+    /* box-shadow: 0 10px 40px #00000040; */
+    outline-width: 0.5px;
+    outline-color: #00ff886f;
+    box-sizing: border-box;
+}

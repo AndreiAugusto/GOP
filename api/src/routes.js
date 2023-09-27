@@ -11,6 +11,8 @@ const operacoesController = new OperacoesController();
 const usuarioController = new UsuarioController();
 const veiculosController = new VeiculosController();
 
+routes.get('/aut', authMiddleware, usuarioController.autenticaToken)
+
 routes.post('/operacao', authMiddleware, operacoesController.create);
 routes.get('/operacoes', authMiddleware, operacoesController.getAll);
 routes.get('/operacoes/:id', authMiddleware, operacoesController.getOne);
@@ -20,7 +22,7 @@ routes.put('/operacao/:id', authMiddleware, operacoesController.update);
 routes.post('/registrar', usuarioController.registrar);
 routes.post('/login', usuarioController.login);
 routes.get('/usuarios', authMiddleware, usuarioController.getAll);
-routes.get('/usuario', authMiddleware, usuarioController.getOne);
+routes.get('/usuario/:id', authMiddleware, usuarioController.getOne);
 routes.put('/editarUsuario/:id', authMiddleware, usuarioController.update);
 
 routes.post('/operacao/veiculo', authMiddleware, veiculosController.create);
