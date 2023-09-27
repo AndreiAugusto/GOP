@@ -31,12 +31,3 @@ body{
 }.btnCriar:hover{
     background: #28166f;
 }
-
-.pResponsive{
-    margin: 0 10px;
-}
-@media(max-width: 600px){
-    .pResponsive{
-        display: none;
-    }
-}

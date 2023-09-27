@@ -1,8 +1,9 @@
+import { Button, Modal } from "react-bootstrap";
 import {  useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import style from "../Operacoes/styles.module.css";
+import style from "./styles.module.css";
 
 import {
     getOperacao,
@@ -15,6 +16,7 @@ import { Sidebar } from "../../components/Sidebar/sidebar";
 
 export function PageOperacao() {
     const navigate = useNavigate();
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [operacoes, setOperacoes] = useState([]);
     const {
         register,
@@ -25,10 +27,10 @@ export function PageOperacao() {
 
     const {id} = useParams();
     useEffect(() => {
-        findOperacoes();
+        findOperacao();
     }, []);
 
-    async function findOperacoes() {
+    async function findOperacao() {
         try {
             const result = await getOperacao(id);
             setOperacoes(result.data);
@@ -38,10 +40,16 @@ export function PageOperacao() {
         }
     }
 
-    async function removeOperacao(id) {
+    const handleExcluir = () => {
+        setModalIsOpen(true);
+        console.log(modalIsOpen)
+      };
+
+
+    async function removeOperacao() {
         try {
             await deleteOperacao(id);
-            await findOperacoes();
+            navigate('/operacoes')
         } catch (error) {
             console.error(error);
         }
@@ -55,7 +63,7 @@ export function PageOperacao() {
                 nomeOperacao: data.nomeOperacao,
                 cidade: data.cidade,
             });
-            await findOperacoes();
+            await findOperacao();
         } catch (error) {
             console.error(data);
         }
@@ -63,6 +71,10 @@ export function PageOperacao() {
 
     function alerta(message) {
         return alert(message);
+    }
+
+    function voltar(){
+        navigate('/operacoes');
     }
 
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
@@ -82,15 +94,85 @@ export function PageOperacao() {
                     />
                 </div>
                 <div className="p-3 w-100">
-                    <div className={style.main}>
-                        <p>{operacoes.nome}</p>
-                        <p>{operacoes.custo}</p>
-                        <p>{operacoes.qtdVeiculo}</p>
-                        <p>{operacoes.nAgente}</p>
-                        <p>{operacoes.comandante}</p>
+                    <div className={style.mainCard}>
+                        <h1 className="text-dark mb-5">Visualizar Operação</h1>
+                        <div className={style.item}>
+                            <p className="fw-bold">Nome da Operação</p>
+                            <p>{operacoes.nome}</p>
+                        </div>
+                        <hr />
+                        <div className={style.item}>
+                            <p className="fw-bold">Custo</p>
+                            <p>R$ {operacoes.custo}</p>
+                        </div>
+                        <hr />
+                        <div className={style.item}>
+                            <p className="fw-bold">Número de Agentes</p>
+                            <p>{operacoes.nAgentes}</p>
+                        </div>
+                        <hr />
+                        <div className={style.item}>
+                            <p className="fw-bold">Quantidade de Veículos</p>
+                            <p>{operacoes.qtdVeiculos}</p>
+                        </div>
+                        <hr />
+                        <div className={style.item}>
+                            <p className="fw-bold">Cidade</p>
+                            <p>{operacoes.cidade}</p>
+                        </div>
+                        <hr />
+                        <div className={style.item}>
+                            <p className="fw-bold">Data</p>
+                            <p>{operacoes.data}</p>
+                        </div>
+                        <hr />
+                        <div className={style.item}>
+                            <p className="fw-bold">Duração da operação</p>
+                            <p>{operacoes.duracao} dias</p>
+                        </div>
+                        <hr />
+                        <div className={style.item}>
+                            <p className="fw-bold">Comandante da operação</p>
+                            <p>{operacoes.comandante}</p>
+                        </div>
+                        <hr className="mb-5" />
+                        <div className="d-flex w-100">
+                            <div className="d-flex w-100 justify-content-start">
+                                <button className={style.btnEditar} onClick={voltar}>
+                                    Voltar
+                                </button>
+                            </div>
+                            <div className="w-100 d-flex justify-content-end">
+                                <button className={style.btnExcluir} onClick={handleExcluir}>
+                                    Excluir
+                                </button>
+                                <button className={style.btnEditar}>
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <Modal
+                show={modalIsOpen}
+                onHide={() => setModalIsOpen(false)}
+            >
+                <Modal.Header>
+                    <Modal.Title>
+                        Confirmar exclusão?
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Footer>
+                    <Button
+                        variant='primary'
+                        onClick={removeOperacao}>Sim, excluir</Button>
+                    <Button
+                        variant="secondary"
+                        onClick={() => setModalIsOpen(false)}>Não excluir</Button>
+                </Modal.Footer>
+            </Modal>
         </main>
     );
 }

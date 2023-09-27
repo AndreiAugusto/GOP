@@ -1,0 +1,52 @@
+.mainCard{
+    /* background-color: red; */
+    width: 80%;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 4px 4px 15px 0 rgba(0, 0, 0, 0.25);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+hr{
+    width: 100%;
+    color: black;
+}
+
+.btnExcluir{
+    padding: 6px 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 7px;
+    font-weight: 600;
+    color:white;
+    background: #dc3545;
+    cursor: pointer;
+    transition-duration: 0.2s;
+}.btnExcluir:hover{
+    background: #e00016;
+}
+
+.btnEditar{
+    padding: 6px 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 7px;
+    font-weight: 600;
+    color:white;
+    background: #7749f8;
+    cursor: pointer;
+    transition-duration: 0.2s;
+}.btnEditar:hover{
+    background: #28166f;
+}

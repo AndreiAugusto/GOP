@@ -1,4 +1,4 @@
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import {  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -40,7 +40,7 @@ export function Operacoes() {
         }
     }
 
-    async function removeOperacao(id) {
+    async function visualizarOperacao(id) {
         try {
             navigate(`/operacao/${id}`);
         } catch (error) {
@@ -100,21 +100,32 @@ export function Operacoes() {
                             >
                                 Criar nova operação
                             </button>
-                            <div className="d-flex justify-content-between fw-bold fs-5 ps-4 pe-4">
-                                <p className={style.pResponsive}>#</p>
-                                <p className={style.pResponsive}>Operação</p>
-                                <p className={style.pResponsive}>Custo</p>
-                                <p className={style.pResponsive}>Local</p>
-                                <p className="text-light">asdssasdasd</p>
-
+                            <div class="container">
+                                <div class="row mb-3 fw-bold text-dark responsivo-sumiu">
+                                    <div class="col">
+                                    #
+                                    </div>
+                                    <div class="col">
+                                    Operação
+                                    </div>
+                                    <div class="col">
+                                    Custo
+                                    </div>
+                                    <div class="col">
+                                    Local
+                                    </div>
+                                    <div class="col">
+                                    </div>
+                                </div>
                             </div>
                             <hr />
                             {operacoes && operacoes.length > 0 ? (
                                 operacoes.map((operacao) => (
                                     <Operacao
+                                        key={operacao.id}
                                         operacao={operacao}
                                         removeOperacao={async () => {
-                                            await removeOperacao(operacao.id);
+                                            await visualizarOperacao(operacao.id);
                                         }}
                                         editOperacao={editOperacao}
                                     />

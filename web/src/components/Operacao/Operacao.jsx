@@ -16,25 +16,27 @@ export function Operacao(props) {
     return (
 
         <div key={props.operacao.id} className={style.list}>
-            <div className={style.infos}>
-                    <p className='m-0 d-flex align-self-center'>
-                        {props.operacao.id}
-                    </p>
-                    <p className='m-0 d-flex align-self-center'>
-                        {props.operacao.nome}
-                    </p>
-                    <p className='m-0 d-flex align-self-center'>
-                        {props.operacao.custo}
-                    </p>
-                    <p className='m-0 d-flex align-self-center'>
-                        {props.operacao.cidade}
-                    </p>
 
-                <div className={style.botoes}>
-                    <button
-                        className={style.btnDeletar}
-                        onClick={props.removeOperacao}
-                    >Visualizar</button>
+            <div className="container">
+                <div className="row align-items-center text-dark responsivo">
+                    <div className="col responsivo2">
+                    {props.operacao.id}
+                    </div>
+                    <div className="col responsivo2">
+                    {props.operacao.nome}
+                    </div>
+                    <div className="col responsivo2">
+                    {props.operacao.custo}
+                    </div>
+                    <div className="col responsivo2">
+                    {props.operacao.cidade}
+                    </div>
+                    <div className="col">
+                        <button
+                            className={style.btnVisualizar}
+                            onClick={props.removeOperacao}
+                        >Visualizar</button>
+                    </div>
                 </div>
             </div>
             <hr />

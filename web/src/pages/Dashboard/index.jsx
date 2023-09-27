@@ -71,10 +71,6 @@ export function Dashboard() {
             <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
           </div>
           <div className='p-3 w-75'>
-            <div className='main-title'>
-              <h3>DASHBOARD</h3>
-            </div>
-
             <div className='main-cards'>
                 <div className='card'>
                     <div className='card-inner'>
@@ -155,7 +151,7 @@ export function Dashboard() {
 
           </div>
         </div>
-        
+
 
     </main>
   )
