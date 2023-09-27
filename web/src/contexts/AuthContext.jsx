@@ -10,13 +10,13 @@ export function AuthContextProvider ({ children }) {
 
     const login = async (data) => {
         try {
-            setLoading(true)
+            setLoading(true);
             const result = await api.post('/login', data);
             sessionStorage.setItem(
                 'token',
                 JSON.stringify(result.data.accessToken)
             );
-            navigate('/dashboard')
+            navigate('/dashboard');
         } catch (error) {
             alert(`Houve um erro no Login: ${error.response.data.error}`)
         } finally{

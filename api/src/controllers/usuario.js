@@ -86,6 +86,21 @@ class UsuarioController {
             return httpHelper.internalError(error);
         }
     }
+
+    async getOne(request, response){
+        const httpHelper = new HttpHelper(response);
+        try {
+            const { email } = request.body;
+            if (!email) return httpHelper.badRequest('Parâmetros inválidos!');
+            const usuario = await UsuarioModel.findOne(
+                { where:{ email } }
+            );
+            if(!usuario) return httpHelper.notFound('Usuário não encontrado!');
+            return httpHelper.ok(usuario.toJSON())
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+    }
 }
 
 module.exports = { UsuarioController };
