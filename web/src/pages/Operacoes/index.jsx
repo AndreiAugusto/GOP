@@ -17,6 +17,8 @@ import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
 
 export function Operacoes() {
+    const [busca, setBusca] = useState('');
+    const [ordem, setOrdem] = useState('decrescente');
     const [operacoes, setOperacoes] = useState([]);
     const [isCreated, setIsCreated] = useState(false);
     const {
@@ -26,17 +28,32 @@ export function Operacoes() {
         formState: { errors },
     } = useForm();
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
     useEffect(() => {
         findOperacoes();
     }, []);
 
+    const nomesDeOperacoes = operacoes.map((e) => e.nome);
+    const operacoesFiltradas = nomesDeOperacoes.
+        filter((operacao) => operacao.startsWith(busca));
+
     async function findOperacoes() {
         try {
-            const result = await getOperacoes();
+            const result = await getOperacoes(ordem);
             setOperacoes(result.data);
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    const handleOrdem = () =>{
+        if( ordem === 'crescente'){
+            setOrdem('decrescente');
+            findOperacoes();
+        } else {
+            setOrdem('crescente');
+            findOperacoes();
         }
     }
 
@@ -71,9 +88,6 @@ export function Operacoes() {
         }
     }
 
-    function alerta(message) {
-        return alert(message);
-    }
 
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
@@ -84,7 +98,7 @@ export function Operacoes() {
     return (
         <main className="main-container">
             <Header OpenSidebar={OpenSidebar} />
-            <div className="d-flex w-100">
+            <div className="d-flex w-100 h-100">
                 <div>
                     <Sidebar
                         openSidebarToggle={openSidebarToggle}
@@ -103,7 +117,7 @@ export function Operacoes() {
                             <div className="container">
                                 <div className="row mb-3 fw-bold text-dark responsivo-sumiu">
                                     <div className="col">
-                                    #
+                                        <a onClick={handleOrdem}>#</a>
                                     </div>
                                     <div className="col">
                                     Operação

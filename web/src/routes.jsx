@@ -5,9 +5,10 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Dashboard } from "./pages/Dashboard";
 import { Perfil } from "./pages/Perfil";
+import { EditPerfil } from "./pages/Perfil/editPerfil.jsx";
 import { Operacoes } from "./pages/Operacoes";
 import { PageOperacao } from "./pages/Operacao";
-import { EditOperacao } from "./pages/EditOperacao";
+import { EditOperacao } from "./pages/Operacao/edidOperacao";
 
 export const isAuthenticated = () => {
     const token = sessionStorage.getItem('token');
@@ -32,6 +33,11 @@ export function Navigations() {
                     <Route path="/perfil" element={
                         <PrivateRoute>
                             <Perfil />
+                        </PrivateRoute>
+                    } />
+                    <Route path="/editPerfil" element={
+                        <PrivateRoute>
+                            <EditPerfil />
                         </PrivateRoute>
                     } />
                     <Route path="/operacoes" element={

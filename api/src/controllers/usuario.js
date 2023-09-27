@@ -45,7 +45,6 @@ class UsuarioController {
             if (err) {
                 return httpHelper.badRequest('Token não autenticado');
             } else {
-                console.log('Token decodificado:', decodedToken);
                 return httpHelper.ok(decodedToken.id);
             }
             });

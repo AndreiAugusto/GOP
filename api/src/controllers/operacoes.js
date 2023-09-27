@@ -45,7 +45,19 @@ class OperacoesController {
     async getAll(request, response) {
         const httpHelper = new HttpHelper(response);
         try {
-            const operacao = await OperacoesModel.findAll();
+            const ordenacao = request.query.ordenacao;
+            let ordenacaoOpcoes = [['id', 'ASC']];
+
+            if (ordenacao === 'crescente') {
+              // Se o parâmetro "ordenacao" for "crescente", atualize as opções de ordenação
+              ordenacaoOpcoes = [['id', 'ASC']];
+            } else if (ordenacao === 'decrescente') {
+              // Se o parâmetro "ordenacao" for "decrescente", atualize as opções de ordenação
+              ordenacaoOpcoes = [['id', 'DESC']];
+            }
+            const operacao = await OperacoesModel.findAll({
+                order: ordenacaoOpcoes
+            });
             return httpHelper.ok(operacao);
         } catch (error) {
             return httpHelper.internalError(error);

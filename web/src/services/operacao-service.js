@@ -1,8 +1,10 @@
 import { api } from './api';
 
-export async function getOperacoes() {
+export async function getOperacoes(ord) {
     const accessToken = sessionStorage.getItem('token');
-    const result = await api.get('/operacoes', {
+    let defaut = 'decrescente'
+    if(ord) defaut = ord;
+    const result = await api.get(`/operacoes?ordenacao=${defaut}`, {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`
         }

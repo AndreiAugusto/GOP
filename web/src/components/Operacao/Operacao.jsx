@@ -26,7 +26,7 @@ export function Operacao(props) {
                     {props.operacao.nome}
                     </div>
                     <div className="col responsivo2">
-                    {props.operacao.custo}
+                    R$ {props.operacao.custo}
                     </div>
                     <div className="col responsivo2">
                     {props.operacao.cidade}

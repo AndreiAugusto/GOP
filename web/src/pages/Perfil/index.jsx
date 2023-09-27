@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import {CgProfile} from 'react-icons/cg'
 import style from "../Operacao/styles.module.css";
 
-import { getUsuario, autenticaOToken } from "../../services/usuario-service";
+import { getUsuario, autenticaOToken, updateUsuario } from "../../services/usuario-service";
 
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
@@ -35,18 +35,19 @@ export function Perfil() {
         }
     }
 
-    // async function editOperacao(data) {
-    //     try {
-    //         await updateOperacao({
-    //             id: data.id,
-    //             nomeOperacao: data.nomeOperacao,
-    //             cidade: data.cidade,
-    //         });
-    //         await findOperacao();
-    //     } catch (error) {
-    //         console.error(data);
-    //     }
-    // }
+    async function editUsuario(data) {
+        try {
+            console.log(data);
+            // await updateUsuario({
+            //     id: data.id,
+            //     nomeOperacao: data.nomeOperacao,
+            //     cidade: data.cidade,
+            // });
+            navigate(`/editPerfil`)
+        } catch (error) {
+            console.error(data);
+        }
+    }
 
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
@@ -84,7 +85,7 @@ export function Perfil() {
                         </div>
                         <hr className="mb-5" />
                         <div className="w-100 d-flex justify-content-end">
-                            <button className={style.btnEditar}>
+                            <button className={style.btnEditar} onClick={editUsuario}>
                                 Editar
                             </button>
                         </div>
