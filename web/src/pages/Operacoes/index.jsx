@@ -17,10 +17,6 @@ import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
 
 export function Operacoes() {
-    const [busca, setBusca] = useState('');
-    const [ordem, setOrdem] = useState('decrescente');
-    const [operacoes, setOperacoes] = useState([]);
-    const [isCreated, setIsCreated] = useState(false);
     const {
         register,
         handleSubmit,
@@ -28,31 +24,39 @@ export function Operacoes() {
         formState: { errors },
     } = useForm();
 
+    const [busca, setBusca] = useState();
+    const [operacoesFiltradas, setOperacoesFiltradas] = useState();
+    const [ordemId, setOrdemId] = useState('decrescente');
+    const [operacoes, setOperacoes] = useState([]);
+    const [isCreated, setIsCreated] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
         findOperacoes();
     }, []);
 
-    const nomesDeOperacoes = operacoes.map((e) => e.nome);
-    const operacoesFiltradas = nomesDeOperacoes.
-        filter((operacao) => operacao.startsWith(busca));
 
     async function findOperacoes() {
         try {
-            const result = await getOperacoes(ordem);
+            const result = await getOperacoes(ordemId);
             setOperacoes(result.data);
         } catch (error) {
             console.error(error);
         }
     }
 
+    const handleBusca = (data) =>{
+        setBusca(data.target.value.toLowerCase());
+        console.log(busca)
+    }
+
     const handleOrdem = () =>{
-        if( ordem === 'crescente'){
-            setOrdem('decrescente');
+        if( ordemId === 'crescente'){
+            setOrdemId('decrescente');
             findOperacoes();
         } else {
-            setOrdem('crescente');
+            setOrdemId('crescente');
             findOperacoes();
         }
     }
@@ -129,12 +133,26 @@ export function Operacoes() {
                                     Local
                                     </div>
                                     <div className="col">
+                                        <input type="text" name="busca" onChange={handleBusca}/>
                                     </div>
                                 </div>
                             </div>
                             <hr />
-                            {operacoes && operacoes.length > 0 ? (
-                                operacoes.map((operacao) => (
+                            {operacoes.length > 0 ? (
+                                busca ? (
+                                    operacoes
+                                    .filter((operacao) => operacao.nome.toLowerCase().includes(busca))
+                                    .map((operacao) => (
+                                        <Operacao
+                                            key={operacao.id}
+                                            operacao={operacao}
+                                            removeOperacao={async () => {
+                                                await visualizarOperacao(operacao.id);
+                                            }}
+                                            editOperacao={editOperacao}
+                                        />
+                                    ))
+                                ): operacoes.map((operacao) => (
                                     <Operacao
                                         key={operacao.id}
                                         operacao={operacao}

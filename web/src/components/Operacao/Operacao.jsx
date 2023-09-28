@@ -26,7 +26,10 @@ export function Operacao(props) {
                     {props.operacao.nome}
                     </div>
                     <div className="col responsivo2">
-                    R$ {props.operacao.custo}
+                    {props.operacao.custo.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                    })}
                     </div>
                     <div className="col responsivo2">
                     {props.operacao.cidade}

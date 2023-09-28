@@ -17,7 +17,7 @@ import { Sidebar } from "../../components/Sidebar/sidebar";
 export function PageOperacao() {
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [operacoes, setOperacoes] = useState([]);
+    const [operacoes, setOperacoes] = useState();
     const {
         register,
         handleSubmit,
@@ -26,6 +26,7 @@ export function PageOperacao() {
     } = useForm();
 
     const {id} = useParams();
+
     useEffect(() => {
         findOperacao();
     }, []);
@@ -34,6 +35,7 @@ export function PageOperacao() {
         try {
             const result = await getOperacao(id);
             setOperacoes(result.data);
+            console.log(operacoes)
         } catch (error) {
             console.error(error);
             navigate("/");
@@ -55,24 +57,6 @@ export function PageOperacao() {
         } catch (error) {
             console.error(error);
         }
-    }
-
-
-    async function editOperacao(data) {
-        try {
-            await updateOperacao({
-                id: data.id,
-                nomeOperacao: data.nomeOperacao,
-                cidade: data.cidade,
-            });
-            await findOperacao();
-        } catch (error) {
-            console.error(data);
-        }
-    }
-
-    function alerta(message) {
-        return alert(message);
     }
 
     function voltar(){
@@ -100,8 +84,10 @@ export function PageOperacao() {
                     />
                 </div>
                 <div className="p-3 w-100">
+                {operacoes?
                     <div className={style.mainCard}>
                         <h1 className="text-dark mb-5">Visualizar Operação</h1>
+
                         <div className={style.item}>
                             <p className="fw-bold">Nome da Operação</p>
                             <p>{operacoes.nome}</p>
@@ -109,7 +95,10 @@ export function PageOperacao() {
                         <hr />
                         <div className={style.item}>
                             <p className="fw-bold">Custo</p>
-                            <p>R$ {operacoes.custo}</p>
+                            <p>{operacoes.custo.toLocaleString("pt-BR", {
+                                style: "currency",
+                                currency: "BRL",
+                            })}</p>
                         </div>
                         <hr />
                         <div className={style.item}>
@@ -158,6 +147,8 @@ export function PageOperacao() {
                             </div>
                         </div>
                     </div>
+
+                : <p>Erro</p>}
                 </div>
             </div>
 

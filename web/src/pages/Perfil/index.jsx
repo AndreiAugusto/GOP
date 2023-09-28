@@ -1,10 +1,9 @@
 import {  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import {CgProfile} from 'react-icons/cg'
 import style from "../Operacao/styles.module.css";
 
-import { getUsuario, autenticaOToken, updateUsuario } from "../../services/usuario-service";
+import { getUsuario, autenticaOToken } from "../../services/usuario-service";
 
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
@@ -12,12 +11,6 @@ import { Sidebar } from "../../components/Sidebar/sidebar";
 export function Perfil() {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState([]);
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm();
 
 
     useEffect(() => {
@@ -38,11 +31,6 @@ export function Perfil() {
     async function editUsuario(data) {
         try {
             console.log(data);
-            // await updateUsuario({
-            //     id: data.id,
-            //     nomeOperacao: data.nomeOperacao,
-            //     cidade: data.cidade,
-            // });
             navigate(`/editPerfil`)
         } catch (error) {
             console.error(data);
