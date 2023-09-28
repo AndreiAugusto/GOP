@@ -64,6 +64,15 @@ class OperacoesController {
         }
     }
 
+    async countOperacoes(req, res){
+        try {
+            const result = await OperacoesModel.count();
+            return httpHelper.ok({total: result});
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+    }
+
     async getOne(request, response){
         const httpHelper = new HttpHelper(response);
         try {

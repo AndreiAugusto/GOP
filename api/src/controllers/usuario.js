@@ -84,10 +84,14 @@ class UsuarioController {
                 senha
             } = request.body;
             if( !id ) return httpHelper.badRequest('Parâmetros inválidos!');
+            const passwordHashed = await bcrypt.hash(
+                senha,
+                Number(process.env.SALT)
+            );
             await UsuarioModel.update({
                 nome,
                 email,
-                senha
+                senha: passwordHashed
             }, {
                 where: { id }
             });

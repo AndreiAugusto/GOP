@@ -18,6 +18,7 @@ routes.get('/operacoes', authMiddleware, operacoesController.getAll);
 routes.get('/operacoes/:id', authMiddleware, operacoesController.getOne);
 routes.delete('/operacao/:id', authMiddleware, operacoesController.delete);
 routes.put('/operacao/:id', authMiddleware, operacoesController.update);
+routes.get('/countOperacoes', operacoesController.countOperacoes);
 
 routes.post('/registrar', usuarioController.registrar);
 routes.post('/login', usuarioController.login);

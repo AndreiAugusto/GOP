@@ -79,6 +79,10 @@ export function PageOperacao() {
         navigate('/operacoes');
     }
 
+    function formatarData(data) {
+        return new Date(data).toLocaleDateString('pt-BR');
+      }
+
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
     const OpenSidebar = () => {
@@ -125,7 +129,7 @@ export function PageOperacao() {
                         <hr />
                         <div className={style.item}>
                             <p className="fw-bold">Data</p>
-                            <p>{operacoes.data}</p>
+                            <p>{formatarData(operacoes.data)}</p>
                         </div>
                         <hr />
                         <div className={style.item}>

@@ -1,6 +1,4 @@
 import { api } from './api';
-// const bcrypt = require('bcrypt');
-// import {}from 'bcrypt'
 
 export async function getUsuario(id) {
     const accessToken = sessionStorage.getItem('token');
@@ -28,15 +26,10 @@ export async function updateUsuario(data){
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`
         }});
-
-    // const passwordHashed = await bcrypt.hash(
-    //     data.senha,
-    //     Number(10)
-    // );
     const result = await api.put(`/editarUsuario/${id.data}`,{
         nome: data.nome,
         email: data.email,
-        // senha: passwordHashed
+        senha: data.senha
     }, {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`
