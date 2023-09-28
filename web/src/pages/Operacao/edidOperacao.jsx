@@ -189,7 +189,7 @@ export function EditOperacao() {
                                         Clique para selecionar
                                     </option>
                                     <option>Cuiabá</option>
-                                    <option>VG</option>
+                                    <option>Várzea Grande</option>
                                     <option>Sorriso</option>
                                     <option>Rondonópolis</option>
                                 </Form.Select>
