@@ -88,7 +88,7 @@ export function EditOperacao() {
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
-                                    placeholder={operacoes.nome}
+                                    defaultValue={operacoes.nome}
                                     name="nome"
                                     {...register("nome", {
                                         required: {
@@ -112,7 +112,7 @@ export function EditOperacao() {
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
-                                    placeholder={operacoes.custo}
+                                    defaultValue={operacoes.custo}
                                     name="custo"
                                     {...register("custo", {
                                         required: {
@@ -135,7 +135,7 @@ export function EditOperacao() {
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
-                                    placeholder={operacoes.nAgentes}
+                                    defaultValue={operacoes.nAgentes}
                                     name="nAgentes"
                                     {...register("nAgentes", {
                                         required: {
@@ -158,7 +158,7 @@ export function EditOperacao() {
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
-                                    placeholder={operacoes.qtdVeiculos}
+                                    defaultValue={operacoes.qtdVeiculos}
                                     name="qtdVeiculos"
                                     {...register("qtdVeiculos", {
                                         required: {
@@ -223,7 +223,7 @@ export function EditOperacao() {
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
-                                    placeholder={operacoes.duracao}
+                                    defaultValue={operacoes.duracao}
                                     name="duracao"
                                     {...register("duracao", {
                                         required: {
@@ -246,7 +246,7 @@ export function EditOperacao() {
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
-                                    placeholder={operacoes.comandante}
+                                    defaultValue={operacoes.comandante}
                                     name="comandante"
                                     {...register("comandante", {
                                         required: {

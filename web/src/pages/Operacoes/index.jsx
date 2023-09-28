@@ -25,7 +25,6 @@ export function Operacoes() {
     } = useForm();
 
     const [busca, setBusca] = useState();
-    const [operacoesFiltradas, setOperacoesFiltradas] = useState();
     const [ordemId, setOrdemId] = useState('decrescente');
     const [operacoes, setOperacoes] = useState([]);
     const [isCreated, setIsCreated] = useState(false);
@@ -48,7 +47,6 @@ export function Operacoes() {
 
     const handleBusca = (data) =>{
         setBusca(data.target.value.toLowerCase());
-        console.log(busca)
     }
 
     const handleOrdem = () =>{
@@ -132,10 +130,14 @@ export function Operacoes() {
                                     <div className="col">
                                     Local
                                     </div>
-                                    <div className="col">
-                                        <input type="text" name="busca" onChange={handleBusca}/>
-                                    </div>
                                 </div>
+                            </div>
+                            <div className="row ps-3 pe-3">
+                                <input className="form-control"
+                                    type="text" name="busca"
+                                    onChange={handleBusca}
+                                    placeholder="Pesquisar por nome de operação"
+                                />
                             </div>
                             <hr />
                             {operacoes.length > 0 ? (

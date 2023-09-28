@@ -28,29 +28,6 @@ import {
 } from "recharts";
 
 export function Dashboard() {
-    const data = [
-        {
-            name: "Cuiabá",
-            uv: 4000,
-            fill: "#8884d8",
-        },
-        {
-            name: "Várzea Grande",
-            uv: 3000,
-            fill: "#82ca9d",
-        },
-        {
-            name: "Sorriso",
-            uv: 2000,
-            fill: "#ff7300",
-        },
-        {
-            name: "Rondonópolis",
-            uv: 2780,
-            fill: "#413ea0",
-        },
-    ];
-
     const navigate = useNavigate();
     const [nOperacoes, setNOperacoes] = useState(0);
     const [somaCusto, setSomaCusto] = useState(0);
@@ -58,6 +35,7 @@ export function Dashboard() {
     const [somaAgentes, setSomaAgentes] = useState(0);
     const [operacoes, setOperacoes] = useState();
     const [dadosAgregados, setDadosAgregados] = useState();
+    const [custoAgregados, setCustoAgregados] = useState();
 
     useEffect(() => {
         pedaDados().then((data) => {
@@ -71,7 +49,7 @@ export function Dashboard() {
 
     useEffect(() => {
         if(operacoes){
-
+            // Configurando numero de operações por cidade
             const agregarDados = () => {
                 const novoDadosAgregados = {};
 
@@ -92,8 +70,29 @@ export function Dashboard() {
                 name: cidade,
                 value: dados[cidade],
               }));
-
             setDadosAgregados(dadosFormatados);
+
+            // Configurando custo por cidade
+            const custoPorCidade = {};
+
+            operacoes.forEach((item) => {
+                const cidade = item.cidade;
+                const custo = item.custo;
+
+                if (custoPorCidade[cidade]) {
+                    custoPorCidade[cidade] += custo;
+                } else {
+                    custoPorCidade[cidade] = custo;
+                }
+            });
+
+
+            const custoFormatado = Object.keys(custoPorCidade).map((cidade) => ({
+                name: cidade,
+                custo: custoPorCidade[cidade],
+              }));
+            setCustoAgregados(custoFormatado);
+            console.log(custoAgregados);
         } else{
             console.log('Operações nao estava setado')
         }
@@ -174,12 +173,14 @@ export function Dashboard() {
                 </div>
                 <div className="p-3 w-100">
                     <div className="main-cards">
-                        <div className="card">
-                            <div className="card-inner">
-                                <h3>OPERAÇÕES</h3>
+                        <a href="/operacoes">
+                            <div className="card">
+                                <div className="card-inner">
+                                    <h3>OPERAÇÕES</h3>
+                                </div>
+                                <h1 className="font18">{nOperacoes}</h1>
                             </div>
-                            <h1 className="font18">{nOperacoes}</h1>
-                        </div>
+                        </a>
                         <div className="card">
                             <div className="card-inner">
                                 <h3>CUSTOS</h3>
@@ -201,47 +202,28 @@ export function Dashboard() {
                     </div>
 
                     <div className="charts">
-                        {/* <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                    width={500}
-                    height={300}
-                    data={data}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                    }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Bar dataKey="uv" fill="#82ca9d"/>
-                    </BarChart>
-                </ResponsiveContainer> */}
+                        <ResponsiveContainer width="100%" height="100%">
+                            <BarChart
+                            width={500}
+                            height={300}
+                            data={custoAgregados}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                {custoAgregados ? (
+                                        <Bar key='name' dataKey='custo' fill="#0088FE"/>
 
-                        {/* <ResponsiveContainer width="100%" height="100%">
-                    <LineChart
-                    width={500}
-                    height={300}
-                    data={data}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                    }}
-                    >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                    </LineChart>
-                </ResponsiveContainer> */}
+                                    ): console.log('custosAgregados nao estava setado')}
+                            </BarChart>
+                        </ResponsiveContainer>
 
                         <ResponsiveContainer width="100%" height={300}>
                             <PieChart>
@@ -254,8 +236,8 @@ export function Dashboard() {
                                     outerRadius={80}
                                     label
                                 >
-                                {dadosAgregados? dadosAgregados.map((entry, index) => (
-                                  <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
+                                {dadosAgregados? dadosAgregados.map((item, index) => (
+                                    <Cell key={item.name} dataKey="custo" fill={cores[index]}/>
                                 )) : console.log('dados agregados nao estava setado')
                                 }
                                 </Pie>
@@ -263,6 +245,28 @@ export function Dashboard() {
                                 <Legend />
                             </PieChart>
                         </ResponsiveContainer>
+
+                    {/* <ResponsiveContainer width="100%" height="100%">
+                            <LineChart
+                                width={500}
+                                height={300}
+                                data={data}
+                                margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                                </LineChart>
+                        </ResponsiveContainer> */}
                     </div>
                 </div>
             </div>

@@ -86,7 +86,7 @@ export function EditPerfil() {
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
-                                    placeholder={usuario.nome}
+                                    defaultValue={usuario.nome}
                                     name="nome"
                                     {...register("nome", {
                                         required: {
@@ -110,7 +110,7 @@ export function EditPerfil() {
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
-                                    placeholder={usuario.email}
+                                    defaultValue={usuario.email}
                                     name="email"
                                     {...register("email", {
                                         required: {
