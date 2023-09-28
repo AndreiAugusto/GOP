@@ -12,6 +12,46 @@ export async function getOperacoes(ord) {
     return result;
 };
 
+export async function countOperacoes(){
+    const accessToken = sessionStorage.getItem('token');
+    const result = await api.get(`/countOperacoes/`, {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(accessToken)}`
+        }
+    });
+    return result;
+}
+
+export async function somaCustoOperacoes(){
+    const accessToken = sessionStorage.getItem('token');
+    const result = await api.get(`/somaCustoOperacoes/`, {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(accessToken)}`
+        }
+    });
+    return result;
+}
+
+export async function somaVeiculosOpereacoes(){
+    const accessToken = sessionStorage.getItem('token');
+    const result = await api.get(`/somaVeiculosOperacoes/`, {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(accessToken)}`
+        }
+    });
+    return result;
+}
+
+export async function somaAgentesOperacoes(){
+    const accessToken = sessionStorage.getItem('token');
+    const result = await api.get(`/somaAgentesOperacoes/`, {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(accessToken)}`
+        }
+    });
+    return result;
+}
+
 export async function getOperacao(id) {
     const accessToken = sessionStorage.getItem('token');
     const result = await api.get(`/operacoes/${id}`, {

@@ -18,7 +18,10 @@ routes.get('/operacoes', authMiddleware, operacoesController.getAll);
 routes.get('/operacoes/:id', authMiddleware, operacoesController.getOne);
 routes.delete('/operacao/:id', authMiddleware, operacoesController.delete);
 routes.put('/operacao/:id', authMiddleware, operacoesController.update);
-routes.get('/countOperacoes', operacoesController.countOperacoes);
+routes.get('/countOperacoes', authMiddleware, operacoesController.countOperacoes);
+routes.get('/somaCustoOperacoes', authMiddleware, operacoesController.somaCustoOperacoes);
+routes.get('/somaVeiculosOperacoes', authMiddleware, operacoesController.somaVeiculos);
+routes.get('/somaAgentesOperacoes', authMiddleware, operacoesController.somaAgentesOperacoes);
 
 routes.post('/registrar', usuarioController.registrar);
 routes.post('/login', usuarioController.login);

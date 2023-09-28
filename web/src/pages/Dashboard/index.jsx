@@ -3,7 +3,7 @@ import {  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from '../../components/Sidebar/sidebar';
 import { Header } from '../../components/Header/header';
-import { getOperacoes } from '../../services/operacao-service'
+import { countOperacoes, somaAgentesOperacoes, somaCustoOperacoes, somaVeiculosOpereacoes } from '../../services/operacao-service'
 
  import
  { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line }
@@ -54,26 +54,61 @@ export function Dashboard() {
     ];
 
   const navigate = useNavigate();
-  const [operacoes, setOperacoes] = useState();
-  const [contaOperacao, setContaOperacao] = useState();
-  
+  const [nOperacoes, setNOperacoes] = useState(0);
+  const [somaCusto, setSomaCusto] = useState(0);
+  const [somaVeiculos, setSomaVeiculos] = useState(0);
+  const [somaAgentes, setSomaAgentes] = useState(0);
+
   useEffect(() => {
-    getAllOp()
+    countOp();
+    somaCustoOp();
+    qtdVeiculos();
+    qtdAgentes();
   }, []);
 
-  async function getAllOp() {
+  async function qtdAgentes(){
     try {
-        // const result = await getOperacoes();
-        // setOperacoes(result.data);
-        // contarOperacoes();
+        const result = await somaAgentesOperacoes();
+        setSomaAgentes(result.data);
     } catch (error) {
         console.error(error);
         navigate("/");
     }
-}
-  const contarOperacoes = () => {
-    console.log(operacoes);
   }
+
+
+  async function qtdVeiculos(){
+    try {
+        const result = await somaVeiculosOpereacoes();
+        setSomaVeiculos(result.data);
+    } catch (error) {
+        console.error(error);
+        navigate("/");
+    }
+  }
+
+  async function somaCustoOp() {
+    try {
+        const result = await somaCustoOperacoes();
+        await setSomaCusto(result.data.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+          }));
+    } catch (error) {
+        console.error(error);
+        navigate("/");
+    }
+    }
+
+  async function countOp() {
+        try {
+            const result = await countOperacoes();
+            setNOperacoes(result.data);
+        } catch (error) {
+            console.error(error);
+            navigate("/");
+        }
+    }
 
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
@@ -85,35 +120,35 @@ export function Dashboard() {
     <main className='main-container'>
       <Header OpenSidebar={OpenSidebar}/>
         <div className='d-flex w-100 vh-100'>
-   
+
           <div>
             <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
           </div>
-          <div className='p-3 w-75'>
+          <div className='p-3 w-100'>
             <div className='main-cards'>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>OPERAÇÕES</h3>
                     </div>
-                    <h1>300</h1>
+                    <h1 className='font18'>{nOperacoes}</h1>
                 </div>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>CUSTOS</h3>
                     </div>
-                    <h1>200</h1>
+                    <h1 className='font13'>{somaCusto}</h1>
                 </div>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>VEICULOS</h3>
                     </div>
-                    <h1>33</h1>
+                    <h1 className='font18'>{somaVeiculos}</h1>
                 </div>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>AGENTES</h3>
                     </div>
-                    <h1>42</h1>
+                    <h1 className='font18'>{somaAgentes}</h1>
                 </div>
             </div>
 

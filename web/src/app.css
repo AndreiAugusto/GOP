@@ -10,6 +10,12 @@ body {
     color: black;
     /* font-weight: bold; */
   }
+  .font18{
+    font-size: 1.8rem;
+  }
+  .font13{
+    font-size: 1.3rem;
+  }
   hr{
     color: #8b8b8b;
     margin: 5px 0;
@@ -242,6 +248,12 @@ body {
   /* Small <= 768px */
 
   @media screen and (max-width: 768px) {
+    .font13{
+        font-size: 1.8rem;
+    }
+    .font18{
+        font-size: 2rem;
+    }
     .main-cards {
       grid-template-columns: 1fr;
       gap: 10px;

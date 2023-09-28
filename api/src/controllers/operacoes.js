@@ -64,10 +64,44 @@ class OperacoesController {
         }
     }
 
+    async  somaAgentesOperacoes(req, res) {
+        const httpHelper = new HttpHelper(res);
+        try {
+          const somaAgentes = await OperacoesModel.sum('nAgentes');
+
+          return httpHelper.ok(somaAgentes);
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+    }
+
+    async  somaCustoOperacoes(req, res) {
+        const httpHelper = new HttpHelper(res);
+        try {
+          const somaCusto = await OperacoesModel.sum('custo');
+
+          return httpHelper.ok(somaCusto);
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+      }
+
+      async  somaVeiculos(req, res) {
+          const httpHelper = new HttpHelper(res);
+          try {
+            const somaVeiculosOp = await OperacoesModel.sum('qtdVeiculos');
+
+            return httpHelper.ok(somaVeiculosOp);
+          } catch (error) {
+              return httpHelper.internalError(error);
+          }
+        }
+
     async countOperacoes(req, res){
+        const httpHelper = new HttpHelper(res);
         try {
             const result = await OperacoesModel.count();
-            return httpHelper.ok({total: result});
+            return httpHelper.ok(result);
         } catch (error) {
             return httpHelper.internalError(error);
         }
