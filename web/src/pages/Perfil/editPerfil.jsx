@@ -13,6 +13,9 @@ import { Sidebar } from "../../components/Sidebar/sidebar";
 export function EditPerfil() {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState([]);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
+
     const {
         register,
         handleSubmit,
@@ -23,6 +26,24 @@ export function EditPerfil() {
 
     useEffect(() => {
         findUsuario();
+
+        // Fechar sidebar quando tela ficar menor que 700px
+        const handleResize = () => {
+            const newWindowWidth = window.innerWidth;
+            setWindowWidth(newWindowWidth);
+
+            if (newWindowWidth >= 700) {
+              setOpenSidebarToggle(false);
+            } else {
+              setOpenSidebarToggle(true);
+            }
+          };
+
+          window.addEventListener('resize', handleResize);
+
+          return () => {
+            window.removeEventListener('resize', handleResize);
+          };
     }, []);
 
     async function findUsuario() {
@@ -55,8 +76,6 @@ export function EditPerfil() {
             console.error(error);
         }
     }
-
-    const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
     const OpenSidebar = () => {
       setOpenSidebarToggle(!openSidebarToggle)

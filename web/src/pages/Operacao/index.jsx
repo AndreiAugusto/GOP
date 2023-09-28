@@ -18,6 +18,9 @@ export function PageOperacao() {
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [operacoes, setOperacoes] = useState();
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
+
     const {
         register,
         handleSubmit,
@@ -29,6 +32,25 @@ export function PageOperacao() {
 
     useEffect(() => {
         findOperacao();
+
+        // Fechar sidebar quando tela ficar menor que 700px
+        const handleResize = () => {
+            const newWindowWidth = window.innerWidth;
+            setWindowWidth(newWindowWidth);
+
+            if (newWindowWidth >= 700) {
+              setOpenSidebarToggle(false);
+            } else {
+              setOpenSidebarToggle(true);
+            }
+          };
+
+          window.addEventListener('resize', handleResize);
+
+          return () => {
+            window.removeEventListener('resize', handleResize);
+          };
+
     }, []);
 
     async function findOperacao() {
@@ -66,8 +88,6 @@ export function PageOperacao() {
     function formatarData(data) {
         return new Date(data).toLocaleDateString('pt-BR');
       }
-
-    const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
     const OpenSidebar = () => {
       setOpenSidebarToggle(!openSidebarToggle)

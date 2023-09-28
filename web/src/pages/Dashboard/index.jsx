@@ -36,6 +36,8 @@ export function Dashboard() {
     const [operacoes, setOperacoes] = useState();
     const [dadosAgregados, setDadosAgregados] = useState();
     const [custoAgregados, setCustoAgregados] = useState();
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
 
     useEffect(() => {
         pedaDados().then((data) => {
@@ -45,6 +47,24 @@ export function Dashboard() {
         somaCustoOp();
         qtdVeiculos();
         qtdAgentes();
+
+        // Fechar sidebar quando tela ficar menor que 700px
+        const handleResize = () => {
+            const newWindowWidth = window.innerWidth;
+            setWindowWidth(newWindowWidth);
+
+            if (newWindowWidth >= 700) {
+              setOpenSidebarToggle(false);
+            } else {
+              setOpenSidebarToggle(true);
+            }
+          };
+
+          window.addEventListener('resize', handleResize);
+
+          return () => {
+            window.removeEventListener('resize', handleResize);
+          };
     }, []);
 
     useEffect(() => {
@@ -153,7 +173,6 @@ export function Dashboard() {
         }
     }
 
-    const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
 
     const OpenSidebar = () => {
         setOpenSidebarToggle(!openSidebarToggle);
