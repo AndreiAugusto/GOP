@@ -76,7 +76,7 @@ export function PageOperacao() {
     return (
         <main className="main-container">
             <Header OpenSidebar={OpenSidebar} />
-            <div className="d-flex w-100 vh-100">
+            <div className="d-flex w-100 min-vh-100">
                 <div>
                     <Sidebar
                         openSidebarToggle={openSidebarToggle}

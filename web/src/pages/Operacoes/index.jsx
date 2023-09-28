@@ -100,7 +100,7 @@ export function Operacoes() {
     return (
         <main className="main-container">
             <Header OpenSidebar={OpenSidebar} />
-            <div className="d-flex w-100 h-100">
+            <div className="d-flex w-100 min-vh-100">
                 <div>
                     <Sidebar
                         openSidebarToggle={openSidebarToggle}
@@ -129,6 +129,9 @@ export function Operacoes() {
                                     </div>
                                     <div className="col">
                                     Local
+                                    </div>
+                                    <div className="col">
+
                                     </div>
                                 </div>
                             </div>
