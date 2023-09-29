@@ -195,26 +195,26 @@ export function Dashboard() {
                         <a href="/operacoes">
                             <div className="card">
                                 <div className="card-inner">
-                                    <h3>OPERAÇÕES</h3>
+                                    <h3>Total operações</h3>
                                 </div>
                                 <h1 className="font18">{nOperacoes}</h1>
                             </div>
                         </a>
                         <div className="card">
                             <div className="card-inner">
-                                <h3>CUSTOS</h3>
+                                <h3>Custo total</h3>
                             </div>
                             <h1 className="font13">{somaCusto}</h1>
                         </div>
                         <div className="card">
                             <div className="card-inner">
-                                <h3>VEICULOS</h3>
+                                <h3>Total veículos</h3>
                             </div>
                             <h1 className="font18">{somaVeiculos}</h1>
                         </div>
                         <div className="card">
                             <div className="card-inner">
-                                <h3>AGENTES</h3>
+                                <h3>Total agentes</h3>
                             </div>
                             <h1 className="font18">{somaAgentes}</h1>
                         </div>
@@ -264,28 +264,6 @@ export function Dashboard() {
                                 <Legend />
                             </PieChart>
                         </ResponsiveContainer>
-
-                    {/* <ResponsiveContainer width="100%" height="100%">
-                            <LineChart
-                                width={500}
-                                height={300}
-                                data={data}
-                                margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                                </LineChart>
-                        </ResponsiveContainer> */}
                     </div>
                 </div>
             </div>

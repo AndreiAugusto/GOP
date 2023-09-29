@@ -129,7 +129,7 @@ export function EditOperacao() {
                                     Custo
                                 </Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="number"
                                     defaultValue={operacoes.custo}
                                     name="custo"
                                     {...register("custo", {
@@ -152,7 +152,7 @@ export function EditOperacao() {
                                     Numero de Agentes
                                 </Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="number"
                                     defaultValue={operacoes.nAgentes}
                                     name="nAgentes"
                                     {...register("nAgentes", {
@@ -175,7 +175,7 @@ export function EditOperacao() {
                                     Quantidade de Veículos
                                 </Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="number"
                                     defaultValue={operacoes.qtdVeiculos}
                                     name="qtdVeiculos"
                                     {...register("qtdVeiculos", {
@@ -240,7 +240,7 @@ export function EditOperacao() {
                                     Duração da operação
                                 </Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="number"
                                     defaultValue={operacoes.duracao}
                                     name="duracao"
                                     {...register("duracao", {

@@ -92,6 +92,7 @@ export function Operacoes() {
             await createOperacao(data);
             setIsCreated(false);
             await findOperacoes();
+            alert('Operação criada com sucesso')
         } catch (error) {
             console.error(error);
         }
@@ -138,7 +139,7 @@ export function Operacoes() {
                             <div className="container">
                                 <div className="row mb-3 fw-bold text-dark responsivo-sumiu">
                                     <div className="col">
-                                        <a onClick={handleOrdem}>#</a>
+                                        <a onClick={handleOrdem}>ID</a>
                                     </div>
                                     <div className="col">
                                     Operação
@@ -150,7 +151,6 @@ export function Operacoes() {
                                     Local
                                     </div>
                                     <div className="col">
-
                                     </div>
                                 </div>
                             </div>
@@ -231,7 +231,7 @@ export function Operacoes() {
                                                 Custo
                                             </Form.Label>
                                             <Form.Control
-                                                type="text"
+                                                type="number"
                                                 placeholder="Custo da Operação"
                                                 name="custo"
                                                 {...register("custo", {
@@ -253,7 +253,7 @@ export function Operacoes() {
                                                 N° de Agentes
                                             </Form.Label>
                                             <Form.Control
-                                                type="text"
+                                                type="number"
                                                 placeholder="Número de agentes"
                                                 name="nAgentes"
                                                 {...register("nAgentes", {
@@ -275,7 +275,7 @@ export function Operacoes() {
                                                 Quantidade de veículos
                                             </Form.Label>
                                             <Form.Control
-                                                type="text"
+                                                type="number"
                                                 placeholder="Número de veículos"
                                                 name="qtdVeiculos"
                                                 {...register("qtdVeiculos", {
@@ -337,7 +337,7 @@ export function Operacoes() {
                                                 Duração da operação
                                             </Form.Label>
                                             <Form.Control
-                                                type="text"
+                                                type="number"
                                                 placeholder="Duração em dias"
                                                 name="duracao"
                                                 {...register("duracao", {
