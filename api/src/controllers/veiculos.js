@@ -30,7 +30,17 @@ class VeiculosController {
     async getAll(request, response) {
         const httpHelper = new HttpHelper(response);
         try {
-            const operacao = await VeiculoModel.findAll();
+            const ordenacao = request.query.ordenacao;
+            let ordenacaoOpcoes = [['id', 'DESC']];
+
+            if (ordenacao === 'crescente') {
+              ordenacaoOpcoes = [['id', 'ASC']];
+            } else if (ordenacao === 'decrescente') {
+              ordenacaoOpcoes = [['id', 'DESC']];
+            }
+            const operacao = await VeiculoModel.findAll({
+                order: ordenacaoOpcoes
+            });
             return httpHelper.ok(operacao);
         } catch (error) {
             return httpHelper.internalError(error);

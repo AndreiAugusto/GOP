@@ -9,6 +9,7 @@ import { EditPerfil } from "./pages/Perfil/editPerfil.jsx";
 import { Operacoes } from "./pages/Operacoes";
 import { PageOperacao } from "./pages/Operacao";
 import { EditOperacao } from "./pages/Operacao/edidOperacao";
+import { Veiculos } from "./pages/Veiculos";
 
 export const isAuthenticated = () => {
     const token = sessionStorage.getItem('token');
@@ -45,11 +46,24 @@ export function Navigations() {
                             <Operacoes />
                         </PrivateRoute>}
                     />
-                    <Route path="/operacao/:id" element={<PageOperacao />} />
-                    <Route path="/editOperacao/:id" element={<EditOperacao />} />
+                    <Route path="/operacao/:id" element={
+                        <PrivateRoute>
+                            <PageOperacao />
+                        </PrivateRoute>
+                        } />
+                    <Route path="/editOperacao/:id" element={
+                        <PrivateRoute>
+                            <EditOperacao />
+                       </PrivateRoute>
+                    } />
                     <Route path="/dashboard" element={
                         <PrivateRoute>
                             <Dashboard />
+                        </PrivateRoute>
+                    } />
+                    <Route path="/veiculos" element={
+                        <PrivateRoute>
+                            <Veiculos />
                         </PrivateRoute>
                     } />
                 </Routes>
