@@ -151,12 +151,14 @@ export function Dashboard() {
     async function somaCustoOp() {
         try {
             const result = await somaCustoOperacoes();
-            await setSomaCusto(
-                result.data.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                })
-            );
+            if(result.data){
+                await setSomaCusto(
+                    result.data.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                    })
+                );
+            }
         } catch (error) {
             console.error(error);
             navigate("/");

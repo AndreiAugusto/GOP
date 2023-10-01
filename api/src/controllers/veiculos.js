@@ -6,22 +6,10 @@ class VeiculosController {
     async create(request, response) {
         const httpHelper = new HttpHelper(response);
         try {
-            const {
-                operacaoId,
-                tipo,
-                quantidade
-            } = request.body;
-            if (
-                !operacaoId,
-                !tipo,
-                !quantidade
-                ) return httpHelper.badRequest('Parâmetros inválidos!');
-            const operacao = await VeiculoModel.create({
-                operacaoId,
-                tipo,
-                quantidade
-            });
-            return httpHelper.created(operacao);
+            const { tipoVeiculo } = request.body;
+            if (!tipoVeiculo) return httpHelper.badRequest('Parâmetros inválidos!');
+            const veiculo = await VeiculoModel.create({tipoVeiculo});
+            return httpHelper.created(veiculo);
         } catch (error) {
             return httpHelper.internalError(error);
         }

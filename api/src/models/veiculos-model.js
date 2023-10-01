@@ -3,18 +3,22 @@ const { Model, DataTypes } = require("sequelize");
 class VeiculoModel extends Model {
     static init(database) {
         super.init({
-            tipo: DataTypes.TEXT,
-            quantidade: DataTypes.INTEGER,
-            operacaoId: DataTypes.INTEGER
+            id:{
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true,
+                allowNull: false
+            },
+            tipoVeiculo: DataTypes.TEXT
         }, {
             tableName: 'veiculos',
-            modelName: 'VeiculoModel',
+            modelName: 'Veiculos',
             timestamps: false,
             sequelize: database
         });
     }
     static associate(models){
-        this.belongsTo(models.OperacoesModel, { foreignKey: 'id' });
+        this.hasMany(models.OperacaoVeiculo, { foreignKey: 'id' });
     }
 }
 

@@ -187,7 +187,7 @@ export function Operacoes() {
                                     />
                                 ))
                             ) : (
-                                <h1>Não há Operações!</h1>
+                                <h1 className="text-dark text-center mt-5">Não há Operações!</h1>
                             )}
                             <Modal
                                 show={isCreated}

@@ -39,8 +39,8 @@ module.exports = {
                 allowNull:false},
             comandante:{
                 type: Sequelize.TEXT,
-                allowNull: false,  },
-
+                allowNull: false,
+            }
         });
     },
 

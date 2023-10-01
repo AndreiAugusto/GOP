@@ -3,6 +3,12 @@ const { Model, DataTypes } = require("sequelize");
 class OperacoesModel extends Model {
     static init(database) {
         super.init({
+            id:{
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true,
+                allowNull: false
+            },
             nome: DataTypes.TEXT,
             custo: DataTypes.FLOAT,
             nAgentes: DataTypes.INTEGER,
@@ -13,13 +19,13 @@ class OperacoesModel extends Model {
             comandante: DataTypes.TEXT,
         }, {
             tableName: 'operacao',
-            modelName: 'OperacoesModel',
+            modelName: 'Operacoes',
             timestamps: false,
             sequelize: database
         });
     }
     static associate(models){
-        this.hasMany(models.VeiculoModel, { foreignKey: "id"});
+        this.hasMany(models.OperacaoVeiculo, { foreignKey: 'id' });
     }
 }
 

@@ -193,31 +193,32 @@ export function Veiculos() {
                                         />
                                     ))
                                 ): veiculos.map((operacao) => (
-
-                                    <div className="container" key={operacao.id}>
-                                        <div className="row">
-                                            <div className="col">
-                                                {operacao.id}
-                                            </div>
-                                            <div className="col">
-                                                {}
-                                            </div>
-                                            <div className="col">
-                                                {operacao.tipo}
-                                            </div>
-                                            <div className="col">
-                                                {operacao.quantidade}
-                                            </div>
-                                            <div className="col">
-                                                {operacao.operacaoId}
+                                    <div key={operacao.id}>
+                                        <div className="container" >
+                                            <div className="row">
+                                                <div className="col">
+                                                    {operacao.id}
+                                                </div>
+                                                <div className="col">
+                                                    {}
+                                                </div>
+                                                <div className="col">
+                                                    {operacao.tipo}
+                                                </div>
+                                                <div className="col">
+                                                    {operacao.quantidade}
+                                                </div>
+                                                <div className="col">
+                                                    {operacao.operacaoId}
+                                                </div>
                                             </div>
                                         </div>
+
                                         <hr />
                                     </div>
-
                                 ))
                             ) : (
-                                <h1>Não há Operações!</h1>
+                                <h1 className="text-dark text-center mt-5">Não há veículos cadastrados!</h1>
                             )}
                             <Modal
                                 show={isCreated}

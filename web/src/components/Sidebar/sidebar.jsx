@@ -32,6 +32,11 @@ export function Sidebar({openSidebarToggle, OpenSidebar}) {
                         <RiPoliceCarFill className='icon'/> Operações
                 </li>
             </a>
+            <a href="/veiculos">
+                <li className='sidebar-list-item d-flex align-items-center'>
+                        <RiPoliceCarFill className='icon'/> Veículos
+                </li>
+            </a>
             <a href="/perfil">
                 <li className='sidebar-list-item d-flex align-items-center'>
                         <MdAccountCircle className='icon'/> Perfil
