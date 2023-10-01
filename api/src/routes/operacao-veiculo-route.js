@@ -8,5 +8,6 @@ const operacaoVeiculosController = new OperacaoVeiculoController();
 
 routesOperacaoVeiculo.post('/link/veiculo', authMiddleware, operacaoVeiculosController.create);
 routesOperacaoVeiculo.get('/get/link/veiculos', authMiddleware, operacaoVeiculosController.getAll);
+routesOperacaoVeiculo.get('/get/soma/veiculos', authMiddleware, operacaoVeiculosController.getSomaVeiculos);
 
 module.exports = { routesOperacaoVeiculo };

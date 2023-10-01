@@ -1,5 +1,6 @@
 const { HttpHelper } = require('../utils/http-helper');
 const { OperacaoVeiculoModel } = require('../models/operacao-veiculo-model');
+const database = require('../database/index')
 
 class OperacaoVeiculoController {
     async create(request, response) {
@@ -40,6 +41,24 @@ class OperacaoVeiculoController {
                 order: ordenacaoOpcoes
             });
             return httpHelper.ok(opVeiculo);
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+    }
+
+    async getSomaVeiculos(request, response){
+        const httpHelper = new HttpHelper(response);
+        try {
+            OperacaoVeiculoModel.findAll({
+                attributes: [
+                    'veiculoId',
+                    [database.fn('SUM', database.col('quantidade')), 'soma_quantidade']
+                ],
+                group: ['veiculoId']
+            })
+            .then(result => {
+                return httpHelper.ok(result);
+            });
         } catch (error) {
             return httpHelper.internalError(error);
         }

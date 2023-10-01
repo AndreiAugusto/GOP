@@ -16,6 +16,7 @@ import{ getOperacoes } from '../../services/operacao-service'
 import { Operacao } from "../../components/Operacao/Operacao";
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
+import { getSomaVeiculos } from "../../services/operacao-veiculo-service";
 
 export function Veiculos() {
     const {
@@ -31,14 +32,13 @@ export function Veiculos() {
     const [isCreated, setIsCreated] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
-    const [operacao, setOperacao] = useState();
+    const [somaVeiculos, setSomaVeiculos] = useState();
 
     const navigate = useNavigate();
 
     useEffect(() => {
         findVeiculos();
-        getAllOperacoes();
-
+        findSomaVeiculos()
         // Fechar sidebar quando tela ficar menor que 700px
         const handleResize = () => {
             const newWindowWidth = window.innerWidth;
@@ -58,22 +58,19 @@ export function Veiculos() {
           };
     }, []);
 
-
     async function findVeiculos() {
         try {
             const result = await getAllVeiculos(ordemId);
             setVeiculos(result.data);
-            // console.log(veiculos)
         } catch (error) {
             console.error(error);
         }
     }
 
-    async function getAllOperacoes(){
+    async function findSomaVeiculos(){
         try {
-            const result = await getOperacoes();
-            setOperacao(result);
-            console.log(operacao)
+            const result = await getSomaVeiculos();
+            setSomaVeiculos(result.data);
         } catch (error) {
             console.error(error);
         }
@@ -103,7 +100,6 @@ export function Veiculos() {
 
     async function addVeiculo(data) {
         try {
-            console.log(data)
             await createVeiculo(data);
             setIsCreated(false);
             await findVeiculos();
@@ -157,16 +153,10 @@ export function Veiculos() {
                                         <a onClick={handleOrdem}>ID</a>
                                     </div>
                                     <div className="col">
-                                    Operação
+                                        Tipo do veículo
                                     </div>
                                     <div className="col">
-                                    Veículo
-                                    </div>
-                                    <div className="col">
-                                    Quantidade
-                                    </div>
-                                    <div className="col">
-                                        Id da operação
+                                        Quantidade
                                     </div>
                                 </div>
                             </div>
@@ -192,31 +182,28 @@ export function Veiculos() {
                                             editVeiculo={editOperacao}
                                         />
                                     ))
-                                ): veiculos.map((operacao) => (
-                                    <div key={operacao.id}>
-                                        <div className="container" >
-                                            <div className="row">
-                                                <div className="col">
-                                                    {operacao.id}
-                                                </div>
-                                                <div className="col">
-                                                    {}
-                                                </div>
-                                                <div className="col">
-                                                    {operacao.tipo}
-                                                </div>
-                                                <div className="col">
-                                                    {operacao.quantidade}
-                                                </div>
-                                                <div className="col">
-                                                    {operacao.operacaoId}
+                                ): veiculos.map((veiculo) => {
+                                    const soma = somaVeiculos.find((item) => item.veiculoId === veiculo.id);
+
+                                    return (
+                                        <div key={veiculo.id}>
+                                            <div className="container" >
+                                                <div className="row">
+                                                    <div className="col">
+                                                        {veiculo.id}
+                                                    </div>
+                                                    <div className="col">
+                                                        {veiculo.tipoVeiculo}
+                                                    </div>
+                                                    <div className="col">
+                                                        {soma ? soma.soma_quantidade : 0}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <hr />
-                                    </div>
-                                ))
+                                            <hr />
+                                        </div>
+                                    )})
                             ) : (
                                 <h1 className="text-dark text-center mt-5">Não há veículos cadastrados!</h1>
                             )}
