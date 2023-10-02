@@ -38,10 +38,8 @@ export async function updateVeiculo(data){
 
 export async function createVeiculo(data) {
     const accessToken = sessionStorage.getItem('token');
-    const result = await api.post('/operacao/veiculo', {
-        tipo: data.tipo,
-        quantidade: data.quantidade,
-        operacaoId: data.idOperacao,
+    const result = await api.post('/create/veiculo', {
+        tipoVeiculo: data.tipo
     }, {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`

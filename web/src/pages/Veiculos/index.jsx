@@ -182,13 +182,13 @@ export function Veiculos() {
                                             editVeiculo={editOperacao}
                                         />
                                     ))
-                                ): veiculos.map((veiculo) => {
+                                ): somaVeiculos && veiculos.map((veiculo) => {
                                     const soma = somaVeiculos.find((item) => item.veiculoId === veiculo.id);
 
                                     return (
                                         <div key={veiculo.id}>
                                             <div className="container" >
-                                                <div className="row">
+                                                <div className="row align-items-center text-dark responsivo">
                                                     <div className="col">
                                                         {veiculo.id}
                                                     </div>
@@ -244,29 +244,7 @@ export function Veiculos() {
                                                 </span>
                                             )}
                                         </Form.Group>
-                                        <Form.Group className="mb-4">
-                                            <Form.Label className="text-primary">
-                                                Quantidade de veículos
-                                            </Form.Label>
-                                            <Form.Control
-                                                type="number"
-                                                placeholder="Quantia de veículos"
-                                                name="quantidade"
-                                                {...register("quantidade", {
-                                                    required: {
-                                                        value: true,
-                                                        message:
-                                                            "Tipo é necessário",
-                                                    },
-                                                })}
-                                            />
-                                            {errors.quantidade && (
-                                                <span className="position-absolute text-danger">
-                                                    {errors.quantidade.message}
-                                                </span>
-                                            )}
-                                        </Form.Group>
-                                        <Form.Group className="mb-4">
+                                        {/* <Form.Group className="mb-4">
                                             <Form.Label className="text-primary">
                                                 Id da operação
                                             </Form.Label>
@@ -278,7 +256,7 @@ export function Veiculos() {
                                                     required: {
                                                         value: true,
                                                         message:
-                                                            "Tipo é necessário",
+                                                            "Id operação é necessário",
                                                     },
                                                 })}
                                             />
@@ -287,7 +265,7 @@ export function Veiculos() {
                                                     {errors.idOperacao.message}
                                                 </span>
                                             )}
-                                        </Form.Group>
+                                        </Form.Group> */}
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button variant="primary" type="submit">
