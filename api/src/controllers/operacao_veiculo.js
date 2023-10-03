@@ -64,6 +64,23 @@ class OperacaoVeiculoController {
         }
     }
 
+    async getSomaTodalVeiculos(request, response){
+        const httpHelper = new HttpHelper(response);
+        try {
+            OperacaoVeiculoModel.findAll({
+                attributes: [
+                    [database.fn('SUM', database.col('quantidade')), 'soma_quantidade']
+                ]
+            })
+            .then(result => {
+                return httpHelper.ok(result);
+            });
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+    }
+
+
 }
 
 module.exports = { OperacaoVeiculoController };

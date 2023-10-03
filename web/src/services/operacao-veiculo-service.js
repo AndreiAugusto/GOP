@@ -10,7 +10,17 @@ export async function getSomaVeiculos(){
     return result;
 }
 
-export async function updateVeiculo(data){
+export async function getSomaTotalVeiculos(){
+    const accessToken = sessionStorage.getItem('token');
+    const result = api.get('/somaTotalVeiculos', {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(accessToken)}`
+        }
+    });
+    return result;
+}
+
+export async function updateOperacaoVeiculo(data){
     const accessToken = sessionStorage.getItem('token');
     const result = await api.put(`/operacao/veiculo/${data.id}`,{
         nome: data.nome,
@@ -24,12 +34,12 @@ export async function updateVeiculo(data){
     return result;
 }
 
-export async function createVeiculo(data) {
+export async function createOperacaoVeiculo(data) {
     const accessToken = sessionStorage.getItem('token');
-    const result = await api.post('/operacao/veiculo', {
-        tipo: data.tipo,
+    const result = await api.post('/link/veiculo', {
         quantidade: data.quantidade,
-        operacaoId: data.idOperacao,
+        operacaoId: data.operacaoId,
+        veiculoId: data.veiculoId
     }, {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`

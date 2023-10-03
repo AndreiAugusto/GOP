@@ -11,9 +11,7 @@ import {
     getVeiculo,
     updateVeiculo
 } from "../../services/veiculo-service";
-import{ getOperacoes } from '../../services/operacao-service'
 
-import { Operacao } from "../../components/Operacao/Operacao";
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
 import { getSomaVeiculos } from "../../services/operacao-veiculo-service";
@@ -26,7 +24,6 @@ export function Veiculos() {
         formState: { errors },
     } = useForm();
 
-    const [busca, setBusca] = useState();
     const [ordemId, setOrdemId] = useState('decrescente');
     const [veiculos, setVeiculos] = useState([]);
     const [isCreated, setIsCreated] = useState(false);
@@ -74,10 +71,6 @@ export function Veiculos() {
         } catch (error) {
             console.error(error);
         }
-    }
-
-    const handleBusca = (data) =>{
-        setBusca(data.target.value.toLowerCase());
     }
 
     const handleOrdem = () =>{
@@ -160,50 +153,31 @@ export function Veiculos() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row ps-3 pe-3">
-                                <input className="form-control"
-                                    type="text" name="busca"
-                                    onChange={handleBusca}
-                                    placeholder="Pesquisar por nome de operação"
-                                />
-                            </div>
                             <hr />
                             {veiculos.length > 0 ? (
-                                busca ? (
-                                    veiculos
-                                    .filter((operacao) => operacao.tipo.toLowerCase().includes(busca))
-                                    .map((operacao) => (
-                                        <Operacao
-                                            key={operacao.id}
-                                            operacao={operacao}
-                                            removeOperacao={async () => {
-                                                await visualizarOperacao(operacao.id);
-                                            }}
-                                            editVeiculo={editOperacao}
-                                        />
-                                    ))
-                                ): somaVeiculos && veiculos.map((veiculo) => {
-                                    const soma = somaVeiculos.find((item) => item.veiculoId === veiculo.id);
 
-                                    return (
-                                        <div key={veiculo.id}>
-                                            <div className="container" >
-                                                <div className="row align-items-center text-dark responsivo">
-                                                    <div className="col">
-                                                        {veiculo.id}
-                                                    </div>
-                                                    <div className="col">
-                                                        {veiculo.tipoVeiculo}
-                                                    </div>
-                                                    <div className="col">
-                                                        {soma ? soma.soma_quantidade : 0}
-                                                    </div>
+                                somaVeiculos && veiculos.map((veiculo) => {
+                                const soma = somaVeiculos.find((item) => item.veiculoId === veiculo.id);
+
+                                return (
+                                    <div key={veiculo.id}>
+                                        <div className="container" >
+                                            <div className="row align-items-center text-dark responsivo p-2">
+                                                <div className="col">
+                                                    {veiculo.id}
+                                                </div>
+                                                <div className="col">
+                                                    {veiculo.tipoVeiculo}
+                                                </div>
+                                                <div className="col">
+                                                    {soma ? soma.soma_quantidade : 0}
                                                 </div>
                                             </div>
-
-                                            <hr />
                                         </div>
-                                    )})
+
+                                        <hr />
+                                    </div>
+                                )})
                             ) : (
                                 <h1 className="text-dark text-center mt-5">Não há veículos cadastrados!</h1>
                             )}

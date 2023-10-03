@@ -11,10 +11,12 @@ import {
     createOperacao,
     updateOperacao
 } from "../../services/operacao-service";
+import { getAllVeiculos } from "../../services/veiculo-service";
 
 import { Operacao } from "../../components/Operacao/Operacao";
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
+import { createOperacaoVeiculo } from "../../services/operacao-veiculo-service";
 
 export function Operacoes() {
     const {
@@ -26,15 +28,17 @@ export function Operacoes() {
 
     const [busca, setBusca] = useState();
     const [ordemId, setOrdemId] = useState('decrescente');
-    const [operacoes, setOperacoes] = useState([]);
+    const [operacoes, setOperacoes] = useState();
     const [isCreated, setIsCreated] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
+    const [veiculos, setVeiculos] = useState([]);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         findOperacoes();
+        findVeiculos();
 
         // Fechar sidebar quando tela ficar menor que 700px
         const handleResize = () => {
@@ -65,6 +69,16 @@ export function Operacoes() {
         }
     }
 
+    async function findVeiculos() {
+        try {
+            const result = await getAllVeiculos(ordemId);
+            setVeiculos(result.data);
+            console.log(veiculos)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const handleBusca = (data) =>{
         setBusca(data.target.value.toLowerCase());
     }
@@ -89,8 +103,30 @@ export function Operacoes() {
 
     async function addOperacao(data) {
         try {
-            await createOperacao(data);
-            setIsCreated(false);
+            // const result = await createOperacao({
+            //     nome: data.nomeOperacao,
+            //     custo: data.custo,
+            //     nAgentes: data.nAgentes,
+            //     cidade: data.cidade,
+            //     data: data.data,
+            //     duracao: data.duracao,
+            //     comandante: data.comandante,
+            // });
+
+            // await createOperacaoVeiculo({
+
+            // })
+            console.log({
+                nome: data.nomeOperacao,
+                custo: data.custo,
+                nAgentes: data.nAgentes,
+                cidade: data.cidade,
+                data: data.data,
+                duracao: data.duracao,
+                comandante: data.comandante,
+            })
+            console.log(data)
+            // setIsCreated(false);
             await findOperacoes();
             alert('Operação criada com sucesso')
         } catch (error) {
@@ -162,7 +198,7 @@ export function Operacoes() {
                                 />
                             </div>
                             <hr />
-                            {operacoes.length > 0 ? (
+                            {operacoes && operacoes.length > 0 ? (
                                 busca ? (
                                     operacoes
                                     .filter((operacao) => operacao.nome.toLowerCase().includes(busca))
@@ -193,7 +229,7 @@ export function Operacoes() {
                                 show={isCreated}
                                 onHide={() => setIsCreated(false)}
                             >
-                                <Modal.Header className="justify-content-center">
+                                <Modal.Header className="justify-content-center text-primary">
                                     <Modal.Title>
                                         Cadastrar nova Operação
                                     </Modal.Title>
@@ -240,6 +276,10 @@ export function Operacoes() {
                                                         message:
                                                             "Custo é necessário",
                                                     },
+                                                    pattern:{
+                                                        value: /^[+]?\d+$/,
+                                                        message: 'Custo não pode ser negativo!'
+                                                    }
                                                 })}
                                             />
                                             {errors.custo && (
@@ -262,33 +302,15 @@ export function Operacoes() {
                                                         message:
                                                             "Número de agentes é necessário",
                                                     },
+                                                    pattern:{
+                                                        value: /^[+]?\d+$/,
+                                                        message: 'Agentes não pode ser negativo!'
+                                                    }
                                                 })}
                                             />
                                             {errors.nAgentes && (
                                                 <span className="position-absolute text-danger">
                                                     {errors.nAgentes.message}
-                                                </span>
-                                            )}
-                                        </Form.Group>
-                                        <Form.Group className="mb-4">
-                                            <Form.Label className="text-primary">
-                                                Quantidade de veículos
-                                            </Form.Label>
-                                            <Form.Control
-                                                type="number"
-                                                placeholder="Número de veículos"
-                                                name="qtdVeiculos"
-                                                {...register("qtdVeiculos", {
-                                                    required: {
-                                                        value: true,
-                                                        message:
-                                                            "Obrigatório",
-                                                    },
-                                                })}
-                                            />
-                                            {errors.qtdVeiculos && (
-                                                <span className="position-absolute text-danger">
-                                                    {errors.qtdVeiculos.message}
                                                 </span>
                                             )}
                                         </Form.Group>
@@ -341,6 +363,10 @@ export function Operacoes() {
                                                 placeholder="Duração em dias"
                                                 name="duracao"
                                                 {...register("duracao", {
+                                                    pattern:{
+                                                        value: /^[+]?\d+$/,
+                                                        message: 'Duração não pode ser negativa!'
+                                                    },
                                                     required: {
                                                         value: true,
                                                         message:
@@ -376,6 +402,34 @@ export function Operacoes() {
                                                 </span>
                                             )}
                                         </Form.Group>
+                                        {veiculos ? (
+                                            veiculos.map((veiculo) => {
+                                                let nomeVeiculo = veiculo.tipoVeiculo
+                                                return(
+                                                <Form.Group className="mb-4">
+                                                    <Form.Label className="text-primary">
+                                                        Quantidade de {nomeVeiculo}
+                                                    </Form.Label>
+                                                    <Form.Control
+                                                        type="number"
+                                                        defaultValue='0'
+                                                        name={nomeVeiculo}
+                                                        {...register(nomeVeiculo, {
+                                                            required:false,
+                                                            pattern:{
+                                                                value: /^[+]?\d+$/,
+                                                                message: 'Quantidade não pode ser negativa!'
+                                                            }
+                                                        })}/>
+                                                    {errors[nomeVeiculo] && (
+                                                        <span className="position-absolute text-danger">
+                                                            {errors[nomeVeiculo].message}
+                                                        </span>
+                                                    )}
+                                                </Form.Group>
+                                                )
+                                            })
+                                        ): <div></div>}
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button variant="primary" type="submit">

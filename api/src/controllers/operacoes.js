@@ -10,7 +10,6 @@ class OperacoesController {
                 nome,
                 custo,
                 nAgentes,
-                qtdVeiculos,
                 cidade,
                 data,
                 duracao,
@@ -20,7 +19,6 @@ class OperacoesController {
                 !nome,
                 !custo,
                 !nAgentes,
-                !qtdVeiculos,
                 !cidade,
                 !data,
                 !duracao,
@@ -30,7 +28,6 @@ class OperacoesController {
                 nome,
                 custo,
                 nAgentes,
-                qtdVeiculos,
                 cidade,
                 data,
                 duracao,
@@ -86,17 +83,6 @@ class OperacoesController {
         }
       }
 
-      async  somaVeiculos(req, res) {
-          const httpHelper = new HttpHelper(res);
-          try {
-            const somaVeiculosOp = await OperacoesModel.sum('qtdVeiculos');
-
-            return httpHelper.ok(somaVeiculosOp);
-          } catch (error) {
-              return httpHelper.internalError(error);
-          }
-        }
-
     async countOperacoes(req, res){
         const httpHelper = new HttpHelper(res);
         try {
@@ -146,7 +132,6 @@ class OperacoesController {
                 nome,
                 custo,
                 nAgentes,
-                qtdVeiculos,
                 cidade,
                 data,
                 duracao,
@@ -159,7 +144,6 @@ class OperacoesController {
                 nome,
                 custo,
                 nAgentes,
-                qtdVeiculos,
                 cidade,
                 data,
                 duracao,

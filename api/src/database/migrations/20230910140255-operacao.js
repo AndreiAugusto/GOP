@@ -22,10 +22,6 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull:false
             },
-            qtdVeiculos:{
-                type: Sequelize.INTEGER,
-                allowNull:false
-            },
             cidade:{
                 type: Sequelize.TEXT,
                 allowNull: false,

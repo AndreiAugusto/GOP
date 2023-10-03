@@ -12,7 +12,6 @@ class OperacoesModel extends Model {
             nome: DataTypes.TEXT,
             custo: DataTypes.FLOAT,
             nAgentes: DataTypes.INTEGER,
-            qtdVeiculos: DataTypes.INTEGER,
             cidade: DataTypes.TEXT,
             data: DataTypes.DATE,
             duracao: DataTypes.INTEGER,

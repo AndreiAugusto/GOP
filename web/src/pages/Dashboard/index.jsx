@@ -8,8 +8,8 @@ import {
     getOperacoes,
     somaAgentesOperacoes,
     somaCustoOperacoes,
-    somaVeiculosOpereacoes,
 } from "../../services/operacao-service";
+import { getSomaTotalVeiculos } from '../../services/operacao-veiculo-service';
 
 import {
     BarChart,
@@ -112,7 +112,6 @@ export function Dashboard() {
                 custo: custoPorCidade[cidade],
               }));
             setCustoAgregados(custoFormatado);
-            console.log(custoAgregados);
         } else{
             console.log('Operações nao estava setado')
         }
@@ -140,8 +139,8 @@ export function Dashboard() {
 
     async function qtdVeiculos() {
         try {
-            const result = await somaVeiculosOpereacoes();
-            setSomaVeiculos(result.data);
+            const result = await getSomaTotalVeiculos();
+            setSomaVeiculos(result.data[0].soma_quantidade);
         } catch (error) {
             console.error(error);
             navigate("/");
@@ -222,51 +221,54 @@ export function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="charts">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart
-                            width={500}
-                            height={300}
-                            data={custoAgregados}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                {custoAgregados ? (
-                                        <Bar key='name' dataKey='custo' fill="#0088FE"/>
 
-                                    ): console.log('custosAgregados nao estava setado')}
-                            </BarChart>
-                        </ResponsiveContainer>
+                        {operacoes && operacoes.length > 0 ?  (
+                            <div className="charts">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart
+                                    width={500}
+                                    height={300}
+                                    data={custoAgregados}
+                                    margin={{
+                                        top: 5,
+                                        right: 30,
+                                        left: 20,
+                                        bottom: 5,
+                                    }}
+                                    >
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="name" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        {custoAgregados ? (
+                                                <Bar key='name' dataKey='custo' fill="#0088FE"/>
 
-                        <ResponsiveContainer width="100%" height={300}>
-                            <PieChart>
-                                <Pie
-                                    dataKey="value"
-                                    isAnimationActive={false}
-                                    data={dadosAgregados}
-                                    cx="50%"
-                                    cy="50%"
-                                    outerRadius={80}
-                                    label
-                                >
-                                {dadosAgregados? dadosAgregados.map((item, index) => (
-                                    <Cell key={item.name} dataKey="custo" fill={cores[index]}/>
-                                )) : console.log('dados agregados nao estava setado')
-                                }
-                                </Pie>
-                                <Tooltip />
-                                <Legend />
-                            </PieChart>
-                        </ResponsiveContainer>
-                    </div>
+                                            ): console.log('custosAgregados nao estava setado')}
+                                    </BarChart>
+                                </ResponsiveContainer>
+
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <PieChart>
+                                        <Pie
+                                            dataKey="value"
+                                            isAnimationActive={false}
+                                            data={dadosAgregados}
+                                            cx="50%"
+                                            cy="50%"
+                                            outerRadius={80}
+                                            label
+                                        >
+                                        {dadosAgregados? dadosAgregados.map((item, index) => (
+                                            <Cell key={item.name} dataKey="custo" fill={cores[index]}/>
+                                        )) : console.log('dados agregados nao estava setado')
+                                        }
+                                        </Pie>
+                                        <Tooltip />
+                                        <Legend />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                        ): <div></div>}
                 </div>
             </div>
         </main>

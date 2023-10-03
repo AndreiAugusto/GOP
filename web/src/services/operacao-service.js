@@ -32,16 +32,6 @@ export async function somaCustoOperacoes(){
     return result;
 }
 
-export async function somaVeiculosOpereacoes(){
-    const accessToken = sessionStorage.getItem('token');
-    const result = await api.get(`/somaVeiculosOperacoes/`, {
-        headers: {
-            'Authorization': `Bearer ${JSON.parse(accessToken)}`
-        }
-    });
-    return result;
-}
-
 export async function somaAgentesOperacoes(){
     const accessToken = sessionStorage.getItem('token');
     const result = await api.get(`/somaAgentesOperacoes/`, {
@@ -78,7 +68,6 @@ export async function createOperacao(data) {
         nome: data.nomeOperacao,
         custo: data.custo,
         nAgentes: data.nAgentes,
-        qtdVeiculos: data.qtdVeiculos,
         cidade: data.cidade,
         data: data.data,
         duracao: data.duracao,
@@ -96,7 +85,6 @@ export async function updateOperacao(id, data){
         nome: data.nome,
         custo: data.custo,
         nAgentes: data.nAgentes,
-        qtdVeiculos: data.qtdVeiculos,
         cidade: data.cidade,
         data: data.data,
         duracao: data.duracao,
