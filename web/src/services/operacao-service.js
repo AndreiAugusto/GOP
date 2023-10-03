@@ -77,6 +77,7 @@ export async function createOperacao(data) {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`
         }
     });
+    return result;
 };
 
 export async function updateOperacao(id, data){

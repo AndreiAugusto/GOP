@@ -33,6 +33,7 @@ export function Operacoes() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
     const [veiculos, setVeiculos] = useState([]);
+    const [operacaoVeiculo, setOperacaoVeiculo] = useState([]);
 
     const navigate = useNavigate();
 
@@ -73,7 +74,6 @@ export function Operacoes() {
         try {
             const result = await getAllVeiculos(ordemId);
             setVeiculos(result.data);
-            console.log(veiculos)
         } catch (error) {
             console.error(error);
         }
@@ -103,30 +103,30 @@ export function Operacoes() {
 
     async function addOperacao(data) {
         try {
-            // const result = await createOperacao({
-            //     nome: data.nomeOperacao,
-            //     custo: data.custo,
-            //     nAgentes: data.nAgentes,
-            //     cidade: data.cidade,
-            //     data: data.data,
-            //     duracao: data.duracao,
-            //     comandante: data.comandante,
-            // });
-
-            // await createOperacaoVeiculo({
-
-            // })
-            console.log({
-                nome: data.nomeOperacao,
+            const result = await createOperacao({
+                nomeOperacao: data.nomeOperacao,
                 custo: data.custo,
                 nAgentes: data.nAgentes,
                 cidade: data.cidade,
                 data: data.data,
                 duracao: data.duracao,
                 comandante: data.comandante,
-            })
-            console.log(data)
-            // setIsCreated(false);
+            });
+
+            veiculos.map((v) => {
+                const veiculoInfo = {
+                    quantidade: data[v.tipoVeiculo],
+                    operacaoId: result.data.id,
+                    veiculoId: v.id,
+                  };
+                createOperacaoVeiculo(veiculoInfo);
+                setOperacaoVeiculo((prevOperacaoVeiculos) => [
+                    ...prevOperacaoVeiculos,
+                    veiculoInfo,
+                  ]);
+            });
+
+            setIsCreated(false);
             await findOperacoes();
             alert('Operação criada com sucesso')
         } catch (error) {
