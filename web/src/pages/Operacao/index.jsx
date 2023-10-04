@@ -8,8 +8,8 @@ import style from "./styles.module.css";
 import {
     getOperacao,
     deleteOperacao,
-    updateOperacao
 } from "../../services/operacao-service";
+import { getOperacaoVeiculo } from "../../services/operacao-veiculo-service";
 
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
@@ -20,6 +20,7 @@ export function PageOperacao() {
     const [operacoes, setOperacoes] = useState();
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
+    const [veiculos, setVeiculos] = useState([]);
 
     const {
         register,
@@ -32,6 +33,7 @@ export function PageOperacao() {
 
     useEffect(() => {
         findOperacao();
+        findVeiculos();
 
         // Fechar sidebar quando tela ficar menor que 700px
         const handleResize = () => {
@@ -57,10 +59,18 @@ export function PageOperacao() {
         try {
             const result = await getOperacao(id);
             setOperacoes(result.data);
-            console.log(operacoes)
         } catch (error) {
             console.error(error);
             navigate("/");
+        }
+    }
+
+    async function findVeiculos() {
+        try {
+            const result = await getOperacaoVeiculo(id)
+            setVeiculos(result.data);
+        } catch (error) {
+            console.error(error);
         }
     }
 
@@ -126,11 +136,23 @@ export function PageOperacao() {
                             <p>{operacoes.nAgentes}</p>
                         </div>
                         <hr />
-                        <div className={style.item}>
-                            <p className="fw-bold">Quantidade de Veículos</p>
-                            <p>{operacoes.qtdVeiculos}</p>
-                        </div>
-                        <hr />
+                        {veiculos ? (
+                            veiculos.map((veiculo) => {
+                                let nomeVeiculo = veiculo.Veiculo.tipoVeiculo;
+                                const quantidade = veiculo.quantidade;
+                                return (
+                                    <div className="w-100" key={veiculo.veiculoId}>
+
+                                    <div className={style.item}>
+                                        <p className="fw-bold">Quantidade de {nomeVeiculo}s</p>
+                                        <p>{quantidade ? quantidade : 0}</p>
+                                    </div>
+                                    <hr />
+                                    </div>
+                                )
+                            })
+                        ) : <div></div>
+                        }
                         <div className={style.item}>
                             <p className="fw-bold">Cidade</p>
                             <p>{operacoes.cidade}</p>

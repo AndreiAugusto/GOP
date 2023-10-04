@@ -1,5 +1,15 @@
 import { api } from './api';
 
+export async function getOperacaoVeiculo(operacaoId){
+    const accessToken = sessionStorage.getItem('token');
+    const result = api.get(`/get/operacaoVeiculo/${operacaoId}`, {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(accessToken)}`
+        }
+    });
+    return result;
+}
+
 export async function getSomaVeiculos(){
     const accessToken = sessionStorage.getItem('token');
     const result = api.get('/get/soma/veiculos', {
@@ -20,20 +30,6 @@ export async function getSomaTotalVeiculos(){
     return result;
 }
 
-export async function updateOperacaoVeiculo(data){
-    const accessToken = sessionStorage.getItem('token');
-    const result = await api.put(`/operacao/veiculo/${data.id}`,{
-        nome: data.nome,
-        email: data.email,
-        senha: data.senha
-    }, {
-        headers: {
-            'Authorization': `Bearer ${JSON.parse(accessToken)}`
-        }
-    });
-    return result;
-}
-
 export async function createOperacaoVeiculo(data) {
     const accessToken = sessionStorage.getItem('token');
     const result = await api.post('/link/veiculo', {
@@ -46,3 +42,15 @@ export async function createOperacaoVeiculo(data) {
         }
     });
 };
+
+export async function updateOperacaoVeiculo(id, data){
+    const accessToken = sessionStorage.getItem('token');
+    const result = await api.put(`/update/operacaoVeiculo/${id}`, {
+        quantidade: data.quantidade
+    }, {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(accessToken)}`
+        }
+    });
+    return result;
+}

@@ -24,7 +24,7 @@ class OperacoesModel extends Model {
         });
     }
     static associate(models){
-        this.hasMany(models.OperacaoVeiculo, { foreignKey: 'id' });
+        this.hasMany(models.OperacaoVeiculo, { foreignKey: 'operacaoId' });
     }
 }
 

@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import {  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -7,7 +7,6 @@ import style from "./styles.module.css";
 
 import {
     getOperacoes,
-    deleteOperacao,
     createOperacao,
     updateOperacao
 } from "../../services/operacao-service";
@@ -33,7 +32,6 @@ export function Operacoes() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
     const [veiculos, setVeiculos] = useState([]);
-    const [operacaoVeiculo, setOperacaoVeiculo] = useState([]);
 
     const navigate = useNavigate();
 
@@ -120,10 +118,6 @@ export function Operacoes() {
                     veiculoId: v.id,
                   };
                 createOperacaoVeiculo(veiculoInfo);
-                setOperacaoVeiculo((prevOperacaoVeiculos) => [
-                    ...prevOperacaoVeiculos,
-                    veiculoInfo,
-                  ]);
             });
 
             setIsCreated(false);
@@ -133,21 +127,6 @@ export function Operacoes() {
             console.error(error);
         }
     }
-
-    async function editOperacao(data) {
-        try {
-            await updateOperacao({
-                id: data.id,
-                nomeOperacao: data.nomeOperacao,
-                cidade: data.cidade,
-            });
-            await findOperacoes();
-        } catch (error) {
-            console.error(data);
-        }
-    }
-
-
 
     const OpenSidebar = () => {
       setOpenSidebarToggle(!openSidebarToggle)
@@ -209,7 +188,6 @@ export function Operacoes() {
                                             removeOperacao={async () => {
                                                 await visualizarOperacao(operacao.id);
                                             }}
-                                            editOperacao={editOperacao}
                                         />
                                     ))
                                 ): operacoes.map((operacao) => (
@@ -219,7 +197,6 @@ export function Operacoes() {
                                         removeOperacao={async () => {
                                             await visualizarOperacao(operacao.id);
                                         }}
-                                        editOperacao={editOperacao}
                                     />
                                 ))
                             ) : (
@@ -406,7 +383,7 @@ export function Operacoes() {
                                             veiculos.map((veiculo) => {
                                                 let nomeVeiculo = veiculo.tipoVeiculo
                                                 return(
-                                                <Form.Group className="mb-4">
+                                                <Form.Group key={veiculo.id} className="mb-4">
                                                     <Form.Label className="text-primary">
                                                         Quantidade de {nomeVeiculo}
                                                     </Form.Label>
@@ -415,7 +392,7 @@ export function Operacoes() {
                                                         defaultValue='0'
                                                         name={nomeVeiculo}
                                                         {...register(nomeVeiculo, {
-                                                            required:false,
+                                                            required:true,
                                                             pattern:{
                                                                 value: /^[+]?\d+$/,
                                                                 message: 'Quantidade não pode ser negativa!'

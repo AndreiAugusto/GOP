@@ -1,6 +1,7 @@
 const { HttpHelper } = require('../utils/http-helper');
 const { OperacaoVeiculoModel } = require('../models/operacao-veiculo-model');
-const database = require('../database/index')
+const database = require('../database/index');
+const { VeiculoModel } = require('../models/veiculos-model');
 
 class OperacaoVeiculoController {
     async create(request, response) {
@@ -46,6 +47,31 @@ class OperacaoVeiculoController {
         }
     }
 
+    async getOperacaoVeiculo(request, response) {
+        const httpHelper = new HttpHelper(response);
+        try {
+            const { operacaoId } = request.params;
+
+            // Consulta no banco de dados usando o Sequelize
+            const quantidadeVeiculos = await OperacaoVeiculoModel.findAll({
+              where: {
+                operacaoId: operacaoId,
+              },
+              attributes: ['id','veiculoId', 'quantidade'], // Seleciona apenas as colunas que você deseja retornar
+              include: [
+                {
+                  model: VeiculoModel, // Inclui o modelo VeiculoModel para obter informações sobre o veículo
+                  attributes: ['tipoVeiculo'], // Seleciona as colunas que deseja retornar do modelo VeiculoModel
+                },
+              ],
+            });
+
+            return httpHelper.ok(quantidadeVeiculos);
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+    }
+
     async getSomaVeiculos(request, response){
         const httpHelper = new HttpHelper(response);
         try {
@@ -80,6 +106,24 @@ class OperacaoVeiculoController {
         }
     }
 
+    async updateOperacaoVeiculo(request, response){
+        const httpHelper = new HttpHelper(response);
+        try {
+            const { id } = request.params;
+            const { quantidade } = request.body;
+            if (!id) return httpHelper.badRequest('Parâmetros inválidos!');
+            await OperacaoVeiculoModel.update({
+                quantidade
+            }, {
+                where: {id}
+            });
+            return httpHelper.ok({
+                message: 'Operação atualizada com sucesso!'
+            });
+        } catch (error) {
+            return httpHelper.internalError(error);
+        }
+    }
 
 }
 

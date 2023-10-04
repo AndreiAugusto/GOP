@@ -1,25 +1,24 @@
-import { Button, Modal, Form } from "react-bootstrap";
+import {  Form } from "react-bootstrap";
 import {  useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { InputEditar } from '../../components/Input/InputEditar'
 import style from "../Operacao/styles.module.css";
 
 import {
     getOperacao,
-    deleteOperacao,
     updateOperacao
 } from "../../services/operacao-service";
+import { getOperacaoVeiculo, updateOperacaoVeiculo } from "../../services/operacao-veiculo-service";
 
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
 
 export function EditOperacao() {
     const navigate = useNavigate();
-    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [operacoes, setOperacoes] = useState([]);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
+    const [veiculos, setVeiculos] = useState([]);
     const {
         register,
         handleSubmit,
@@ -30,6 +29,7 @@ export function EditOperacao() {
     const {id} = useParams();
     useEffect(() => {
         findOperacao();
+        findVeiculos();
 
         // Fechar sidebar quando tela ficar menor que 700px
         const handleResize = () => {
@@ -60,16 +60,38 @@ export function EditOperacao() {
         }
     }
 
-    const handleEditar = (data) =>{
-        setModalIsOpen(true);
+    async function findVeiculos() {
+        try {
+            const result = await getOperacaoVeiculo(id)
+            setVeiculos(result.data);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     async function editOperacao(data) {
         try {
-            console.log(data)
-            await updateOperacao(id, data);
-            navigate(`/operacao/${id}`)
-            setModalIsOpen(false);
+            veiculos.map((veiculo) => {
+                const operacaoVeiculoInfo = {
+                    quantidade: data[veiculo.Veiculo.tipoVeiculo],
+                    id: veiculo.id
+                }
+                updateOperacaoVeiculo(veiculo.id, {
+                    quantidade: data[veiculo.Veiculo.tipoVeiculo]
+                });
+            })
+            await updateOperacao(id, {
+                nome: data.nome,
+                custo: data.custo,
+                nAgentes: data.nAgentes,
+                cidade: data.cidade,
+                data: data.data,
+                duracao: data.duracao,
+                comandante: data.comandante
+            });
+
+
+            navigate(`/operacao/${id}`);
         } catch (error) {
             console.error(data);
         }
@@ -170,28 +192,41 @@ export function EditOperacao() {
                                 )}
                             </Form.Group>
                             <hr />
-                            <Form.Group className="mb-4">
-                                <Form.Label className="text-dark fw-bold">
-                                    Quantidade de Veículos
-                                </Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    defaultValue={operacoes.qtdVeiculos}
-                                    name="qtdVeiculos"
-                                    {...register("qtdVeiculos", {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                "A quantidade de veículos é necessário",
-                                        },
-                                    })}
-                                />
-                                {errors.qtdVeiculos && (
-                                    <span className="text-danger">
-                                        {errors.qtdVeiculos.message}
-                                    </span>
-                                )}
-                            </Form.Group>
+                            {veiculos ? (
+                                veiculos.map((veiculo) =>{
+                                    let nomeVeiculo = veiculo.Veiculo.tipoVeiculo;
+                                    return(
+                                        <Form.Group key={veiculo.veiculoId} className="mb-4">
+                                            <Form.Label className="text-dark fw-bold">
+                                                Quantidade de {nomeVeiculo}
+                                            </Form.Label>
+                                            <Form.Control
+                                                type="number"
+                                                defaultValue={veiculo.quantidade}
+                                                name={nomeVeiculo}
+                                                {...register(nomeVeiculo, {
+                                                    required: {
+                                                        value: true,
+                                                        message:
+                                                        "A quantidade de veículos é necessário",
+                                                    },
+                                                    pattern:{
+                                                        value: /^[+]?\d+$/,
+                                                        message: 'Quantidade não pode ser negativa!'
+                                                    }
+                                                })}
+                                            />
+                                            {errors[nomeVeiculo] && (
+                                                <span className="text-danger">
+                                                    {errors[nomeVeiculo].message}
+                                                </span>
+                                            )}
+                                        </Form.Group>
+
+                                    );
+                                })
+                            ): <div></div>
+                            }
                             <hr />
                             <Form.Group className="mb-4">
                                 <Form.Label className="text-dark fw-bold">
