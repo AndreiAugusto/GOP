@@ -71,19 +71,11 @@ class VeiculosController {
         const httpHelper = new HttpHelper(response);
         try {
             const { id } = request.params;
-            const {
-                operacaoId,
-                tipo,
-                quantidade
-             } = request.body;
+            const { tipoVeiculo } = request.body;
             if (!id) return httpHelper.badRequest('Parâmetros inválidos!');
             const veiculoExists = await VeiculoModel.findByPk(id);
             if (!veiculoExists) return httpHelper.notFound('Veiculos não encontrados!');
-            await VeiculoModel.update({
-                operacaoId,
-                tipo,
-                quantidade
-            }, {
+            await VeiculoModel.update({ tipoVeiculo }, {
                 where: { id }
             });
             return httpHelper.ok({

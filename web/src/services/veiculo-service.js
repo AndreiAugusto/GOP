@@ -25,9 +25,7 @@ export async function getVeiculo(id) {
 export async function updateVeiculo(data){
     const accessToken = sessionStorage.getItem('token');
     const result = await api.put(`/operacao/veiculo/${data.id}`,{
-        nome: data.nome,
-        email: data.email,
-        senha: data.senha
+        tipoVeiculo: data.tipoVeiculo
     }, {
         headers: {
             'Authorization': `Bearer ${JSON.parse(accessToken)}`

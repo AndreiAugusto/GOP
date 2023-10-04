@@ -91,7 +91,7 @@ export function Dashboard() {
                 value: dados[cidade],
               }));
             setDadosAgregados(dadosFormatados);
-
+            console.log(dadosAgregados)
             // Configurando custo por cidade
             const custoPorCidade = {};
 

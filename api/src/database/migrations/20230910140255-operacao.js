@@ -32,11 +32,19 @@ module.exports = {
             },
             duracao:{
                 type: Sequelize.INTEGER,
-                allowNull:false},
+                allowNull:false
+            },
             comandante:{
                 type: Sequelize.TEXT,
                 allowNull: false,
-            }
+            },
+            // Cidade:{
+            //     type: Sequelize.INTEGER,
+            //     allowNull: false,
+            //     references: { model: 'cidade', key: 'id'},
+            //     onDelete: 'CASCADE',
+            //     onUpdate: 'CASCADE'
+            // }
         });
     },
 

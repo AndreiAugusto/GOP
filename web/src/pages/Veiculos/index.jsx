@@ -30,6 +30,8 @@ export function Veiculos() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
     const [somaVeiculos, setSomaVeiculos] = useState();
+    const [isUpdated, setIsUpdated] = useState(true);
+    const [newName, setNewName] = useState('');
 
     const navigate = useNavigate();
 
@@ -83,14 +85,6 @@ export function Veiculos() {
         }
     }
 
-    async function visualizarOperacao(id) {
-        try {
-            navigate(`/operacao/${id}`);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     async function addVeiculo(data) {
         try {
             await createVeiculo(data);
@@ -102,14 +96,14 @@ export function Veiculos() {
         }
     }
 
-    async function editOperacao(data) {
+    async function editVeiculo(data) {
         try {
-            await updateVeiculo({
-                id: data.id,
-                tipo: data.tipo,
-                quantidade: data.quantidade,
-            });
-            await findVeiculos();
+            console.log(newName)
+            // await updateVeiculo({
+            //     id: data.id,
+            //     tipoVeiculo: data.tipoVeiculo
+            // });
+            // await findVeiculos();
         } catch (error) {
             console.error(data);
         }
@@ -123,6 +117,31 @@ export function Veiculos() {
 
     return (
         <main className="main-container">
+            <Modal show={isUpdated} onHide={() => setIsUpdated(false)}>
+                <Modal.Header className="justify-content-center text-primary">
+                    <Modal.Title>Editar Nome do Veículo</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Group className="ms-5 me-5">
+                    <Form.Label className="text-primary">
+                        Novo nome do veículo
+                    </Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={newName}
+                        onChange={(e) => setNewName(e.target.value)}
+                    />
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setIsUpdated(false)}>
+                        Fechar
+                    </Button>
+                    <Button variant="primary" onClick={editVeiculo}>
+                        Salvar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <Header OpenSidebar={OpenSidebar} />
             <div className="d-flex w-100 min-vh-100">
                 <div>
@@ -151,6 +170,7 @@ export function Veiculos() {
                                     <div className="col">
                                         Quantidade
                                     </div>
+                                    <div className="col"></div>
                                 </div>
                             </div>
                             <hr />
@@ -163,14 +183,24 @@ export function Veiculos() {
                                     <div key={veiculo.id}>
                                         <div className="container" >
                                             <div className="row align-items-center text-dark responsivo p-2">
-                                                <div className="col">
+                                                <div className="col responsivo2">
                                                     {veiculo.id}
                                                 </div>
-                                                <div className="col">
+                                                <div className="col responsivo2">
                                                     {veiculo.tipoVeiculo}
                                                 </div>
-                                                <div className="col">
+                                                <div className="col responsivo2">
                                                     {soma ? soma.soma_quantidade : 0}
+                                                </div>
+                                                <div className="col responsivo2">
+                                                    <button
+                                                    className={style.btnVisualizar} onClick={() => setIsUpdated(true)}>
+                                                        Editar
+                                                    </button>
+                                                    <button
+                                                    className={style.btnDeletar}>
+                                                        Deletar
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -181,6 +211,7 @@ export function Veiculos() {
                             ) : (
                                 <h1 className="text-dark text-center mt-5">Não há veículos cadastrados!</h1>
                             )}
+
                             <Modal
                                 show={isCreated}
                                 onHide={() => setIsCreated(false)}
@@ -218,38 +249,16 @@ export function Veiculos() {
                                                 </span>
                                             )}
                                         </Form.Group>
-                                        {/* <Form.Group className="mb-4">
-                                            <Form.Label className="text-primary">
-                                                Id da operação
-                                            </Form.Label>
-                                            <Form.Control
-                                                type="number"
-                                                placeholder="Id da operação"
-                                                name="idOperacao"
-                                                {...register("idOperacao", {
-                                                    required: {
-                                                        value: true,
-                                                        message:
-                                                            "Id operação é necessário",
-                                                    },
-                                                })}
-                                            />
-                                            {errors.idOperacao && (
-                                                <span className="position-absolute text-danger">
-                                                    {errors.idOperacao.message}
-                                                </span>
-                                            )}
-                                        </Form.Group> */}
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button variant="primary" type="submit">
-                                            Criar
-                                        </Button>
                                         <Button
                                             variant="secondary"
                                             onClick={() => setIsCreated(false)}
                                         >
                                             Fechar
+                                        </Button>
+                                        <Button variant="primary" type="submit">
+                                            Criar
                                         </Button>
                                     </Modal.Footer>
                                 </Form>
