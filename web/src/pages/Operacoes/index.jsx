@@ -150,15 +150,8 @@ export function Operacoes() {
         operacoesExibidas = 0;
         totalPaginas = 0;
     }
-
-    const handleProximaPagina = () => {
-        setPaginaAtual(paginaAtual + 1);
-    };
     const handlePaginaClick = (novaPagina) => {
       setPaginaAtual(novaPagina);
-    };
-    const handlePaginaAnterior = () => {
-        setPaginaAtual(paginaAtual - 1);
     };
     const renderNumerosDePagina = () => {
       const numerosDePagina = [];
@@ -246,15 +239,6 @@ export function Operacoes() {
                                       }}
                                     />
                                   ))
-                                // operacoes.map((operacao) => (
-                                //     <Operacao
-                                //         key={operacao.id}
-                                //         operacao={operacao}
-                                //         removeOperacao={async () => {
-                                //             await visualizarOperacao(operacao.id);
-                                //         }}
-                                //     />
-                                // ))
                             ) : (
                                 <h1 className="text-dark text-center mt-5">Não há Operações!</h1>
                             )}

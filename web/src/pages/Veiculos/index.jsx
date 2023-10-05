@@ -1,4 +1,4 @@
-import { Button, Form, Modal, Row } from "react-bootstrap";
+import { Button, Form, Modal, Pagination } from "react-bootstrap";
 import {  useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -119,6 +119,42 @@ export function Veiculos() {
       setOpenSidebarToggle(!openSidebarToggle)
     }
 
+        //itens para paginação
+        const itensPorPagina = 5;
+        const [paginaAtual, setPaginaAtual] = useState(1);
+        let totalPaginas;
+        let veiculosExibidos;
+
+        const indiceInicio = (paginaAtual - 1) * itensPorPagina;
+        const indiceFim = paginaAtual * itensPorPagina;
+
+        if(veiculos && veiculos.length > 0){
+            veiculosExibidos = veiculos?.slice(indiceInicio, indiceFim);
+            totalPaginas = Math.ceil(veiculos.length / itensPorPagina);
+        }else{
+            veiculosExibidos = 0;
+            totalPaginas = 0;
+        }
+        const handlePaginaClick = (novaPagina) => {
+          setPaginaAtual(novaPagina);
+        };
+        const renderNumerosDePagina = () => {
+          const numerosDePagina = [];
+          for (let pagina = 1; pagina <= totalPaginas; pagina++) {
+            numerosDePagina.push(
+              <Pagination.Item
+                key={pagina}
+                active={pagina === paginaAtual}
+                onClick={() => handlePaginaClick(pagina)}
+              >
+                {pagina}
+              </Pagination.Item>
+            );
+          }
+          return numerosDePagina;
+        };
+        //fim de itens para paginação
+
     return (
         <main className="main-container">
             <Header OpenSidebar={OpenSidebar} />
@@ -155,7 +191,7 @@ export function Veiculos() {
                             <hr />
                             {veiculos.length > 0 ? (
 
-                                somaVeiculos && veiculos.map((veiculo) => {
+                                somaVeiculos && veiculosExibidos.map((veiculo) => {
                                 const soma = somaVeiculos.find((item) => item.veiculoId === veiculo.id);
                                 const soma_quantidade = soma ? soma.soma_quantidade : 0;
                                 return (
@@ -181,7 +217,17 @@ export function Veiculos() {
                             ) : (
                                 <h1 className="text-dark text-center mt-5">Não há veículos cadastrados!</h1>
                             )}
-
+                            <Pagination className="justify-content-center mt-5">
+                                <Pagination.Prev
+                                onClick={() => handlePaginaClick(paginaAtual - 1)}
+                                disabled={paginaAtual === 1}
+                                />
+                                {renderNumerosDePagina()}
+                                <Pagination.Next
+                                onClick={() => handlePaginaClick(paginaAtual + 1)}
+                                disabled={paginaAtual === totalPaginas}
+                                />
+                            </Pagination>
                             <Modal
                                 show={isCreated}
                                 onHide={() => setIsCreated(false)}
