@@ -1,4 +1,4 @@
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal, Pagination } from "react-bootstrap";
 import {  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -31,6 +31,8 @@ export function Operacoes() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
     const [veiculos, setVeiculos] = useState([]);
+
+
 
     const navigate = useNavigate();
 
@@ -131,6 +133,51 @@ export function Operacoes() {
       setOpenSidebarToggle(!openSidebarToggle)
     }
 
+
+    //itens para paginação
+    const itensPorPagina = 5;
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    let totalPaginas;
+    let operacoesExibidas;
+
+    const indiceInicio = (paginaAtual - 1) * itensPorPagina;
+    const indiceFim = paginaAtual * itensPorPagina;
+
+    if(operacoes && operacoes.length > 0){
+        operacoesExibidas = operacoes?.slice(indiceInicio, indiceFim);
+        totalPaginas = Math.ceil(operacoes.length / itensPorPagina);
+    }else{
+        operacoesExibidas = 0;
+        totalPaginas = 0;
+    }
+
+    const handleProximaPagina = () => {
+        setPaginaAtual(paginaAtual + 1);
+    };
+    const handlePaginaClick = (novaPagina) => {
+      setPaginaAtual(novaPagina);
+    };
+    const handlePaginaAnterior = () => {
+        setPaginaAtual(paginaAtual - 1);
+    };
+    const renderNumerosDePagina = () => {
+      const numerosDePagina = [];
+      for (let pagina = 1; pagina <= totalPaginas; pagina++) {
+        numerosDePagina.push(
+          <Pagination.Item
+            key={pagina}
+            active={pagina === paginaAtual}
+            onClick={() => handlePaginaClick(pagina)}
+          >
+            {pagina}
+          </Pagination.Item>
+        );
+      }
+      return numerosDePagina;
+    };
+    //fim de itens para paginação
+
+
     return (
         <main className="main-container">
             <Header OpenSidebar={OpenSidebar} />
@@ -189,18 +236,39 @@ export function Operacoes() {
                                             }}
                                         />
                                     ))
-                                ): operacoes.map((operacao) => (
+                                ):
+                                operacoesExibidas.map((operacao) => (
                                     <Operacao
-                                        key={operacao.id}
-                                        operacao={operacao}
-                                        removeOperacao={async () => {
-                                            await visualizarOperacao(operacao.id);
-                                        }}
+                                      key={operacao.id}
+                                      operacao={operacao}
+                                      removeOperacao={async () => {
+                                        await visualizarOperacao(operacao.id);
+                                      }}
                                     />
-                                ))
+                                  ))
+                                // operacoes.map((operacao) => (
+                                //     <Operacao
+                                //         key={operacao.id}
+                                //         operacao={operacao}
+                                //         removeOperacao={async () => {
+                                //             await visualizarOperacao(operacao.id);
+                                //         }}
+                                //     />
+                                // ))
                             ) : (
                                 <h1 className="text-dark text-center mt-5">Não há Operações!</h1>
                             )}
+                            <Pagination className="justify-content-center mt-5">
+                                <Pagination.Prev
+                                onClick={() => handlePaginaClick(paginaAtual - 1)}
+                                disabled={paginaAtual === 1}
+                                />
+                                {renderNumerosDePagina()}
+                                <Pagination.Next
+                                onClick={() => handlePaginaClick(paginaAtual + 1)}
+                                disabled={paginaAtual === totalPaginas}
+                                />
+                            </Pagination>
                             <Modal
                                 show={isCreated}
                                 onHide={() => setIsCreated(false)}

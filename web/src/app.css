@@ -237,6 +237,19 @@ body {
     background: #960110;
 }
 
+.text-primary{
+    color: #28166f !important;
+}
+.active>.page-link{
+    background-color: #7749f8 !important;
+    border-color: #7749f8 !important;
+}
+.page-link{
+    color: #7749f8 !important;
+}
+.active>.page-link {
+    color: white !important;
+}
 
 .btnVisualizar{
     padding: 6px 10px;

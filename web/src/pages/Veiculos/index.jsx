@@ -186,7 +186,7 @@ export function Veiculos() {
                                 show={isCreated}
                                 onHide={() => setIsCreated(false)}
                             >
-                                <Modal.Header className="justify-content-center">
+                                <Modal.Header className="justify-content-center text-primary">
                                     <Modal.Title>
                                         Cadastrar novo tipo de veículo
                                     </Modal.Title>
