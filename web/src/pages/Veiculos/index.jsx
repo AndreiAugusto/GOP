@@ -1,14 +1,14 @@
-import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { Button, Form, Modal, Row } from "react-bootstrap";
 import {  useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import style from "../Operacoes/styles.module.css";
+import { Veiculo } from '../../components/Veiculo/Veiculo'
 
 import {
     createVeiculo,
     getAllVeiculos,
-    getVeiculo,
+    deleteVeiculo,
     updateVeiculo
 } from "../../services/veiculo-service";
 
@@ -30,10 +30,6 @@ export function Veiculos() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
     const [somaVeiculos, setSomaVeiculos] = useState();
-    const [isUpdated, setIsUpdated] = useState(true);
-    const [newName, setNewName] = useState('');
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         findVeiculos();
@@ -98,17 +94,25 @@ export function Veiculos() {
 
     async function editVeiculo(data) {
         try {
-            console.log(newName)
-            // await updateVeiculo({
-            //     id: data.id,
-            //     tipoVeiculo: data.tipoVeiculo
-            // });
-            // await findVeiculos();
+            await updateVeiculo({
+                id: data.id,
+                tipoVeiculo: data.tipoVeiculo
+            });
+            await findVeiculos();
+            alert('Editado com sucesso!')
         } catch (error) {
             console.error(data);
         }
     }
 
+    async function removeVeiculo(data){
+        try{
+            await deleteVeiculo(data);
+            await findVeiculos();
+        } catch (error) {
+            console.error(data);
+        }
+    }
 
 
     const OpenSidebar = () => {
@@ -117,31 +121,6 @@ export function Veiculos() {
 
     return (
         <main className="main-container">
-            <Modal show={isUpdated} onHide={() => setIsUpdated(false)}>
-                <Modal.Header className="justify-content-center text-primary">
-                    <Modal.Title>Editar Nome do Veículo</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form.Group className="ms-5 me-5">
-                    <Form.Label className="text-primary">
-                        Novo nome do veículo
-                    </Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={newName}
-                        onChange={(e) => setNewName(e.target.value)}
-                    />
-                    </Form.Group>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setIsUpdated(false)}>
-                        Fechar
-                    </Button>
-                    <Button variant="primary" onClick={editVeiculo}>
-                        Salvar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
             <Header OpenSidebar={OpenSidebar} />
             <div className="d-flex w-100 min-vh-100">
                 <div>
@@ -178,33 +157,24 @@ export function Veiculos() {
 
                                 somaVeiculos && veiculos.map((veiculo) => {
                                 const soma = somaVeiculos.find((item) => item.veiculoId === veiculo.id);
-
+                                const soma_quantidade = soma ? soma.soma_quantidade : 0;
                                 return (
                                     <div key={veiculo.id}>
-                                        <div className="container" >
-                                            <div className="row align-items-center text-dark responsivo p-2">
-                                                <div className="col responsivo2">
-                                                    {veiculo.id}
-                                                </div>
-                                                <div className="col responsivo2">
-                                                    {veiculo.tipoVeiculo}
-                                                </div>
-                                                <div className="col responsivo2">
-                                                    {soma ? soma.soma_quantidade : 0}
-                                                </div>
-                                                <div className="col responsivo2">
-                                                    <button
-                                                    className={style.btnVisualizar} onClick={() => setIsUpdated(true)}>
-                                                        Editar
-                                                    </button>
-                                                    <button
-                                                    className={style.btnDeletar}>
-                                                        Deletar
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <Veiculo
+                                            key={veiculo.id}
+                                            veiculo={veiculo}
+                                            editVeiculo={editVeiculo}
+                                            apagarVeiculo={() =>{
+                                                if(soma_quantidade == 0){
+                                                    removeVeiculo(veiculo.id);
+                                                    alert('Veículo deletado com sucesso!');
+                                                }else{
+                                                    alert('Não é possivel deletar pois possuem veículos cadastrados em operaçoes')
+                                                }
+                                            }}
+                                            quantidade={soma_quantidade}
 
+                                        />
                                         <hr />
                                     </div>
                                 )})

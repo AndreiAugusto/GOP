@@ -1,6 +1,7 @@
 const { HttpHelper } = require('../utils/http-helper');
 const { VeiculoModel } = require('../models/veiculos-model');
-const { Validates } = require('../utils/validates');
+const { OperacoesModel } = require('../models/operacoes-model');
+const { OperacaoVeiculoModel } = require('../models/operacao-veiculo-model');
 
 class VeiculosController {
     async create(request, response) {
@@ -9,6 +10,15 @@ class VeiculosController {
             const { tipoVeiculo } = request.body;
             if (!tipoVeiculo) return httpHelper.badRequest('Parâmetros inválidos!');
             const veiculo = await VeiculoModel.create({tipoVeiculo});
+            const veiculoId = veiculo.id;
+            const operacoes = await OperacoesModel.findAll();
+            for(const operacao of operacoes){
+                await OperacaoVeiculoModel.create({
+                    operacaoId: operacao.id,
+                    veiculoId: veiculoId,
+                    quantidade: 0
+                })
+            }
             return httpHelper.created(veiculo);
         } catch (error) {
             return httpHelper.internalError(error);
@@ -60,7 +70,7 @@ class VeiculosController {
             if (!veiculoExists) return httpHelper.notFound('Veiculos não encontrados!');
             await VeiculoModel.destroy({ where: { id } });
             return httpHelper.ok({
-                message: 'Veiculos deletados com sucesso!'
+                message: 'Veiculo deletado com sucesso!'
             })
         } catch (error) {
             return httpHelper.internalError(error);

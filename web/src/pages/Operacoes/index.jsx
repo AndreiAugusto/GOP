@@ -8,7 +8,6 @@ import style from "./styles.module.css";
 import {
     getOperacoes,
     createOperacao,
-    updateOperacao
 } from "../../services/operacao-service";
 import { getAllVeiculos } from "../../services/veiculo-service";
 
@@ -212,7 +211,7 @@ export function Operacoes() {
                                     </Modal.Title>
                                 </Modal.Header>
                                 <Form
-                                    className="ms-5"
+                                    className="m-auto"
                                     noValidate
                                     onSubmit={handleSubmit(addOperacao)}
                                 >
@@ -409,14 +408,14 @@ export function Operacoes() {
                                         ): <div></div>}
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button variant="primary" type="submit">
-                                            Criar
-                                        </Button>
                                         <Button
                                             variant="secondary"
                                             onClick={() => setIsCreated(false)}
                                         >
                                             Fechar
+                                        </Button>
+                                        <Button variant="primary" type="submit">
+                                            Criar
                                         </Button>
                                     </Modal.Footer>
                                 </Form>

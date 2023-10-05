@@ -44,3 +44,13 @@ export async function createVeiculo(data) {
         }
     });
 };
+
+export async function deleteVeiculo(id){
+    const accessToken = sessionStorage.getItem('token');
+    const result = await api.delete(`/delete/veiculo/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(accessToken)}`
+        }
+    });
+    return result;
+}

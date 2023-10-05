@@ -31,20 +31,6 @@ body{
 }.btnCriar:hover{
     background: #28166f;
 }
-.btnDeletar{
-    padding: 6px 10px;
-    margin: 2px;
-    border: none;
-    width: 100%;
-    border-radius: 7px;
-    font-weight: 600;
-    color:white;
-    background: #dc3545;
-    cursor: pointer;
-    transition-duration: 0.2s;
-}.btnDeletar:hover{
-    background: #960110;
-}
 
 .btnVisualizar{
     padding: 6px 10px;

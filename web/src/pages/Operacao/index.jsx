@@ -205,11 +205,13 @@ export function PageOperacao() {
                 </Modal.Header>
                 <Modal.Footer>
                     <Button
-                        variant='primary'
-                        onClick={removeOperacao}>Sim, excluir</Button>
-                    <Button
                         variant="secondary"
-                        onClick={() => setModalIsOpen(false)}>Não excluir</Button>
+                        onClick={() => setModalIsOpen(false)}>Não excluir
+                    </Button>
+                    <Button
+                        variant='danger'
+                        onClick={removeOperacao}>Sim, excluir
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </main>
