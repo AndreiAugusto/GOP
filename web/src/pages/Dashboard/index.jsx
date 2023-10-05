@@ -179,7 +179,21 @@ export function Dashboard() {
         setOpenSidebarToggle(!openSidebarToggle);
     };
 
-    const cores = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']; // Conjunto de cores
+    const cores = [
+        '#0088FE',
+        '#00C49F',
+        '#FFBB28',
+        '#FF8042',
+        '#A5A5A5',
+        '#FF6633',
+        '#FF33CC',
+        '#66FF33',
+        '#33CCFF',
+        '#FF3366',
+        '#33FFCC',
+        '#CC33FF',
+        '#99FF33'
+      ];
 
     return (
         <main className="main-container">
@@ -241,7 +255,7 @@ export function Dashboard() {
                                         <YAxis />
                                         <Tooltip />
                                         {custoAgregados ? (
-                                                <Bar key='name' dataKey='custo' fill="#0088FE"/>
+                                                <Bar key='name' dataKey='custo' fill="#28166f"/>
 
                                             ): console.log('custosAgregados nao estava setado')}
                                     </BarChart>

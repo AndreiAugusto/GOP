@@ -14,7 +14,8 @@ import { getAllVeiculos } from "../../services/veiculo-service";
 import { Operacao } from "../../components/Operacao/Operacao";
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
-import { createOperacaoVeiculo } from "../../services/operacao-veiculo-service";
+import { createOperacaoVeiculo, getOpVeiculos } from "../../services/operacao-veiculo-service";
+import GerarPdfOperacoes from "../../components/GerarPdfOperacoes/GerarPdfOperacoes";
 
 export function Operacoes() {
     const {
@@ -31,6 +32,7 @@ export function Operacoes() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
     const [veiculos, setVeiculos] = useState([]);
+    const [opVeiculos, setOpVeiculos] = useState([]);
 
 
 
@@ -39,6 +41,10 @@ export function Operacoes() {
     useEffect(() => {
         findOperacoes();
         findVeiculos();
+        findOpVeiculos();
+        console.log(opVeiculos);
+        console.log(operacoes);
+        console.log(veiculos);
 
         // Fechar sidebar quando tela ficar menor que 700px
         const handleResize = () => {
@@ -73,6 +79,15 @@ export function Operacoes() {
         try {
             const result = await getAllVeiculos(ordemId);
             setVeiculos(result.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function findOpVeiculos(){
+        try {
+            const result = await getOpVeiculos('decrescente');
+            setOpVeiculos(result.data)
         } catch (error) {
             console.error(error);
         }
@@ -253,6 +268,8 @@ export function Operacoes() {
                                 disabled={paginaAtual === totalPaginas}
                                 />
                             </Pagination>
+                            <GerarPdfOperacoes operacoes={operacoes} veiculos={veiculos} opVeiculo={opVeiculos}/>
+
                             <Modal
                                 show={isCreated}
                                 onHide={() => setIsCreated(false)}
@@ -359,6 +376,15 @@ export function Operacoes() {
                                                 <option>Várzea Grande</option>
                                                 <option>Sorriso</option>
                                                 <option>Rondonópolis</option>
+                                                <option>Barra do Garças</option>
+                                                <option>Sinop</option>
+                                                <option>Cáceres</option>
+                                                <option>Juína</option>
+                                                <option>Poconé</option>
+                                                <option>Lucas do Rio Verde</option>
+                                                <option>Tangará da Serra</option>
+                                                <option>Nobres</option>
+                                                <option>Diamantino</option>
                                             </Form.Select>
                                         </Form.Group>
                                         <Form.Group className="mb-4">

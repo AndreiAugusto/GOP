@@ -13,6 +13,7 @@ import { getOperacaoVeiculo } from "../../services/operacao-veiculo-service";
 
 import { Header } from "../../components/Header/header";
 import { Sidebar } from "../../components/Sidebar/sidebar";
+import GerarPdfOperacao from "../../components/GerarPdfOperacao/GerarPdfOperacao";
 
 export function PageOperacao() {
     const navigate = useNavigate();
@@ -34,7 +35,8 @@ export function PageOperacao() {
     useEffect(() => {
         findOperacao();
         findVeiculos();
-
+        console.log(operacoes)
+        console.log(veiculos);
         // Fechar sidebar quando tela ficar menor que 700px
         const handleResize = () => {
             const newWindowWidth = window.innerWidth;
@@ -105,6 +107,7 @@ export function PageOperacao() {
 
     return (
         <main className="main-container">
+
             <Header OpenSidebar={OpenSidebar} />
             <div className="d-flex w-100 min-vh-100">
                 <div>
@@ -178,6 +181,7 @@ export function PageOperacao() {
                                 <button className={style.btnEditar} onClick={voltar}>
                                     Voltar
                                 </button>
+                                <GerarPdfOperacao operacao={operacoes} veiculos={veiculos} />
                             </div>
                             <div className="w-100 d-flex justify-content-end btnResponsivo">
                                 <button className={style.btnExcluir} onClick={handleExcluir}>

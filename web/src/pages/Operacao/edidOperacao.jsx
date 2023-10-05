@@ -245,6 +245,15 @@ export function EditOperacao() {
                                     <option>Várzea Grande</option>
                                     <option>Sorriso</option>
                                     <option>Rondonópolis</option>
+                                    <option>Barra do Garças</option>
+                                    <option>Sinop</option>
+                                    <option>Cáceres</option>
+                                    <option>Juína</option>
+                                    <option>Poconé</option>
+                                    <option>Lucas do Rio Verde</option>
+                                    <option>Tangará da Serra</option>
+                                    <option>Nobres</option>
+                                    <option>Diamantino</option>
                                 </Form.Select>
                             </Form.Group>
                             <hr />

@@ -30,6 +30,18 @@ export async function getSomaTotalVeiculos(){
     return result;
 }
 
+export async function getOpVeiculos(ord) {
+    const accessToken = sessionStorage.getItem('token');
+    let defaut = 'decrescente'
+    if(ord) defaut = ord;
+    const result = await api.get(`/get/link/veiculos?ordenacao=${defaut}`, {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(accessToken)}`
+        }
+    });
+    return result;
+};
+
 export async function createOperacaoVeiculo(data) {
     const accessToken = sessionStorage.getItem('token');
     const result = await api.post('/link/veiculo', {
