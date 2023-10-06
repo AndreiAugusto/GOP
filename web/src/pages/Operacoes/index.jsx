@@ -205,7 +205,7 @@ export function Operacoes() {
                                 className={style.btnCriar}
                                 onClick={() => setIsCreated(true)}
                             >
-                                Criar nova operação
+                                Cadastrar nova operação
                             </button>
                             <div className="container">
                                 <div className="row mb-3 fw-bold text-dark responsivo-sumiu">
@@ -508,7 +508,7 @@ export function Operacoes() {
                                             Fechar
                                         </Button>
                                         <Button variant="primary" type="submit">
-                                            Criar
+                                            Cadastrar
                                         </Button>
                                     </Modal.Footer>
                                 </Form>

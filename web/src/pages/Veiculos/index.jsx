@@ -189,7 +189,7 @@ export function Veiculos() {
                                 className={style.btnCriar}
                                 onClick={() => setIsCreated(true)}
                             >
-                                Criar novo veículo
+                                Cadastrar novo veículo
                             </button>
                             <div className="container">
                                 <div className="row mb-3 fw-bold text-dark responsivo-sumiu">
@@ -291,7 +291,7 @@ export function Veiculos() {
                                             Fechar
                                         </Button>
                                         <Button variant="primary" type="submit">
-                                            Criar
+                                            Cadastrar
                                         </Button>
                                     </Modal.Footer>
                                 </Form>
