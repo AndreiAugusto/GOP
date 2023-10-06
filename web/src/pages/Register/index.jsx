@@ -1,6 +1,8 @@
 import logoMt from '../../img/Frame 1mt.png';
 import operacaoImg from '../../img/operacaoImg.png';
 import govMT from '../../img/govMT.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Input } from '../../components/Input/Input';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -19,7 +21,7 @@ export function Register () {
         try {
             console.log(data);
             if(data.senha !== data.confirmaSenha){
-                alert('As senhas não coincidem!');
+                toast.error('As senhas não coincidem!');
             }else{
                 createUser(data);
             }
@@ -30,6 +32,18 @@ export function Register () {
 
     return (
         <div className={styles.main}>
+        <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
 
             <div className={styles.right}>
                 <div className={styles.card}>

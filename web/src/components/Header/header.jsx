@@ -13,7 +13,9 @@ export function Header({OpenSidebar}) {
             <a className='curs' onClick={OpenSidebar}>
                 <GiHamburgerMenu color='black' className='icon-hamburger m-3'/>
             </a>
-          <img src={img} className='menu-icon' alt="" />
+            <a href='/dashboard'>
+                <img src={img} className='menu-icon' alt="" />
+            </a>
         </div>
 
       </div>

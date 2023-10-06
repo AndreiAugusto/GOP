@@ -207,14 +207,12 @@ export function Dashboard() {
                 </div>
                 <div className="p-3 w-100">
                     <div className="main-cards">
-                        <a href="/operacoes">
-                            <div className="card">
-                                <div className="card-inner">
-                                    <h3>Total operações</h3>
-                                </div>
-                                <h1 className="font18">{nOperacoes}</h1>
+                        <div className="card">
+                            <div className="card-inner">
+                                <h3>Total operações</h3>
                             </div>
-                        </a>
+                            <h1 className="font18">{nOperacoes}</h1>
+                        </div>
                         <div className="card">
                             <div className="card-inner">
                                 <h3>Custo total</h3>

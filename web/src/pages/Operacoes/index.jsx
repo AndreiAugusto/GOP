@@ -2,6 +2,8 @@ import { Button, Form, Modal, Pagination } from "react-bootstrap";
 import {  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import style from "./styles.module.css";
 
@@ -42,9 +44,6 @@ export function Operacoes() {
         findOperacoes();
         findVeiculos();
         findOpVeiculos();
-        console.log(opVeiculos);
-        console.log(operacoes);
-        console.log(veiculos);
 
         // Fechar sidebar quando tela ficar menor que 700px
         const handleResize = () => {
@@ -138,8 +137,9 @@ export function Operacoes() {
 
             setIsCreated(false);
             await findOperacoes();
-            alert('Operação criada com sucesso')
+            toast.success('Operação criada com sucesso');
         } catch (error) {
+            toast.error(error)
             console.error(error);
         }
     }
@@ -257,6 +257,19 @@ export function Operacoes() {
                             ) : (
                                 <h1 className="text-dark text-center mt-5">Não há Operações!</h1>
                             )}
+                            <ToastContainer
+                            position="top-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                            />
+
                             <Pagination className="justify-content-center mt-5">
                                 <Pagination.Prev
                                 onClick={() => handlePaginaClick(paginaAtual - 1)}

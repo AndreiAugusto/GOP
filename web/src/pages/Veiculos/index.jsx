@@ -1,6 +1,8 @@
 import { Button, Form, Modal, Pagination } from "react-bootstrap";
 import {  useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import style from "../Operacoes/styles.module.css";
 import { Veiculo } from '../../components/Veiculo/Veiculo'
@@ -86,7 +88,7 @@ export function Veiculos() {
             await createVeiculo(data);
             setIsCreated(false);
             await findVeiculos();
-            alert('Veículo criado com sucesso')
+            toast.success('Veículo criado com sucesso')
         } catch (error) {
             console.error(error);
         }
@@ -99,7 +101,7 @@ export function Veiculos() {
                 tipoVeiculo: data.tipoVeiculo
             });
             await findVeiculos();
-            alert('Editado com sucesso!')
+            toast.success('Editado com sucesso!')
         } catch (error) {
             console.error(data);
         }
@@ -157,6 +159,18 @@ export function Veiculos() {
 
     return (
         <main className="main-container">
+        <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
             <Header OpenSidebar={OpenSidebar} />
             <div className="d-flex w-100 min-vh-100">
                 <div>
@@ -203,9 +217,9 @@ export function Veiculos() {
                                             apagarVeiculo={() =>{
                                                 if(soma_quantidade == 0){
                                                     removeVeiculo(veiculo.id);
-                                                    alert('Veículo deletado com sucesso!');
+                                                    toast.success('Veículo deletado com sucesso!');
                                                 }else{
-                                                    alert('Não é possivel deletar pois possuem veículos cadastrados em operaçoes')
+                                                    toast.error('Não é possivel deletar pois possuem veículos cadastrados em operaçoes')
                                                 }
                                             }}
                                             quantidade={soma_quantidade}

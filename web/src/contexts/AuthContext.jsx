@@ -1,6 +1,8 @@
 import { createContext, useState } from 'react';
 import { api } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 export const AuthContext = createContext(null);
 
@@ -18,7 +20,7 @@ export function AuthContextProvider ({ children }) {
             );
             navigate('/dashboard');
         } catch (error) {
-            alert(`Houve um erro no Login: ${error.response.data.error}`)
+            toast.error(`Houve um erro no Login: ${error.response.data.error}`);
         } finally{
             setLoading(false);
         }
@@ -34,7 +36,7 @@ export function AuthContextProvider ({ children }) {
             );
             navigate('/dashboard')
         } catch (error) {
-            alert(`Houve um erro ao cadastrar: ${error.response.data.error}`);
+            toast.error(`Houve um erro ao cadastrar: ${error.response.data.error}`);
         } finally{
             setLoading(false);
         }
