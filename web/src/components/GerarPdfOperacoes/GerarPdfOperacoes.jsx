@@ -15,10 +15,13 @@ function GerarPDF({ operacoes, veiculos, opVeiculo }) {
       doc.setFontSize(14);
       doc.text(`Operação: ${operacao.nome}`, 10, 20);
       doc.setFontSize(12);
-      doc.text(`Custo: R$ ${operacao.custo.toFixed(2)}`, 10, 30);
+      doc.text(`Custo: ${operacao.custo.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    })}`, 10, 30);
       doc.text(`Número de Agentes: ${operacao.nAgentes}`, 10, 40);
       doc.text(`Cidade: ${operacao.cidade}`, 10, 50);
-      doc.text(`Data: ${operacao.data}`, 10, 60);
+      doc.text(`Data: ${new Date(operacao.data).toLocaleDateString('pt-BR')}`, 10, 60);
       doc.text(`Duração: ${operacao.duracao} dia(s)`, 10, 70);
       doc.text(`Comandante: ${operacao.comandante}`, 10, 80);
 

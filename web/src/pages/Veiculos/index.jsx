@@ -1,8 +1,9 @@
 import { Button, Form, Modal, Pagination } from "react-bootstrap";
-import {  useEffect, useState } from "react";
+import {  useEffect, useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../../contexts/AuthContext';
 
 import style from "../Operacoes/styles.module.css";
 import { Veiculo } from '../../components/Veiculo/Veiculo'
@@ -19,6 +20,7 @@ import { Sidebar } from "../../components/Sidebar/sidebar";
 import { getSomaVeiculos } from "../../services/operacao-veiculo-service";
 
 export function Veiculos() {
+    const { logout } = useContext(AuthContext);
     const {
         register,
         handleSubmit,
@@ -60,7 +62,7 @@ export function Veiculos() {
             const result = await getAllVeiculos(ordemId);
             setVeiculos(result.data);
         } catch (error) {
-            console.error(error);
+            logout();
         }
     }
 
@@ -69,7 +71,7 @@ export function Veiculos() {
             const result = await getSomaVeiculos();
             setSomaVeiculos(result.data);
         } catch (error) {
-            console.error(error);
+            logout();
         }
     }
 
@@ -90,6 +92,7 @@ export function Veiculos() {
             await findVeiculos();
             toast.success('Veículo criado com sucesso')
         } catch (error) {
+            toast.error(error)
             console.error(error);
         }
     }

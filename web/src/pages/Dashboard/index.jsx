@@ -211,25 +211,25 @@ export function Dashboard() {
                             <div className="card-inner">
                                 <h3>Total operações</h3>
                             </div>
-                            <h1 className="font18">{nOperacoes}</h1>
+                            <h1 className="font18">{nOperacoes ? nOperacoes : 0}</h1>
                         </div>
                         <div className="card">
                             <div className="card-inner">
                                 <h3>Custo total</h3>
                             </div>
-                            <h1 className="font13">{somaCusto}</h1>
+                            <h1 className="font18">{somaCusto ? somaCusto : 0}</h1>
                         </div>
                         <div className="card">
                             <div className="card-inner">
                                 <h3>Total veículos</h3>
                             </div>
-                            <h1 className="font18">{somaVeiculos}</h1>
+                            <h1 className="font18">{somaVeiculos ? somaVeiculos : 0}</h1>
                         </div>
                         <div className="card">
                             <div className="card-inner">
                                 <h3>Total agentes</h3>
                             </div>
-                            <h1 className="font18">{somaAgentes}</h1>
+                            <h1 className="font18">{somaAgentes ? somaAgentes : 0}</h1>
                         </div>
                     </div>
 

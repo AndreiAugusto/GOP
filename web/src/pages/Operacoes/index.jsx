@@ -1,9 +1,10 @@
 import { Button, Form, Modal, Pagination } from "react-bootstrap";
-import {  useEffect, useState } from "react";
+import {  useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../../contexts/AuthContext';
 
 import style from "./styles.module.css";
 
@@ -20,6 +21,7 @@ import { createOperacaoVeiculo, getOpVeiculos } from "../../services/operacao-ve
 import GerarPdfOperacoes from "../../components/GerarPdfOperacoes/GerarPdfOperacoes";
 
 export function Operacoes() {
+    const { logout } = useContext(AuthContext);
     const {
         register,
         handleSubmit,
@@ -70,7 +72,7 @@ export function Operacoes() {
             const result = await getOperacoes(ordemId);
             setOperacoes(result.data);
         } catch (error) {
-            console.error(error);
+            logout();
         }
     }
 
@@ -79,7 +81,7 @@ export function Operacoes() {
             const result = await getAllVeiculos(ordemId);
             setVeiculos(result.data);
         } catch (error) {
-            console.error(error);
+            logout();
         }
     }
 
@@ -88,7 +90,7 @@ export function Operacoes() {
             const result = await getOpVeiculos('decrescente');
             setOpVeiculos(result.data)
         } catch (error) {
-            console.error(error);
+            logout();
         }
     }
 
@@ -110,7 +112,7 @@ export function Operacoes() {
         try {
             navigate(`/operacao/${id}`);
         } catch (error) {
-            console.error(error);
+            logout();
         }
     }
 
