@@ -19,6 +19,7 @@ export function EditOperacao() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSidebarToggle, setOpenSidebarToggle] = useState(windowWidth <= 700);
     const [veiculos, setVeiculos] = useState([]);
+    const [dataFormatada, setDataFormatada] = useState();
     const {
         register,
         handleSubmit,
@@ -30,7 +31,6 @@ export function EditOperacao() {
     useEffect(() => {
         findOperacao();
         findVeiculos();
-
         // Fechar sidebar quando tela ficar menor que 700px
         const handleResize = () => {
             const newWindowWidth = window.innerWidth;
@@ -49,6 +49,13 @@ export function EditOperacao() {
             window.removeEventListener('resize', handleResize);
           };
     }, []);
+
+    useEffect(() => {
+        if (operacoes.data) {
+            const dataFormatada = new Date(operacoes.data).toISOString().split('T')[0];
+            setDataFormatada(dataFormatada);
+        }
+    }, [operacoes.data]);
 
     async function findOperacao() {
         try {
@@ -131,6 +138,7 @@ export function EditOperacao() {
                                     defaultValue={operacoes.nome}
                                     name="nome"
                                     {...register("nome", {
+                                        value: operacoes.nome,
                                         required: {
                                             value: true,
                                             message:
@@ -155,6 +163,7 @@ export function EditOperacao() {
                                     defaultValue={operacoes.custo}
                                     name="custo"
                                     {...register("custo", {
+                                        value: operacoes.custo,
                                         required: {
                                             value: true,
                                             message:
@@ -178,6 +187,7 @@ export function EditOperacao() {
                                     defaultValue={operacoes.nAgentes}
                                     name="nAgentes"
                                     {...register("nAgentes", {
+                                        value: operacoes.nAgentes,
                                         required: {
                                             value: true,
                                             message:
@@ -205,6 +215,7 @@ export function EditOperacao() {
                                                 defaultValue={veiculo.quantidade}
                                                 name={nomeVeiculo}
                                                 {...register(nomeVeiculo, {
+                                                    value: veiculo.quantidade,
                                                     required: {
                                                         value: true,
                                                         message:
@@ -234,9 +245,11 @@ export function EditOperacao() {
                                 </Form.Label>
                                 <Form.Select
                                     {...register("cidade", {
+                                        value: operacoes.cidade,
                                         required:
                                             "Escolha necessária",
                                     })}
+                                    value={operacoes.cidade}
                                 >
                                     <option disabled>
                                         Clique para selecionar
@@ -265,12 +278,14 @@ export function EditOperacao() {
                                     type="date"
                                     name="data"
                                     {...register("data", {
+                                        value:dataFormatada,
                                         required: {
                                             value: true,
                                             message:
                                                 "Data é obrigatorio",
                                         },
                                     })}
+                                    defaultValue={dataFormatada}
                                 />
                                 {errors.data && (
                                     <span className="text-danger">
@@ -288,6 +303,7 @@ export function EditOperacao() {
                                     defaultValue={operacoes.duracao}
                                     name="duracao"
                                     {...register("duracao", {
+                                        value: operacoes.duracao,
                                         required: {
                                             value: true,
                                             message:
@@ -311,6 +327,7 @@ export function EditOperacao() {
                                     defaultValue={operacoes.comandante}
                                     name="comandante"
                                     {...register("comandante", {
+                                        value: operacoes.comandante,
                                         required: {
                                             value: true,
                                             message:
