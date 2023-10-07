@@ -35,8 +35,6 @@ export function PageOperacao() {
     useEffect(() => {
         findOperacao();
         findVeiculos();
-        console.log(operacoes)
-        console.log(veiculos);
         // Fechar sidebar quando tela ficar menor que 700px
         const handleResize = () => {
             const newWindowWidth = window.innerWidth;
