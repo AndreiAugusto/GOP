@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../components/Sidebar/sidebar";
 import { Header } from "../../components/Header/header";
+import { MyBarChart } from '../../components/GraficoCusto/GraficoCusto'
+import { MyPieChart } from '../../components/GraficoCusto/PieGraph'
 import {
     countOperacoes,
     getOperacoes,
@@ -237,7 +239,8 @@ export function Dashboard() {
                         {operacoes && operacoes.length > 0 ?  (
                             <div className="charts">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart
+                                    <MyBarChart custoAgregados={custoAgregados}/>
+                                    {/* <BarChart
                                     width={500}
                                     height={300}
                                     data={custoAgregados}
@@ -256,11 +259,12 @@ export function Dashboard() {
                                                 <Bar key='name' dataKey='custo' fill="#28166f"/>
 
                                             ): console.log('custosAgregados nao estava setado')}
-                                    </BarChart>
+                                    </BarChart> */}
                                 </ResponsiveContainer>
 
                                 <ResponsiveContainer width="100%" height={300}>
-                                    <PieChart>
+                                    <MyPieChart dadosAgregados={dadosAgregados} />
+                                    {/* <PieChart>
                                         <Pie
                                             dataKey="value"
                                             isAnimationActive={false}
@@ -277,7 +281,7 @@ export function Dashboard() {
                                         </Pie>
                                         <Tooltip />
                                         <Legend />
-                                    </PieChart>
+                                    </PieChart> */}
                                 </ResponsiveContainer>
                             </div>
                         ): <div></div>}
