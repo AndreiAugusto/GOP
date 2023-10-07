@@ -116,6 +116,12 @@ export function Operacoes() {
         }
     }
 
+    function formataData (data){
+        const current = new Date(data);
+        const followingDay = new Date(current.getTime()+86400000);
+        return followingDay;
+    }
+
     async function addOperacao(data) {
         try {
             const result = await createOperacao({
@@ -123,7 +129,7 @@ export function Operacoes() {
                 custo: data.custo,
                 nAgentes: data.nAgentes,
                 cidade: data.cidade,
-                data: data.data,
+                data: formataData(data.data),
                 duracao: data.duracao,
                 comandante: data.comandante,
             });

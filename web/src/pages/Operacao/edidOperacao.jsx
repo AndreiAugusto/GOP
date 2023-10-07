@@ -52,7 +52,7 @@ export function EditOperacao() {
 
     useEffect(() => {
         if (operacoes.data) {
-            const dataFormatada = new Date(operacoes.data).toISOString().split('T')[0];
+            const dataFormatada = new Date(formataDataMenosUm(operacoes.data)).toISOString().split('T')[0];
             setDataFormatada(dataFormatada);
         }
     }, [operacoes.data]);
@@ -76,6 +76,18 @@ export function EditOperacao() {
         }
     }
 
+    function formataData (data){
+        const current = new Date(data);
+        const followingDay = new Date(current.getTime()+86400000);
+        return followingDay;
+    }
+    function formataDataMenosUm (data){
+        const current = new Date(data);
+        const previousDay = new Date(current.getTime()-86400000);
+        return previousDay;
+    }
+    
+
     async function editOperacao(data) {
         try {
             veiculos.map((veiculo) => {
@@ -92,7 +104,7 @@ export function EditOperacao() {
                 custo: data.custo,
                 nAgentes: data.nAgentes,
                 cidade: data.cidade,
-                data: data.data,
+                data: formataData(data.data),
                 duracao: data.duracao,
                 comandante: data.comandante
             });
